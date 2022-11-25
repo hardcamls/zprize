@@ -12,9 +12,9 @@ Our submitted code is available on [github here](https://github.com/fyquah/hardc
 
 # Multi-scalar multiplication
 
-* [field\_multiplication](field_multiplication.html)
-* [point\_representation](msm_optimisations.html)
-* [pippenger](pippenger.html)
+* [Field Multiplication](msm_field_multiplication.html)
+* [Point Representation](msm_point_representation.html)
+* [Pippenger](pippenger.html)
 * [msm\_host](msm_host.html)
 * [msm\_test](msm_test.html)
 
