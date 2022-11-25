@@ -63,7 +63,9 @@ The running sum in the FPGA is usually represented in
 We can transform a point in the extended coordinate system to our running sum
 coordinate system using the formulae below:
 
-$ (x, y, z, t) → ( 2(y-x), 2(y+x), 4z, t ) $
+$$
+(x, y, z, t) → ( 2(y-x), 2(y+x), 4z, t )
+$$
 
 Note that this means that the identity element in this coordinate system
 is no longer just $(0, 1, 1, 0)$, but rather $(2, 2, 4, 0)$. Also note that
@@ -72,13 +74,17 @@ $x/z × y/z ≠ t/z$ in the new coordinate system.
 This is transformed back to the standard extended twisted edwards coordinate
 system at the end of a batch of workload using the following formulae:
 
-$ (p, q, r, s) → ( (p-q)/4, (p+q)/4, r/4, s ) $
+$$
+(p, q, r, s) → ( (p-q)/4, (p+q)/4, r/4, s )
+$$
 
 ### Coordinate System for Affine Points
 
-The affine points have a completely different transformation algorithm:
+The affine points have a completely different transformation:
 
-$ (x,y,t) → ( (y-x)/2, (y+x)/2, 4dt ) $
+$$
+(x,y,t) → ( (y-x)/2, (y+x)/2, 4dt )
+$$
 
 Simliar to the running sum's internal representation, $x × y ≠ t$ in the
 new coordinate system. Unlike running sum, we will never convert this back
