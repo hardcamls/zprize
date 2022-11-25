@@ -6,30 +6,31 @@ title: zprize_ntt
 # Zprize\_ntt
 
 This library provides a design which performs a single transform size configured at
-build time. For the ZPrize competition we target a transform of size `2^24`.
+build time. For the ZPrize competition we target a transform of size $2^24$.
 
 ## Algorithm
 
-The design is based around the 4-step algorithm which decomposes the full `2^24`
-NTT into multiple `2^12` NTTs across columns and rows of a `2^12 x 2^12`
+The design is based around the 4-step algorithm which decomposes the full $2^24$
+NTT into multiple $2^12$ NTTs across columns and rows of a $2^12 x 2^12$
 matrix. The 4-step algorithm is described in section 7.1 of [this paper](https://arxiv.org/pdf/2011.11524.pdf).
 Here's a summary of what it is:
 
-1. Layout the `2^24` size input data as a `2^12 X 2^12` matrix in row-major
+1. Layout the $2^24$ size input data as a $2^12 X 2^12$ matrix in row-major
 order (ie: `mat[i][j] = data[i * 2^12 + j]`)
 
-2. Perform a length-`2^12` NTT along all columns and write the results back
+2. Perform a length-$2^12$ NTT along all columns and write the results back
 in place
 
-3. Multiply `mat[i][j]] by [x^(i * j)`, where `x` is the N-th root of unity of
-the underling field, and `N = 2^24`
+3. Multiply `mat[i][j]` by $x^(i * j)$, where `x` is the N-th root of unity of
+the underling field, and $N = 2^24$
 
-4. Perform a length-`2^12` NTT along all rows and write the results back in place
+
+4. Perform a length-$2^12$ NTT along all rows and write the results back in place
 
 5. Tranpose the matrix
 
 The overall complexity (in terms of butterfly operations performed) is roughly
-equivalent to a single `2^24` INNT, though an extra twiddle factor correction
+equivalent to a single $2^24$ INNT, though an extra twiddle factor correction
 pass (ie: step 3) is required between the column and row phases.
 
 On the otherhand, onchip memory usage is drastically reduced, and it becomes possible to
@@ -47,12 +48,14 @@ There are 2 Vitis kernels involved in our implementation:
 - Hardcaml RTL Kernel implementing the core NTT algorithm
 - C++ HLS Kernel which sequences PCIe and HBM memory accesses
 
-![](images/ntt-design-overview.png)
+<img src="images/ntt-top-level.png" width="70%">>
 
 Our implementation can be parameterized by the number of cores it supports -
 the only requirement is it has a power of 2 and there must be at least 8 cores
 (and subject to resource limits on the FPGA). Each of these cores is capable
 of performing a `2^12` NTT using on-chip memory.
+
+<img src="images/parallel-ntt-top-level.png" width="70%">>
 
 ### 2 Phases to Compute the NTT
 
@@ -164,12 +167,12 @@ control. The number is reported as "fixed" in the post_route_utilization.rpt
 ### FOM Measurement
 
 Here are our FOM numbers. As detailed in the evaluation criteria given to us,
-FOM is computed as `latency * sqrt(Power) * U_norm`. Note that `N_pipe = 1`
+FOM is computed as $latency * sqrt(Power) * {Unorm}$. Note that `N_pipe = 1`
 for our design, since it can only support 1 evaluation at a time.
 
 Latency and Power is used as report above in seconds and Watts respectively.
-We calculate `U_norm = U(LUTS) + U(Registers) + U(DSP) + U(BRAM) + U(URAM)`.
-The max possible value of `U_norm` is hence 4.0, since 0 <= U(.) < 1.0
+We calculate $Unorm = U(LUTS) + U(Registers) + U(DSP) + U(BRAM) + U(URAM)$.
+The max possible value of `Unorm` is hence 4.0, since $0 <= U(...) < 1.0$
 
 These are FOM numbers assuming we don't include the platform (aka fixed resources)
 in our utlization

@@ -9,7 +9,7 @@ This is a document about the design of a single NTT-evaluation block
 
 The rough overview of the design is as follows:
 
-![](images/ntt-core-overview.png)
+<img src="images/ntt-core.png" width="70%">>
 
 This designed core is designed with throughput in mind:
 
@@ -29,7 +29,7 @@ The data path consists of 2 field multipliers and adders.
 
 The multipliers are used in the transform phase to process one full
 butterfly operation per cycle.  This consists of scaling the input coefficient
-and also the root of unity.  Thus the performance of this architecture is $(N/2) log_{2} N$
+and also the root of unity.  Thus the performance of this architecture is $N/2 log_{2} N$
 
 The data path is reused to perform the twiddle phase after the first pass of
 the 4-step algorithm.  Each coefficient must be scaled by a specific root of unity
@@ -55,14 +55,10 @@ a processed INTT, and perform a INNT in parallel.
 
 # Scaling
 
-Our design can be parameterized by `logcores` and `logblocks`.
+Our design can be parameterized by $logcores$ and $logblocks$.
 
-The {!Parallel_cores} block instantiates `1 << logcores` INTT blocks.  It also
+The `Parallel_cores` block instantiates $2^{logcores}$ INTT blocks.  It also
 defines the width of the data path into the cores.
 
-The `Multi_parallel_cores` block instantiates `1 << logblocks` `Parallel_cores`
-blocks. This the design scales with `1 << (logcores + logblocks)` cores.
-
-# API Documentation
-
-...
+The `Multi_parallel_cores` block instantiates $2^{logblocks}$ `Parallel_cores`
+blocks. This the design scales with $2^(logcores + logblocks)$ cores.
