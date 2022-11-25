@@ -21,12 +21,11 @@ in increasing performance!
 
 While there is a [mixed addition formula for addition in scaled twisted Edwards
 form with `7M + 8A`](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html#addition-madd-2008-hwcd-4),
-that formulae is not strongly unified.
-
-Using this implementation would have required us to carefully identify edge
-cases such as infinities and when the two points are identical (despite being
-numerically unequal). Using a strongly unified adder side-steps all of this
-entirely, which makes the MSM core a lot easier to reason about.
+that formulae is not strongly unified. Using this implementation would have
+required us to carefully identify edge cases such as infinities and when the
+two points are identical (despite being numerically unequal). Using a strongly
+unified adder side-steps all of this entirely, which makes the MSM core a lot
+easier to reason about.
 
 ## Workload Nature
 
