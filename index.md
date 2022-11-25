@@ -12,9 +12,10 @@ Our submitted code is available on [github here](https://github.com/fyquah/hardc
 
 # Multi-scalar multiplication
 
+* [field\_multiplication](field_multiplication.html)
+* [point\_representation](msm_optimisations.html)
 * [pippenger](pippenger.html)
 * [msm\_host](msm_host.html)
-* [msm\_optimisations](msm_optimisations.html)
 * [msm\_test](msm_test.html)
 
 The main submission document for msm is available with various design decisions
