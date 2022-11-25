@@ -7,7 +7,7 @@ title: hardcaml_zprize
 
 This documentation describes two projects undertaken as part of the Zprize competition in 2022.
 
-Our submitted code is available on [github here](https://github.com/fyquah/hardcaml_zprize]
+Our submitted code is available on [github here](https://github.com/fyquah/hardcaml_zprize)
 (It will be made public after all competitions' deadline).
 
 # Multi-scalar multiplication
