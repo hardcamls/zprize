@@ -91,29 +91,38 @@ new coordinate system. Unlike running sum, we will never convert this back
 to the projective coordinates. It's main purpose to be converted into this
 coordinate system is to be added into the running sum efficiently.
 
-Addition between these two newly defined coordinate system is as follows:
+Addition the a point in the running point coordinate system $(x_{running},
+y_{running}, z_{running}, t_{running})$ and $(x_{affine}, y_{affine},
+t_{affine})$ produces output $(x_{out}, y_{out}, z_{out}, t_{out})$ as
+defined by the following formulae:
 
-```
-let add_unified_with_precompute running_sum static_point =
-  let { x; y; t; z } = running_sum in
-  let { x_host; y_host; t_host } = static_point in
-  let c_A    = x1 * x_host in
-  let c_B    = y1 * y_host in
-  let c_C    = t1 * t_host in
-  let c_D    = z1 in
-  let c_E    = c_B - c_A in
-  let c_F    = c_D - c_C in
-  let c_G    = c_D + c_C in
-  let c_H    = c_B + c_A in
-  let pre_x3 = c_E * c_F in
-  let pre_y3 = c_G * c_H in
-  let t3     = c_E * c_H in
-  let z3     = c_F * c_G in
-  let x3     = pre_y3 - pre_x3 in
-  let y3     = pre_y3 + pre_x3 in
-  { x = x3; y = y3; z = z3; t = t3 }
-;;
-```
+$A = x_{running} × x_{affine}$
+
+$B = y_{running} × y_{affine}$
+
+$C = t_{running} × t_{affine}$
+
+$D = z_{running}$
+
+$E = B - A$
+
+$F = D - C$
+
+$G = D + C$
+
+$H = B + A$
+
+$I = E × F$
+
+$J = G × H$
+
+$t_{out} = E × H$
+
+$z_{out} = F × G$
+
+$x_{out} = J - I$
+
+$y_{out} = J + I$
 
 The exact proof of that this is equivalent to the
 [vanilla mixed addition formulae](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html#addition-madd-2008-hwcd-3)
@@ -140,12 +149,12 @@ can use for pblocking in placement
 SLR. These registers are hierachically created with SLR\{0,1,2\} suffix in
 their instantiation name so they can be pblocked.
 
-In our implementation, 2 multiplications in our adder is in SLR1, and 5 of them
-are in SLR2.
+In our implementation, 2 field multiplications in our adder is in SLR1, and 5
+of them are in SLR2.
 
 Some big benefits of using Hardcaml is that we can parameterize our
 design over these expressive configurations, and have them go through our
-regular tests on our own machines and Github actions.  This gives us confidence
+regular tests on our own machines and Github actions. This gives us confidence
 that the design does not regress as we make config changes while conducting
 experiments for SLR assignments, which very rapidly increases productivity.
 
