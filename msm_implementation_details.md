@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Twisted Edwards Point Addition
+title: Implementation Details
 ---
 
-# Implementation Overview
+# Implementation Details
 
 ![](/images/msm-block-diagram-new.png)
 
