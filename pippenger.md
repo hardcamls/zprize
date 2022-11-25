@@ -99,7 +99,7 @@ for scaled twisted edwards curve).
 A high level block diagram showing the different data flows and modules used in
 our MSM implementation.
 
-![Block diagram](docs/assets/block_diagram.png)
+![Block diagram](images/msm-block-diagram.png)
 
 ## Resource utilization
 

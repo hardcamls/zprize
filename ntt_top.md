@@ -47,7 +47,7 @@ There are 2 Vitis kernels involved in our implementation:
 - Hardcaml RTL Kernel implementing the core NTT algorithm
 - C++ HLS Kernel which sequences PCIe and HBM memory accesses
 
-<!-- img src="https://fyquah.github.io/hardcaml_zprize/assets/ntt-design-overview.png" -->
+![](images/ntt-design-overview.png)
 
 Our implementation can be parameterized by the number of cores it supports -
 the only requirement is it has a power of 2 and there must be at least 8 cores

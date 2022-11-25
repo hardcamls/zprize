@@ -1,5 +1,5 @@
 ---
-layout: ntt
+layout: default
 title: hardcaml_ntt
 ---
 
@@ -9,8 +9,7 @@ This is a document about the design of a single NTT-evaluation block
 
 The rough overview of the design is as follows:
 
-<!-- img src="https://fyquah.github.io/hardcaml_zprize/assets/ntt-core-overview.png" -->
-
+![](images/ntt-core-overview.png)
 
 This designed core is designed with throughput in mind:
 
