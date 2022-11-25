@@ -29,7 +29,7 @@ The data path consists of 2 field multipliers and adders.
 
 The multipliers are used in the transform phase to process one full
 butterfly operation per cycle.  This consists of scaling the input coefficient
-and also the root of unity.  Thus the performance of this architecture is `N/2 * log N`.
+and also the root of unity.  Thus the performance of this architecture is $(N/2) log_{2} N$
 
 The data path is reused to perform the twiddle phase after the first pass of
 the 4-step algorithm.  Each coefficient must be scaled by a specific root of unity
@@ -66,4 +66,3 @@ blocks. This the design scales with `1 << (logcores + logblocks)` cores.
 # API Documentation
 
 ...
-
