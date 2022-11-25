@@ -48,6 +48,22 @@ Some modules with interesting implementation are (but not limited to):
 
 # Inverse NTT
 
+This competition track required us to build an Inverse Number
+Theoretic Transform (INTT) accelerator capable of performing
+transforms of size $2^24$.
+
+NTT's are conceptually very similar to the well know Fast Fourier
+Transform. The only difference is instead of working over complex
+numbers, the transform works over a finite field. For this project the
+finite field contains values of size 64 bits modulo a so called
+[Solinas](https://en.wikipedia.org/wiki/Solinas_prime) prime equal to
+$2^64 - 2^32 + 1$.
+
+The platform tergetted was the Xilinx [Varium
+C1100](https://www.xilinx.com/products/accelerators/varium/c1100.html)
+accelerator card. The card contains fairly large Virtex UltrasScale+
+FPGA with HBM2.
+
 * [ntt](ntt.html)
 * [ntt\_top](ntt_top.html)
 * [ntt\_build\_instructions](ntt_build_instructions.html)
