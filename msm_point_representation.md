@@ -92,3 +92,13 @@ to a slow code path when handling these points. In our implementation, we simply
 offload these points to the CPU.
 - It's unclear if these points lie in the G1 subgroup, so it's not clear if
   this case will ever occur at all!
+
+## Converting Points from Twisted Edwards into Scaled Twisted Edwards
+
+A mixed addition on a Twisted Edwards Curve [costs `8M + 1*a + 7A`](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended.html#addition-madd-2008-hwcd-2). But with a simple scaling transformation, we can [reduce
+this further to `7M + 1*k + 8A + 1*2`](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html#addition-madd-2008-hwcd-3).
+The reduced operation count applies to twisted Edwards curve with `a = -1`.
+
+We can do this by transforming our coordinate system to:
+
+$(u, v) → ((√{(-3αs - 2) / s}) u, v)$

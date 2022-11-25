@@ -14,8 +14,10 @@ Our submitted code is available on [github here](https://github.com/fyquah/hardc
 
 * [Field Multiplication](msm_field_multiplication.html)
 * [Point Representation](msm_point_representation.html)
-* [Point Addition](msm_point_addition.html)
+* [Mixed Point Addition with Precomputation](msm_mixed_point_addition_with_precomputation.html)
 * [Pippenger](pippenger.html)
+* [FPGA Implementation Overview](msm_implementation_overview.html)
+* [Results]()
 * [msm\_host](msm_host.html)
 * [msm\_test](msm_test.html)
 
