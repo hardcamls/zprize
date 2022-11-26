@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Graph (hardcaml.Hardcaml.Graph)</title><link rel="stylesheet" href="../../../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.1"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../../../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="../index.html">Up</a> – <a href="../../index.html">hardcaml</a> &#x00BB; <a href="../index.html">Hardcaml</a> &#x00BB; Graph</nav><header class="odoc-preamble"><h1>Module <code><span>Hardcaml.Graph</span></code></h1><p>Write circuit as graph.</p></header><div class="odoc-content"><div class="odoc-spec"><div class="spec value" id="val-write_dot_rank" class="anchored"><a href="#val-write_dot_rank" class="anchor"></a><code><span><span class="keyword">val</span> write_dot_rank : <span><span class="xref-unresolved">Stdio</span>.Out_channel.t <span class="arrow">&#45;&gt;</span></span> <span><a href="../Circuit/index.html#type-t">Circuit.t</a> <span class="arrow">&#45;&gt;</span></span> <span class="xref-unresolved">Base</span>.unit</span></code></div></div><div class="odoc-spec"><div class="spec value" id="val-write_gdl" class="anchored"><a href="#val-write_gdl" class="anchor"></a><code><span><span class="keyword">val</span> write_gdl : 
+  <span>?names:<span class="xref-unresolved">Base</span>.bool <span class="arrow">&#45;&gt;</span></span>
+  <span>?widths:<span class="xref-unresolved">Base</span>.bool <span class="arrow">&#45;&gt;</span></span>
+  <span>?consts:<span class="xref-unresolved">Base</span>.bool <span class="arrow">&#45;&gt;</span></span>
+  <span>?clocks:<span class="xref-unresolved">Base</span>.bool <span class="arrow">&#45;&gt;</span></span>
+  <span><span class="xref-unresolved">Stdio</span>.Out_channel.t <span class="arrow">&#45;&gt;</span></span>
+  <span><a href="../Circuit/index.html#type-t">Circuit.t</a> <span class="arrow">&#45;&gt;</span></span>
+  <span class="xref-unresolved">Base</span>.unit</span></code></div><div class="spec-doc"><p>write a GDL (graph description language) file of the given circuit</p></div></div><div class="odoc-spec"><div class="spec value" id="val-aisee3" class="anchored"><a href="#val-aisee3" class="anchor"></a><code><span><span class="keyword">val</span> aisee3 : 
+  <span>?args:<span class="xref-unresolved">Base</span>.string <span class="arrow">&#45;&gt;</span></span>
+  <span>?names:<span class="xref-unresolved">Base</span>.bool <span class="arrow">&#45;&gt;</span></span>
+  <span>?widths:<span class="xref-unresolved">Base</span>.bool <span class="arrow">&#45;&gt;</span></span>
+  <span>?consts:<span class="xref-unresolved">Base</span>.bool <span class="arrow">&#45;&gt;</span></span>
+  <span>?clocks:<span class="xref-unresolved">Base</span>.bool <span class="arrow">&#45;&gt;</span></span>
+  <span><a href="../Circuit/index.html#type-t">Circuit.t</a> <span class="arrow">&#45;&gt;</span></span>
+  <span class="xref-unresolved">Base</span>.unit</span></code></div><div class="spec-doc"><p>launch aisee3 to visualize the given circuit</p></div></div></div></body></html>

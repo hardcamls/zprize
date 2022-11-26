@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Widget (hardcaml_waveterm.Hardcaml_waveterm_interactive.Widget)</title><link rel="stylesheet" href="../../../odoc.css"/><meta charset="utf-8"/><meta name="generator" content="odoc 2.1.1"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><script src="../../../highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script></head><body class="odoc"><nav class="odoc-nav"><a href="../index.html">Up</a> – <a href="../../index.html">hardcaml_waveterm</a> &#x00BB; <a href="../index.html">Hardcaml_waveterm_interactive</a> &#x00BB; Widget</nav><header class="odoc-preamble"><h1>Module <code><span>Hardcaml_waveterm_interactive.Widget</span></code></h1></header><div class="odoc-content"><div class="odoc-spec"><div class="spec value" id="val-run_waves" class="anchored"><a href="#val-run_waves" class="anchor"></a><code><span><span class="keyword">val</span> run_waves : 
+  <span>?signals_width:<span class="xref-unresolved">Base</span>.int <span class="arrow">&#45;&gt;</span></span>
+  <span>?values_width:<span class="xref-unresolved">Base</span>.int <span class="arrow">&#45;&gt;</span></span>
+  <span><a href="../../Hardcaml_waveterm/Expert/Waves/index.html#type-t">Hardcaml_waveterm.Expert.Waves.t</a> <span class="arrow">&#45;&gt;</span></span>
+  <span><span class="xref-unresolved">Base</span>.unit <span class="xref-unresolved">Async</span>.Deferred.t</span></span></code></div></div><div class="odoc-spec"><div class="spec value" id="val-run" class="anchored"><a href="#val-run" class="anchor"></a><code><span><span class="keyword">val</span> run : 
+  <span>?signals_width:<span class="xref-unresolved">Base</span>.int <span class="arrow">&#45;&gt;</span></span>
+  <span>?values_width:<span class="xref-unresolved">Base</span>.int <span class="arrow">&#45;&gt;</span></span>
+  <span><a href="../../Hardcaml_waveterm/Expert/Waves/index.html#type-t">Hardcaml_waveterm.Expert.Waves.t</a> <span class="arrow">&#45;&gt;</span></span>
+  <span class="xref-unresolved">Base</span>.unit</span></code></div><div class="spec-doc"><p>Run the waveform viewer and return. Calls into Async/LWT so MUST NOT BE CALLED from within an Async or LWT deferred.</p></div></div><div class="odoc-spec"><div class="spec value" id="val-run_and_close" class="anchored"><a href="#val-run_and_close" class="anchor"></a><code><span><span class="keyword">val</span> run_and_close : 
+  <span>?signals_width:<span class="xref-unresolved">Base</span>.int <span class="arrow">&#45;&gt;</span></span>
+  <span>?values_width:<span class="xref-unresolved">Base</span>.int <span class="arrow">&#45;&gt;</span></span>
+  <span><a href="../../Hardcaml_waveterm/Expert/Waves/index.html#type-t">Hardcaml_waveterm.Expert.Waves.t</a> <span class="arrow">&#45;&gt;</span></span>
+  <span class="xref-unresolved">Base</span>.unit</span></code></div><div class="spec-doc"><p>Run the waveform viewer and close the program on exit.</p></div></div><div class="odoc-spec"><div class="spec value" id="val-run_interactive_viewer" class="anchored"><a href="#val-run_interactive_viewer" class="anchor"></a><code><span><span class="keyword">val</span> run_interactive_viewer : 
+  <span>?signals_width:<span class="xref-unresolved">Base</span>.int <span class="arrow">&#45;&gt;</span></span>
+  <span>?values_width:<span class="xref-unresolved">Base</span>.int <span class="arrow">&#45;&gt;</span></span>
+  <span>?start_cycle:<span class="xref-unresolved">Base</span>.int <span class="arrow">&#45;&gt;</span></span>
+  <span>?wave_width:<span class="xref-unresolved">Base</span>.int <span class="arrow">&#45;&gt;</span></span>
+  <span>?display_rules:<a href="../../Hardcaml_waveterm/Display_rules/index.html#type-t">Hardcaml_waveterm.Display_rules.t</a> <span class="arrow">&#45;&gt;</span></span>
+  <span><a href="../../Hardcaml_waveterm/Waveform/index.html#type-t">Hardcaml_waveterm.Waveform.t</a> <span class="arrow">&#45;&gt;</span></span>
+  <span class="xref-unresolved">Base</span>.unit</span></code></div><div class="spec-doc"><p>Run interactive waveterm viewer. <code>ESC</code> to quit.</p></div></div></div></body></html>
