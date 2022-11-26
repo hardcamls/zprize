@@ -26,7 +26,7 @@ The main submission document for msm is available with various design decisions
 [on github as a README](https://github.com/fyquah/hardcaml_zprize/blob/master/zprize/msm_pippenger/README.md).
 
 This is a competition to implement a multi-scalar multiplication. In particular, the goal is to
-multiply 2{^26} BLS12-377 G1 affine points by 253 bit scalars from the associated scalar field and
+multiply $2^26$ BLS12-377 G1 affine points by 253 bit scalars from the associated scalar field and
 add the result as fast as possible.
 
 This is the submission for the FPGA track.

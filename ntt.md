@@ -1,57 +1,75 @@
 ---
 layout: default
-title: hardcaml_ntt
+title: Core INTT design
 ---
 
-# Hardcaml\_ntt
+# Core (I)NTT design
 
-This is a document about the design of a single NTT-evaluation block
+The core INTT design performs transform of sizes which can fully fit within FPGA Block or UltraRAM
+resources.  This limits us to transform sizes off around $2^16$.
 
-The rough overview of the design is as follows:
+The general architecture of the core INTT is shown in the diagram below.
 
 <img src="images/ntt-core.png" width="70%">>
 
-This designed core is designed with throughput in mind:
+The core is designed to perform one butterfly operation per cycle.  This involves two finite field
+multiplications per cycle (one for the butterfly operation and one to update the root of unity).
 
-- the input-ram and output-ram can be read from and written to while the
-controller is doing work
-- the controller tries to give work to the datapath every clock cycle to ensure
-that the datapath stays busy
+To keep the data path fully utilized we need to be able to read and write two coefficients per cycle.
+The various RAMs utilized to store coefficients are architected to allow two simultaneous read and
+write ports.
 
-Not depicited in the diagram is some resource sharing. In practice, it is
-wasteful to have a single controller for every datapath, transposer ram etc.
-In our implementation, we have a controller manage 8 cores, as a balance between
-fan-out and resource savings.
+For a size $N$ transform (note $N$ is assumed to be a power of 2) we require $log_{2}N$ iterations.
 
-## Data path
+Since we perform a full butterfly operation per cycle we require a total of $N/2 log_{2}N$ cycles
+to perform the full transform.
 
-The data path consists of 2 field multipliers and adders.
+The actual number of cycles is actually slightly larger that this.  In order to achieve a clock
+rate of 250Mhz, the butterfly data path (including the finite field multipler) must be pipelined.
+The pipelining is currently set at 8 clock cycles.  After each INTT iteration we must account for the
+datapath pipelining to ensure data integrity.  At transform sizes greater than $2^8$ this extra
+cost becomes negligible.
 
-The multipliers are used in the transform phase to process one full
-butterfly operation per cycle.  This consists of scaling the input coefficient
-and also the root of unity.  Thus the performance of this architecture is $N/2 log_{2} N$
-
-The data path is reused to perform the twiddle phase after the first pass of
-the 4-step algorithm.  Each coefficient must be scaled by a specific root of unity
-and then the root scaled.  This pass take N cycles.
+* [Source code](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/single_core.ml)
+* [Code documentation](odoc/zprize/Hardcaml_ntt/Single_core/index.html)
 
 ## Controller
 
-The controller sequences the address for coefficient RAMs and the controls the
-data path.
+The controller sequences a decimation in time INTT.
+
+* Generates input and output addresses, including the required bit-reversal in the first iteration.
+* Routes data to/from the appropriate RAM depending on the iteration.
+* Sychronises RAM access with data pipelining after each iteration to ensure data integrity.
+* Optionally controls the scaling step after the first pass in the full 4-step design.
+
+
+## Data path
+
+The [data path](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/datapath.ml) 
+consists of 2 field [multipliers and adders](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/gf.ml) 
+and takes and produces 2 coefficients per cycle.
+
+The datapath is heavily pipelined, which is a problem for updating the root each cycle.  To
+overcome this we use the 
+[twiddle factor stream](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/twiddle_factor_stream.ml)
+module which is initialized with the initial root values and produces a new one each cycle.
+
+In the full design, the data path is reused to perform the twiddle phase after the
+first pass of the 4-step algorithm.  Each coefficient must be scaled by a specific
+root of unity and then the root scaled.  This pass takes a further $N$ cycles.
 
 ## RAMs
 
 We required 2 read and 2 write ports for all RAMs in the design.  This includes
-the inputs RAMs, internal RAMs, and output RAMs.
+the inputs RAMs, internal ping-pong RAMs, and output RAMs.
 
-Since FPGA RAMs consist of 2 ports, we build our require structure from 2 UltraRAMs.
+Since FPGA RAMs consist of 2 ports, we build the required structure from 2 UltraRAMs.
 Each UltraRAM has both it's ports connected to either the read or write side.
 
 When a `flip` signal is toggled the port directions swap.
 
-The RAMs are architectued such that we can load new INNT coefficents, store
-a processed INTT, and perform a INNT in parallel.
+The RAMs are architectued such that we can load new INTT coefficents and store
+a processed INTT concurrently with an INTT computation.
 
 # Scaling
 
