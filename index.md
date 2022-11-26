@@ -55,28 +55,22 @@ This competition track required us to build an Inverse Number
 Theoretic Transform (INTT) accelerator capable of performing
 transforms of size $2^24$.
 
-NTT's are conceptually very similar to the well know Fast Fourier
+NTT's are conceptually very similar to the well known Fast Fourier
 Transform. The only difference is instead of working over complex
 numbers, the transform works over a finite field. For this project the
 finite field contains values of size 64 bits modulo a so called
 [Solinas](https://en.wikipedia.org/wiki/Solinas_prime) prime equal to
 $2^64 - 2^32 + 1$.
 
-The platform tergetted was the Xilinx [Varium
+The platform tergetted is the Xilinx [Varium
 C1100](https://www.xilinx.com/products/accelerators/varium/c1100.html)
 accelerator card. The card contains fairly large Virtex UltrasScale+
 FPGA with HBM2.
+
+Read more about the [top level design structure](ntt_top.html) and 
+[core NTT transform design](ntt.html).
 
 * [ntt](ntt.html)
 * [ntt\_top](ntt_top.html)
 * [ntt\_build\_instructions](ntt_build_instructions.html)
 
-The main submission document for the NTT Acceleration contest is available [here](hardcaml_ntt).
-
-In this competition, we create a FPGA design that performs a 2{^24} inverse
-number theoretic transform over a 64 bit finite field.
-
-The other documentation pages for this competition include:
-
-- `Hardcaml_ntt` - documentation about the design of the main NTT core
-- `zprize_ntt_build_instructions` - Building and testing instructions
