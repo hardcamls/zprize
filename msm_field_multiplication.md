@@ -1,9 +1,9 @@
 ---
 layout: default
-title: optimising_msm
+title: Field Multiplication
 ---
 
-# Performing Field Multiplication
+# Field Multiplication
 
 A key operation in is field multiplication in a prime field, ie: computing
 `C = A * B mod P`, where P is a 377-bit prime number, and `A` and `B` are
@@ -143,16 +143,3 @@ $ x = 2^{2/3 W}x_2 + 2^{1/3 W}x_1 + x_0 $).  While it has slightly
 lower latency, since it requires less levels, we found that it has a higher
 resource usage. Given the point adder latency didn't matter too much, we didn't
 investigate this further.
-
-## Ideas for Improvements
-
-**Exploiting Signed Multipliers** The DSP slices are capable of performing
-$28 × 18$ _signed_ multiplication, which we currently just set the sign bit to 0.
-The karatsuba ofman algorithm contains a subtraction in its intermediate
-computation, which should be able to make use of the sign bit.
-
-**Rectangular Karatsuba-Ofman** [These slides](http://www.bogdan-pasca.org/resources/talks/Karatsuba.pdf)
-from Pasca et. al. describes performing the karatsuba-ofman multiplication
-which fully utilizes non uniform input widths of the multipliers in the DSP
-slice. The slides describes results for $55 × 55$ multipliers, which we believe
-should be able to be extended to much larger multipliers.

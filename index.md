@@ -18,6 +18,7 @@ Our submitted code is available on [github here](https://github.com/fyquah/hardc
 * [Pippenger](pippenger.html)
 * [Implementation Details](msm_implementation_details.html)
 * [Results]()
+* [Future Work](msm_future_work.html)
 * [msm\_host](msm_host.html)
 * [msm\_test](msm_test.html)
 
