@@ -4,7 +4,7 @@ open! Hardcaml_waveterm
 open Hardcaml_web
 
 module Design = struct
-  let top_level_name = "ntt_four_step"
+  let top_level_name = "ntt_parallel"
 
   let default_parameters =
     Parameter.
@@ -28,7 +28,7 @@ module Design = struct
       let logblocks = logblocks
     end
 
-    module Ntt = Hardcaml_ntt.Four_step.Make (Config)
+    module Ntt = Hardcaml_ntt.Multi_parallel_cores.Make (Config)
     module I = Ntt.I
     module O = Ntt.O
 
