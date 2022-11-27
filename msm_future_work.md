@@ -5,6 +5,8 @@ title: Future Work
 
 # Future Work
 
+## Bucket Sum Computation
+
 ## Improving the Field Multiplication
 
 **Exploiting Signed Multipliers** The DSP slices are capable of performing
@@ -19,3 +21,13 @@ slice. The slides describes results for $55 × 55$ multipliers, which we believe
 should be able to be extended to much larger multipliers.
 
 ## Host Driver
+
+**Optimizing final bucket sum accumulation** While using gmp was useful for
+quick initial prototyping, a custom representation and implementation based on
+exploiting the known bit widths (377 bits) of the curve is is likely to be more
+efficient.
+
+**Parallelizing final bucket sum** [This work](https://eprint.iacr.org/2022/999.pdf)
+from Xavier et. al. describes an algorithm to parallelize the final bucket
+accumulation on the FPGA. This can be readapted on the host using multiple
+threads.
