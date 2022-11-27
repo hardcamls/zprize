@@ -56,13 +56,13 @@ Here's what we came up with.
 
 ## Improvements
 
-When initially designed, we thought we could only fit an EC adder than accepted a new
+When initially designed, we thought we could only fit an EC adder that accepted a new
 input every 2 clock cycles.  As such the controller was also designed to output a new value
 every two cycles.  For the final design we had a single cycle adder, and just instantiated
 2 seperate controllers working on half the windows each to get full throughput.  This is not
-terribly inefficient, but does require 2 copyes of the scalar tracking pipeline which is
+terribly inefficient, but does require 2 copies of the scalar tracking pipeline which is
 unneccesary.
 
 We also think we could get rid of nearly all bubbles in the pipeline if we presented the
-controller twp new points per cycle.  The chances of both being a hazard are greatly 
+controller with two points per cycle.  The chances of both being a hazard are greatly
 reduced.  We would expect to gain an extra 4-5% performance with this change.

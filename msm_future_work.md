@@ -8,7 +8,6 @@ title: Future Work
 ## Bucket Sum Computation
 
 ## Improving the Field Multiplication
->>>>>>> refs/remotes/origin/master
 
 **Exploiting Signed Multipliers** The DSP slices are capable of performing
 $28 × 18$ _signed_ multiplication, which we currently just set the sign bit to 0.
@@ -32,4 +31,3 @@ efficient.
 from Xavier et. al. describes an algorithm to parallelize the final bucket
 accumulation on the FPGA. This can be readapted on the host using multiple
 threads.
->>>>>>> refs/remotes/origin/master
