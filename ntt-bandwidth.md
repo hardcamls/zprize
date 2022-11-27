@@ -45,6 +45,6 @@ we can get to with either a more optimised HBM structure, or different memory ar
 # PCIe
 
 The Varium C1100 cards are provided with a Vitis design infrastructure that supports a x4 Gen3 PCIe link.
-Our INTT design can saturate that link, even with the bandwidth problems noted above.
+Our INTT design can saturate that link, even with the HBM bandwidth limitations noted above.
 
 We really need a full 16x PCIe link to push this design further.

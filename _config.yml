@@ -1,2 +1,12 @@
 kramdown:
   math_engine: null
+
+exclude:
+  - apps/ntt/dune
+  - apps/ntt/*.ml
+  - apps/ntt/.#*
+  - apps/ntt/*.bc-for-jsoo
+  - apps/msm/dune
+  - apps/msm/*.ml
+  - apps/msm/*.bc-for-jsoo
+  - apps/msm/.#*

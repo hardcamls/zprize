@@ -1,0 +1,7 @@
+(executables
+ (names ntt_core ntt_4step ntt_top)
+ (modes js)
+ (promote)
+ (libraries zprize.hardcaml_ntt hardcaml_web)
+ (preprocess (pps ppx_jane ppx_deriving_hardcaml)))
+

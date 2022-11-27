@@ -5,6 +5,8 @@ title: Core INTT design
 
 # Core (I)NTT design
 
+_[Configure, download and simulate the design from your browser!](apps/ntt/ntt-core-app.html)_
+
 The [core INTT design](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/single_core.ml)
 ([code documentation](odoc/zprize/Hardcaml_ntt/Single_core/index.html))
 performs transform of sizes which can fully fit within FPGA Block or UltraRAM
