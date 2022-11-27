@@ -12,9 +12,9 @@ To evaluate our results, we perform 2 sets of experiments.
 These are builds where the input and output vector to perform NTT on is laid out
 linearly in HBM (ie: the host doesn't perform any pre/post-processing). We run
 experiments with running the 8-core, 16-core, 32-core and 64-core variants,
-yeilding different levels of parallelism.
+yielding different levels of parallelism.
 
-## Optimized-layout Builds
+## Optimised-layout Builds
 
 As discussed [here](ntt-bandwidth.html), our performance is significantly
 bound by bandwidth. We conduct 2 builds (32-core and 64-core variant) with a
@@ -32,16 +32,16 @@ card. The platform takes up some resources on the FPGA and comes with PCIe gen3
 x4 support
 
 We measured our latency by taking the FPGA-only evaluation latency across 200
-NTT runs. Power was measured by sampling `xbutil examaine --report electrical
+NTT runs. Power was measured by sampling `xbutil examine --report electrical
 --device <device-pcie-id>` 10 times during the latency benchmark.
 
 In this normal layout build, we do not perform any preprocessing or
 post-processing. Hence, latency below includes only the FPGA NTT evaluation
 latency.
 
-## Latency, Power and Resource Utilization
+## Latency, Power and Resource Utilisation
 
-The table below depicits our results for various builds
+The table below depicts our results for various builds
 
 |   Build | Latency(s) | Power(W) | LUTS   | Registers |  DSP | BRAM36 | URAM  |
 |---------|------------|----------|--------|-----------|------|--------|-------|
@@ -53,7 +53,7 @@ The table below depicits our results for various builds
 
 Here are the available resources on the FPGA. Note that as we are building on
 top of a Vitis platform, it imposes a non-trivial fixed-cost that we don't
-control. The number is reported as "fixed" in the post_route_utilization.rpt
+control. The number is reported as "fixed" in the post_route_utilisation.rpt
 
 | Resource  | Available on FPGA | Used by Vitis Platform |
 |-----------|-------------------|------------------------|
@@ -86,7 +86,7 @@ in our utlization
 Our best-build for the evaluation criteria is the 32-core variant, with a __FOM of 0.2451__.
 
 The following FOM numbers are assuming we have to include the Vitis platform
-resources as part of our utilization. To stress this fact -- we don't think
+resources as part of our utilisation. To stress this fact -- we don't think
 those resources should be considered as part of the evaluation!
 
 
@@ -101,13 +101,13 @@ those resources should be considered as part of the evaluation!
 Using these criteria, our best build is also the 32-core variant with a FOM of
 0.2829
 
-## Result from Optimized-Layout Builds
+## Result from Optimised-Layout Builds
 
-Here is a detailed breakdown of a runtime sample of an optimized 64-core build:
-(The power and utilization is similar to the normal-layout builds)
+Here is a detailed breakdown of a runtime sample of an optimised 64-core build:
+(The power and utilisation is similar to the normal-layout builds)
 
 
-__Breakdown of a 2^24 optimized-layout 64-core evaluation__
+__Breakdown of a 2^24 optimised-layout 64-core evaluation__
 
 |               Task                     |   Time  |
 |----------------------------------------|---------|
@@ -118,7 +118,7 @@ __Breakdown of a 2^24 optimized-layout 64-core evaluation__
 | Copy from internal page-aligned buffer | 0.0231s |
 | __Evaluate NTT__                       | __0.1680s__ |
 
-__Breakdown of a 2^24 optimized-layout 32-core evaluation__
+__Breakdown of a 2^24 optimised-layout 32-core evaluation__
 
 |               Task                     |   Time  |
 |----------------------------------------|---------|

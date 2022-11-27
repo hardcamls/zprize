@@ -151,14 +151,14 @@ NTT TEST PASSED
 2. Navigate to `zprize/ntt/test` relative to the root of the repository. You
    will see a lot of shell scripts.
 
-3. To test on testcases saved in files, run
+3. To test on test cases saved in files, run
 `./test_given_ntt-2_24-<ARCH>-hw.sh path/to/input/file.txt path/to/expected/output.txt`
 (eg: `./test_given_ntt-2_24-normal_layout-64_cores-hw.sh`).  This will invoke
 compilation of some host binary and run them with the appropriate flags.
 
-4. The test will reported if it suceeded or failed. Note that the correctness
+4. The test will reported if it succeeded or failed. Note that the correctness
 check is done using the `diff` command. Our test application writes the output
-file in the format similar to the testdata given at the start of the
+file in the format similar to the test data given at the start of the
 competition. We have verified that this command works with the provided
 testdata.
 
@@ -189,7 +189,7 @@ Test succeeded!
 
 ## Benchmarking Latency
 
-We provide scipts to benchmark latency. To run them:
+We provide scripts to benchmark latency. To run them:
 
 1. Navigate to `zprize/ntt/fpga/test`
 

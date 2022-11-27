@@ -19,8 +19,8 @@ The general architecture of the core INTT is shown in the diagram below.
 The core is designed to perform one butterfly operation per cycle.  This involves two finite field
 multiplications per cycle (one for the butterfly operation and one to update the root of unity).
 
-To keep the data path fully utilized we need to be able to read and write two coefficients per cycle.
-The various RAMs utilized to store coefficients are architected to allow two simultaneous read and
+To keep the data path fully utilised we need to be able to read and write two coefficients per cycle.
+The various RAMs utilised to store coefficients are architected to allow two simultaneous read and
 write ports.
 
 For a size $N$ transform (note $N$ is assumed to be a power of 2) we require $log_{2}N$ iterations.
@@ -29,7 +29,7 @@ Since we perform a full butterfly operation per cycle we require a total of $N/2
 to perform the full transform.
 
 The actual number of cycles is actually slightly larger that this.  In order to achieve a clock
-rate of 250Mhz, the butterfly data path (including the finite field multipler) must be pipelined.
+rate of 250Mhz, the butterfly data path (including the finite field multiplier) must be pipelined.
 The pipelining is currently set at 8 clock cycles.  After each INTT iteration we must account for the
 datapath pipelining to ensure data integrity.  At transform sizes greater than $2^8$ this extra
 cost becomes negligible.
@@ -52,13 +52,13 @@ and takes and produces 2 coefficients per cycle.
 The datapath is heavily pipelined, which is a problem for updating the root each cycle.  To
 overcome this we implemented the
 [twiddle factor stream](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/twiddle_factor_stream.ml)
-module.  This is initialized with the first few roots (in a small ROM) to hide the multiplier
+module.  This is initialised with the first few roots (in a small ROM) to hide the multiplier
 latency while producing a new root each cycle.
 
 In the full design, the data path is reused to perform the twiddle phase after the
 first pass of the 4-step algorithm.  Each coefficient must be scaled by a specific
 root of unity and then the root scaled.  This pass takes a further $N$ cycles and uses a
-simimlar trick to the twiddle factor stream module to hide the multiplier latency.
+similar trick to the twiddle factor stream module to hide the multiplier latency.
 
 ## RAMs
 
@@ -70,6 +70,6 @@ Each UltraRAM has both it's ports connected to either the read or write side.
 
 When a `flip` signal is toggled the port directions swap.
 
-The RAMs are architectued such that we can load new INTT coefficents and store
+The RAMs are architected such that we can load new INTT coefficients and store
 a processed INTT concurrently with an INTT computation.
 
