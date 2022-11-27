@@ -65,13 +65,11 @@ $2^64 - 2^32 + 1$.
 
 The platform tergetted is the Xilinx [Varium
 C1100](https://www.xilinx.com/products/accelerators/varium/c1100.html)
-accelerator card. The card contains fairly large Virtex UltrasScale+
-FPGA with HBM2.
+accelerator card. The card contains Virtex UltrasScale+ FPGA with HBM2.
 
-Read more about the [top level design structure](ntt_top.html) and 
-[core NTT transform design](ntt.html).
+Read more about the [top level design structure](ntt-top-level.html) and 
+[core NTT transform design](ntt-core.html).
 
-* [ntt](ntt.html)
 * [ntt\_top](ntt_top.html)
 * [ntt\_build\_instructions](ntt_build_instructions.html)
 

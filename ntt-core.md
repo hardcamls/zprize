@@ -5,8 +5,10 @@ title: Core INTT design
 
 # Core (I)NTT design
 
-The core INTT design performs transform of sizes which can fully fit within FPGA Block or UltraRAM
-resources.  This limits us to transform sizes off around $2^16$.
+The [core INTT design](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/single_core.ml)
+([code documentation](odoc/zprize/Hardcaml_ntt/Single_core/index.html))
+performs transform of sizes which can fully fit within FPGA Block or UltraRAM
+resources.  This limits us to transform sizes of around $2^16$.
 
 The general architecture of the core INTT is shown in the diagram below.
 
@@ -30,9 +32,6 @@ The pipelining is currently set at 8 clock cycles.  After each INTT iteration we
 datapath pipelining to ensure data integrity.  At transform sizes greater than $2^8$ this extra
 cost becomes negligible.
 
-* [Source code](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/single_core.ml)
-* [Code documentation](odoc/zprize/Hardcaml_ntt/Single_core/index.html)
-
 ## Controller
 
 The controller sequences a decimation in time INTT.
@@ -42,7 +41,6 @@ The controller sequences a decimation in time INTT.
 * Sychronises RAM access with data pipelining after each iteration to ensure data integrity.
 * Optionally controls the scaling step after the first pass in the full 4-step design.
 
-
 ## Data path
 
 The [data path](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/datapath.ml) 
@@ -50,13 +48,15 @@ consists of 2 field [multipliers and adders](https://github.com/fyquah/hardcaml_
 and takes and produces 2 coefficients per cycle.
 
 The datapath is heavily pipelined, which is a problem for updating the root each cycle.  To
-overcome this we use the 
+overcome this we implemented the
 [twiddle factor stream](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/twiddle_factor_stream.ml)
-module which is initialized with the initial root values and produces a new one each cycle.
+module.  This is initialized with the first few roots (in a small ROM) to hide the multiplier
+latency while producing a new root each cycle.
 
 In the full design, the data path is reused to perform the twiddle phase after the
 first pass of the 4-step algorithm.  Each coefficient must be scaled by a specific
-root of unity and then the root scaled.  This pass takes a further $N$ cycles.
+root of unity and then the root scaled.  This pass takes a further $N$ cycles and uses a
+simimlar trick to the twiddle factor stream module to hide the multiplier latency.
 
 ## RAMs
 
@@ -71,12 +71,3 @@ When a `flip` signal is toggled the port directions swap.
 The RAMs are architectued such that we can load new INTT coefficents and store
 a processed INTT concurrently with an INTT computation.
 
-# Scaling
-
-Our design can be parameterized by $logcores$ and $logblocks$.
-
-The `Parallel_cores` block instantiates $2^{logcores}$ INTT blocks.  It also
-defines the width of the data path into the cores.
-
-The `Multi_parallel_cores` block instantiates $2^{logblocks}$ `Parallel_cores`
-blocks. This the design scales with $2^(logcores + logblocks)$ cores.
