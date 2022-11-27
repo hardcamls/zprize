@@ -45,40 +45,52 @@ multiplication.
 
 For example, to multiply $x$ and $y$, firstly, express $x$ and $y$ as follows
 
-$ x = (x_1)(2^(W/2)) + x_0 $
+$$
+x = 2^{W/2}x_1 + x_0
+$$
 
-$ y = (y_1)(2^(W/2)) + y_0 $
+$$
+y = 2^{W/2}y_1 + y_0
+$$
 
-where $x_1, y_1 < 2^(W/2)$, $x_0, y_0 < 2^(W/2)$ and $W$ as the number of bits to
+where $x_1, y_1 < 2^{W/2}$, $x_0, y_0 < 2^{W/2}$ and $W$ as the number of bits to
 represent $x$ and $y$. Since we're "splitting" the numbers as parts of powers of
 two, this is simply a bit select (which is free in hardware!)
 
-$ x_1 = select\\_bits(x_1, W - 1, W / 2) $
+$$
+x_1 = select\_bits(x_1, W - 1, W / 2)
+$$
 
-$ x_0 = select\\_bits(x_1, W / 2 - 1, 0) $
+$$
+x_0 = select\_bits(x_1, W / 2 - 1, 0)
+$$
 
-Some initial computation
+We break the computation into several stages:
 
-$ a = x_1 + x_0 $
+**1) Pre adder stages**
 
-$ b = y_1 + y_0 $
+$$ a = x_1 + x_0 $$
+
+$$ b = y_1 + y_0 $$
+
+**2) Recursive partial multiplication**
 
 Then, the sub-multiplication, which are simply smaller karatsuba-ofman
 multiplications (up to a base case, which we'll touch on later).
 
-$ z_2 = x_1 × y_0 $
+$$ z_2 = x_1 × y_0 $$
 
-$ z_0 = x_0 × y_0 $
+$$ z_0 = x_0 × y_0 $$
 
-$ m_1 = a × b $
+$$ m_1 = a × b $$
 
-Followed by some intermediate processing
+**3) Middle adder stages**
 
-$ z_1 = (m_1 - m_2) - z_2 - z_0 $
+$$ z_1 = (m_1 - m_2) - z_2 - z_0 $$
 
-Alas, some post processing:
+**4) Post adder stages**
 
-$ xy = (z_2)(2^(2W)) + (z_1)(2^(W)) + z0 $
+$$ xy = 2^{2W}z_2 + 2^{W}z_1 + z0 $$
 
 The karatsuba ofman algorithm is a recursive algorithm, so we have the freedom
 to choose the width where we fallback to a vanila multiplication with DSP
@@ -91,9 +103,10 @@ translates to requiring only 162 DSP slices! This is much more realistic than
 330 multipliers requires from long multiplication.
 
 All the operations in the field multiplication is fully pipelined. This means
-we can work out the exact latency of this component.  In our design, we have a
-config type that allows us to specify the latency of all the stages of adders,
-and chose a number that worked well.
+we can work out the exact latency of this component. In our work, we had
+parameters to tune the amount of pipelining in each of the pre, middle
+and post adder stages. This allowed us to easily experiment with various
+multiplier design points.
 
 ## LSB Multiplication
 
@@ -105,7 +118,12 @@ and chose a number that worked well.
 
 ## Multiplication by Constant
 
-<!-- CR fyquah: Write this -->
+The LSB and Approx MSB Multiplication routines above invovles heavy
+multiplication by constants. In our work, we represent the constant in
+[non-adjacent form (NAF)](https://en.wikipedia.org/wiki/Non-adjacent_form) form.
+If the constant has a hamming weight in NAF larger than a certain threshold,
+we utilize DSP slices. Otherwise, it is implemented using long multiplication
+with LUTs.
 
 ## Other Things We Tried
 
@@ -121,7 +139,7 @@ primary bottleneck to largely be in LUT routing congestion, so we ended up
 being more liberal in our DSP usage.
 
 **Radix 3 Splitting** We experimented with radix-3 splitting (meaning splitting
-$ x = (x_2)(2^{2/3 W}) + (x_1)(2^{1/3 W}) + x_0 $).  While it has slightly
+$ x = 2^{2/3 W}x_2 + 2^{1/3 W}x_1 + x_0 $).  While it has slightly
 lower latency, since it requires less levels, we found that it has a higher
 resource usage. Given the point adder latency didn't matter too much, we didn't
 investigate this further.
