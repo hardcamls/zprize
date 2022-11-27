@@ -11,7 +11,6 @@ module Design = struct
       [ "logn", { typ = Int 24; description = "log N" }
       ; "logcores", { typ = Int 3; description = "log cores" }
       ; "logblocks", { typ = Int 2; description = "log blocks" }
-      ; "twiddle", { typ = Flag false; description = "support 4 step twiddle" }
       ]
   ;;
 
@@ -19,11 +18,10 @@ module Design = struct
     let logn = Parameters.as_int_exn P.parameters "logn"
     let logcores = Parameters.as_int_exn P.parameters "logcores"
     let logblocks = Parameters.as_int_exn P.parameters "logblocks"
-    let support_4step_twiddle = Parameters.as_flag_exn P.parameters "twiddle"
 
     module Config = struct
       let logn = logn / 2
-      let support_4step_twiddle = false
+      let support_4step_twiddle = true
       let logcores = logcores
       let logblocks = logblocks
     end

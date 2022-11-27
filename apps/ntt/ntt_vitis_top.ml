@@ -11,7 +11,6 @@ module Design = struct
       [ "logn", { typ = Int 24; description = "log N" }
       ; "logcores", { typ = Int 3; description = "log cores" }
       ; "logblocks", { typ = Int 2; description = "log blocks" }
-      ; "twiddle", { typ = Flag false; description = "support 4 step twiddle" }
       ]
   ;;
 
@@ -19,16 +18,16 @@ module Design = struct
     let logn = Parameters.as_int_exn P.parameters "logn"
     let logcores = Parameters.as_int_exn P.parameters "logcores"
     let logblocks = Parameters.as_int_exn P.parameters "logblocks"
-    let support_4step_twiddle = Parameters.as_flag_exn P.parameters "twiddle"
 
     module Config = struct
       let logn = logn / 2
-      let support_4step_twiddle = support_4step_twiddle
+      let support_4step_twiddle = true
       let logcores = logcores
       let logblocks = logblocks
+      let memory_layout = Zprize_ntt.Memory_layout.Normal_layout_single_port
     end
 
-    module Ntt = Hardcaml_ntt.Multi_parallel_cores.Make (Config)
+    module Ntt = Zprize_ntt.For_vitis.Make (Config)
     module I = Ntt.I
     module O = Ntt.O
 
@@ -39,4 +38,4 @@ end
 
 module App = Hardcaml_web.App.Make (Design)
 
-let () = App.run ~javascript:"ntt_parallel.bc.js" ()
+let () = App.run ~javascript:"ntt_vitis_top.bc.js" ()
