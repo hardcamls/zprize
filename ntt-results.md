@@ -1,133 +1,32 @@
 ---
 layout: default
-title: zprize_ntt
+title: Ntt results
 ---
 
-# Zprize\_ntt
-
-This library provides a design which performs a single transform size configured at
-build time. For the ZPrize competition we target a transform of size $2^24$.
-
-## Algorithm
-
-The design is based around the 4-step algorithm which decomposes the full $2^24$
-NTT into multiple $2^12$ NTTs across columns and rows of a $2^12 x 2^12$
-matrix. The 4-step algorithm is described in section 7.1 of [this paper](https://arxiv.org/pdf/2011.11524.pdf).
-Here's a summary of what it is:
-
-1. Layout the $2^24$ size input data as a $2^12 X 2^12$ matrix in row-major
-order (ie: `mat[i][j] = data[i * 2^12 + j]`)
-
-2. Perform a length-$2^12$ NTT along all columns and write the results back
-in place
-
-3. Multiply `mat[i][j]` by $x^(i * j)$, where `x` is the N-th root of unity of
-the underling field, and $N = 2^24$
-
-
-4. Perform a length-$2^12$ NTT along all rows and write the results back in place
-
-5. Tranpose the matrix
-
-The overall complexity (in terms of butterfly operations performed) is roughly
-equivalent to a single $2^24$ INNT, though an extra twiddle factor correction
-pass (ie: step 3) is required between the column and row phases.
-
-On the otherhand, onchip memory usage is drastically reduced, and it becomes possible to
-implement multiple smaller INNT cores for improved performance through parallelism.
-
-## Our Implementation
-
-We implemented our NTT core on top of the Vitis platform for Varium C1100. This
-platform provides us with the PCIe and HBM interfaces. As such the design is
-provided as Vitis kernels which are put together to provide the final
-architecture.
-
-There are 2 Vitis kernels involved in our implementation:
-
-- Hardcaml RTL Kernel implementing the core NTT algorithm
-- C++ HLS Kernel which sequences PCIe and HBM memory accesses
-
-<img src="images/ntt-top-level.png" width="70%">>
-
-Our implementation can be parameterized by the number of cores it supports -
-the only requirement is it has a power of 2 and there must be at least 8 cores
-(and subject to resource limits on the FPGA). Each of these cores is capable
-of performing a `2^12` NTT using on-chip memory.
-
-<img src="images/parallel-ntt-top-level.png" width="70%">>
-
-### 2 Phases to Compute the NTT
-
-Our actual NTT implementation comprises of two phases. Let C be the number of
-parallel NTT cores in our design.
-
-(in actuality, our design scales by blocks of 8 cores, but it's easier to
-think in terms of cores)
-
-Phase 1: Performs steps 1, 2 and 3 of the algorithm
-- The HLS kernel streams the first C columns via AXI Stream to the Hardcaml
-  kernel from a HBM bank
-- The Hardcaml RTL kernel accepts the NTT
-- The HLS kernel concurrently writes the results of the into a different HBM
-  Bank
-
-Phase 2: Performs step 4 and step 5 of the algorithm simultaneously.
-- The HLS kernel stream rows to the hardcaml kernel via Axi Stream
-- The Hardcaml RTL kernel perform the NTT and sends the results back via Axi stream
-- The HLS kernel concurrently writes it back in columns - this implicitly
-  performs a matrix transpose without the dedicated step
-
-For a more thorough discussion on the design of individual NTT-cores, please
-refer the [Hardcaml_ntt](hardcaml_ntt) page.
-
-## Memory Bandwidth and Streaming
-
-THe 4 step algorithm requires both a coloumn and row transform, with transposes between phases.
-This is performed both by controlling the memory access pattern (normal layout build) or by
-pre and post processing the input/output matrices (optimized layout builds).
-
-One significant issue we have faced with this project is the bandwidth
-performance of HBM. In normal layouts, we tend to burst 64 to 512 bytes before
-opening a new row. The row open operation appears to be taking upto 200-250 HBM
-clock cycles (about 100 cycles at our internal 200 Mhz clock). We had expected
-significantly better performance from HBM than this and lacked time to try
-tuning various HBM parameters to see if we could get better performance.
-
-The optimized layouts use the host for pre/post processing and dramaticlly improve bandwidth
-efficiency - the smallest transfers are now 2048 - 4096 bytes (which is only for one read
-phase - the other read/write phases are completely linear).
-
-We see tremendously improved throughput of the core with this scheme, though we
-expect it to be judged harshly in this competition due to the extra pre/post
-processing step. We include it none-the-less as it shows the potential
-performance we can get to with either a more optimised HBM structure, or
-different memory architecture (like DDR4).
-
-## Experiments
+# Experiments
 
 To evaluate our results, we perform 2 sets of experiments.
 
-### Normal-layout Builds
+## Normal-layout Builds
 
 These are builds where the input and output vector to perform NTT on is laid out
 linearly in HBM (ie: the host doesn't perform any pre/post-processing). We run
 experiments with running the 8-core, 16-core, 32-core and 64-core variants,
 yeilding different levels of parallelism.
 
-### Optimized-layout Builds
+## Optimized-layout Builds
 
-As discussed in the preceeding section, our performance is significantly
+As discussed [here](ntt-bandwidth.html), our performance is significantly
 bound by bandwidth. We conduct 2 builds (32-core and 64-core variant) with a
-simple data-rearrangement preprocessing step such that the host can stream data
+simple data-rearrangement preprocessing step such that the core can stream data
 in 2048-4096 byte bursts.
 
-## Results (For Competition Criteria)
+# Results For Zprize
 
 We have tested our design and ran builds on a 6-core
 Intel(R) Core(TM) i5-9600K CPU @ 3.70GHz machine with
 [Ubuntu 22.04 LTS (GNU/Linux 5.15.0-48-generic x86_64)]. We did not use
-any special kernel flags / boot parameters to obtain our results. We run
+any special kernel flags / boot parameters to obtain our results. We ran
 our designs using the Vitis platform Xilinx has provided for the Varium C1100
 card. The platform takes up some resources on the FPGA and comes with PCIe gen3
 x4 support
@@ -140,7 +39,7 @@ In this normal layout build, we do not perform any preprocessing or
 post-processing. Hence, latency below includes only the FPGA NTT evaluation
 latency.
 
-### Latency, Power and Resource Utilization
+## Latency, Power and Resource Utilization
 
 The table below depicits our results for various builds
 
@@ -164,9 +63,9 @@ control. The number is reported as "fixed" in the post_route_utilization.rpt
 |    BRAM36 |              1344 |                      0 |
 |      URAM |               640 |                      0 |
 
-### FOM Measurement
+## FOM Measurement
 
-Here are our FOM numbers. As detailed in the evaluation criteria given to us,
+Here are our FOM numbers. As detailed in the evaluation criteria provided by Zprize,
 FOM is computed as $latency * sqrt(Power) * {Unorm}$. Note that `N_pipe = 1`
 for our design, since it can only support 1 evaluation at a time.
 
@@ -236,7 +135,7 @@ evaluation time drops significantly compared to those of a 64-core build in
 a normal build (0.0267s vs 0.0450s). This comes at the cost of the host doing
 some data rearrangement.
 
-The bottleneck of our evaluation clear lies in the host and PCIe latency in
+The bottleneck of our evaluation clear lie in the host and PCIe latency in
 this result, both of which can be solved pretty easily:
 
 - `preprocessing + postprocessing > latency` - We can run the preprocessing
@@ -250,7 +149,3 @@ this result, both of which can be solved pretty easily:
 In practice, we believe this is the more scalable design that can achieve
 low-latency and high-throughput, at the cost of the host machine doing some
 data rearrangement.
-
-## Build and Testing Instructions
-
-Please refer to [this page](ntt_build_instructions).
