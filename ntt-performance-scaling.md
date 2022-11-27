@@ -34,7 +34,7 @@ match memory bandwidth or area constraints more accurately if we could scale up 
 
 The [4-step controller](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/four_step_controller.ml)
 module sequences a single pass of the 4 step algorithm.  For a transform of size $2^24$ we
-must perform $2^12 = 4096$ INNTs.  With, say, 32 cores we need to iterate $4096/32 = 128$ times
+must perform $2^12 = 4096$ INTTs.  With, say, 32 cores we need to iterate $4096/32 = 128$ times
 per pass.
 
 This module controls that iteration and sequences the memory access steps in parallel with the
