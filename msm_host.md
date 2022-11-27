@@ -31,6 +31,17 @@ latency when evaluating a batch of multiple MSMs, namely:
 - Evaluate the next MSM's bucket sums on the FPGA while compute the current
   MSM's final bucket accumulation on the host.
 
+Our host driver expects the prime field elements to in [Montgomery
+form](https://en.wikipedia.org/wiki/Montgomery_modular_multiplication), as our
+competition test harness interfaces with the
+[Arkworks](https://github.com/arkworks-rs) library which internally represents
+field elements as such.
+
+Our implementation internally uses barrett reduction, so we pay some additional
+cost to convert the final result back to Montgomery form during MSM evaluation.
+In practice this means we likely pay some extra cost. We measured this to be
+~10us per MSM evaluation, which is insignificant for large MSM.
+
 Our host driver uses the Xilinx XRT library with openCL for host to/from FPGA
 communication, and gmp for any on-host computation.
 
