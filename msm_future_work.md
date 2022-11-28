@@ -5,7 +5,19 @@ title: Future Work
 
 # Future Work
 
-## Bucket Sum Computation
+## Pippenger Bucket Sum Computation
+
+**Redesign controller to natively accept scalars every clock cycle** The
+current pippenger implementation instantiates 2 controllers that accepts
+an input every 2 clock cycles to achieve full throughput. This is not terribly
+inefficients, but does requires the number of windows to be even to acheieve
+full throughput.
+
+**Further reducing pipeline stall** We also think we could get rid of nearly
+all bubbles in the pipeline if we presented the controller with two points per
+cycle.  The chances of both being a hazard are greatly reduced.  We would
+expect to gain an extra 4-5% performance with this change.
+
 
 ## Improving the Field Multiplication
 
