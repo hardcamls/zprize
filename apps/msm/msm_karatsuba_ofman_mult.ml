@@ -2,7 +2,6 @@ open! Base
 open! Hardcaml
 open! Hardcaml_waveterm
 open Hardcaml_web
-module Karatsuba_ofman_mult = Field_ops_lib.Karatsuba_ofman_mult
 
 module Design = struct
   let top_level_name = "msm_karatsuba_ofman_mult"

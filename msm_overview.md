@@ -31,4 +31,5 @@ Learn more about our design.
 Configure our designs, download RTL and perform simulations all within your browser!
 
 - [Karatsuba ofman multiplier](apps/msm/msm-karatsuba-ofman-mult.html)
+- [Barrett Reduction](apps/msm/msm-barrett-reduction.html)
 - [Top level design as a Vitis kernel](apps/msm/msm-top-app.html)

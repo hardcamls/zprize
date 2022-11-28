@@ -1,5 +1,5 @@
 (executables
- (names msm_top msm_karatsuba_ofman_mult)
+ (names msm_top msm_karatsuba_ofman_mult msm_barrett_reduction)
  (modes js)
  (promote)
  (libraries zprize.msm_pippenger integers_stubs_js zprize.field_ops_test hardcaml_web)
