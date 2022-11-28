@@ -21,7 +21,7 @@ module Design = struct
     module I = Ntt.I
     module O = Ntt.O
 
-    let create scope i = Ntt.create scope i
+    let create scope ~build_mode:_ i = Ntt.create scope i
     let testbench = None
   end
 end

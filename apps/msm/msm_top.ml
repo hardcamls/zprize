@@ -13,7 +13,7 @@ module Design = struct
     module I = Msm.I
     module O = Msm.O
 
-    let create scope i = Msm.hierarchical ~build_mode:Synthesis scope i
+    let create scope ~build_mode i = Msm.hierarchical ~build_mode scope i
     let testbench = None
   end
 end

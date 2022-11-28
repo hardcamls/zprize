@@ -30,7 +30,7 @@ module Design = struct
     module I = Ntt.I
     module O = Ntt.O
 
-    let create scope i = Ntt.create ~build_mode:Synthesis scope i
+    let create scope ~build_mode i = Ntt.create ~build_mode scope i
     let testbench = None
   end
 end
