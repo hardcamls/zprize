@@ -25,3 +25,11 @@ Learn more about our design.
 * [Future Work](msm_future_work.html)
 * [Host driver software](msm_host.html)
 * [Benchmarking and test harness](msm_test.html)
+
+# Hardcaml on the Web
+
+Configure our designs, download RTL and perform simulations all within your browser!
+
+- [Karatsuba ofman multiplier](apps/msm/msm-karatsuba-ofman-mult.html)
+- [Barrett Reduction](apps/msm/msm-barrett-reduction.html)
+- [Top level design as a Vitis kernel](apps/msm/msm-top-app.html)
