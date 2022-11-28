@@ -34,7 +34,9 @@ module Design = struct
           Karatsuba_ofman_mult.test
             ~sim
             ~config
-            ~test_cases:[ { a = rand (); b = rand () }; { a = rand (); b = rand () } ];
+            ~test_cases:
+              (List.init 100 ~f:(fun _ ->
+                 { Field_ops_test.Test_karatsuba_ofman_mult.a = rand (); b = rand () }));
           { Testbench_result.waves = Some { waves; options = None; rules = None }
           ; result = None
           })
