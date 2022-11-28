@@ -7,16 +7,13 @@ title: Pippenger Controller
 
 The key computation of the pippenger algorithm is adding each input coefficient to a value
 stored in RAM (also called a bucket).  This would be trivial except for the latency of the 
-elliptic curve (EC) adder.
+point adder, which is over 200 clock cycles.
 
-In our design the latency is over 200 clock cycles.  If a coefficient needs to be added
-to a bucket that is currently in use by the EC adder we need to wait until the addition
-is complete before trying again.
-
-The trivial solution of just waiting for the pipeline to flush would be extremely expensive.
-With table sizes of around 4K, and a pipeline depth of 200 we would expect buckets to
-be busy in the pipeline around 5% of the time.  Waiting on average 100 cycles per hazard
-would unacceptably hurt our performance.
+Naively, if a coefficient needs to be added to a bucket that is currently in
+use by the point adder we need to wait until the addition is complete before
+trying again. With table sizes of around 4K, and a pipeline depth of 200 we
+would expect buckets to be busy in the pipeline around 5% of the time.  Waiting
+on average 100 cycles per hazard would unacceptably hurt our performance.
 
 Instead our controller uses a couple of simple heuristics to try to keep the pipeline as
 busy as possible, while avoiding data hazards.
@@ -24,12 +21,12 @@ busy as possible, while avoiding data hazards.
 ## Scalar tracking
 
 We need to store 200 RAM locations to track data through the pipeline and check if a new
-coefficient would cause a hazard.  Naively done this would require 200 comparators in parallel
+coefficient would cause a hazard. Naively done this would require 200 comparators in parallel
 and then a wide OR reduction.
 
-In our controller we actually process multiple windows on successive clock cycles.  In
+In our controller we actually process multiple windows on successive clock cycles. In
 our current design we have 2 separate controllers tracking about 10 windows
-each.  Since there can be no hazard between windows, we only need to compare and OR reduce
+each. Since there can be no hazard between windows, we only need to compare and OR reduce
 $1/10$ of the scalars in the pipeline.
 
 ## Stalled point FIFO
