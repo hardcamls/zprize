@@ -1,0 +1,8 @@
+(executables
+ (names msm_top)
+ (modes js)
+ (promote)
+ (libraries zprize.msm_pippenger integers_stubs_js hardcaml_web)
+ ;(js_of_ocaml (flags :standard msm_stubs.js))
+ (preprocess (pps ppx_jane ppx_deriving_hardcaml)))
+
