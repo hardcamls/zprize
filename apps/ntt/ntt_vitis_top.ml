@@ -27,12 +27,22 @@ module Design = struct
       let memory_layout = Zprize_ntt.Memory_layout.Normal_layout_single_port
     end
 
+    module Test = Zprize_ntt_test.Test_kernel_for_vitis.Make(Config)
     module Ntt = Zprize_ntt.For_vitis.Make (Config)
     module I = Ntt.I
     module O = Ntt.O
 
     let create scope ~build_mode i = Ntt.create ~build_mode scope i
-    let testbench = None
+
+    let testbench sim =
+      let waves, sim = Waveform.create sim in
+      let inputs = Test.random_input_coef_matrix () in
+      Test.run_with_sim
+        sim (Cyclesim.inputs sim) (Cyclesim.outputs sim)
+        inputs;
+      Testbench_result.of_waves waves
+
+    let testbench = Some testbench
   end
 end
 
