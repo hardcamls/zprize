@@ -23,16 +23,21 @@ module Design = struct
 
     let create scope ~build_mode i = Ntt.create ~build_mode scope i
 
-    module Test = Hardcaml_ntt_test.Test_ntt_hw.Test(Config)
+    module Test = Hardcaml_ntt_test.Test_ntt_hw.Test (Config)
+
     let testbench sim =
       let waves, sim = Waveform.create sim in
-      let _result =
-        Test.inverse_ntt_test_of_sim ~row:0 sim
-          (Array.init
-             (1 lsl logn)
-             ~f:(fun _ -> Hardcaml_ntt.Gf.(Z.random () |> Z.to_z |> Bits.of_z)))
+      (* let inputs = *)
+      (*   Array.init (1 lsl logn) ~f:(fun _ -> *)
+      (*     Hardcaml_ntt.Gf.(Z.random () |> Z.to_z |> Bits.of_z)) *)
+      (* in *)
+      let inputs =
+        Array.init (1 lsl logn) ~f:(fun i ->
+          Hardcaml_ntt.(Z.of_int (i + 1) |> Gf.Bits.of_z))
       in
+      let _result = Test.inverse_ntt_test_of_sim ~row:0 sim inputs in
       Testbench_result.of_waves waves
+    ;;
 
     let testbench = Some testbench
   end

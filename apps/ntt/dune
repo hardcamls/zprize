@@ -1,6 +1,6 @@
 (executables
- (names ntt_core ntt_core_with_rams ntt_4step ntt_parallel ntt_vitis_top)
+ (names ntt_core_with_rams ntt_vitis_top)
  (modes js)
  (promote)
- (libraries zprize.hardcaml_ntt zprize.hardcaml_ntt_test zprize.zprize_ntt hardcaml_web)
+ (libraries zprize.hardcaml_ntt zprize.hardcaml_ntt_test zprize.zprize_ntt zprize.zprize_ntt_test hardcaml_web)
  (preprocess (pps ppx_jane ppx_deriving_hardcaml)))

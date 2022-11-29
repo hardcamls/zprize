@@ -18,6 +18,7 @@ Learn more about our design.
 
 * [Field Multiplication](msm_field_multiplication.html)
 * [Point Representation](msm_point_representation.html)
+* [Scalar Transformation](scalar_transformation.html)
 * [Mixed Point Addition with Precomputation](msm_mixed_point_addition_with_precomputation.html)
 * [Top level Pippenger design](pippenger.html) and it's [controller](msm-pippenger-controller.html)
 * [Implementation Details](msm_implementation_details.html)

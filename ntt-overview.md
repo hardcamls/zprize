@@ -39,7 +39,5 @@ We present the
 
 Configure our designs, download RTL and perform simulations all within your browser!
 
-- [Core INTT design](apps/ntt/ntt-core-app.html), or with [rams included](apps/ntt/ntt-core-with-rams-app.html)
-- [Scaled up design with multiple cores](apps/ntt/ntt-parallel-cores-app.html)
-- [Scaled design with support for the 4-step algorithm](apps/ntt/ntt-4step-app.html)
-- [Top level design as a Vitis kernel](apps/ntt/ntt-vitis-top-app.html)
+- [Core INTT design](apps/ntt/ntt-core-app-with-rams.html) which includes the IO RAMs, datapath and controller
+- [Top level design as a Vitis kernel](apps/ntt/ntt-vitis-top-app.html) which performs the full 4-step algorithm
