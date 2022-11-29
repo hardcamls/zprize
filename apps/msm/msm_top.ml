@@ -4,7 +4,7 @@ open! Hardcaml_waveterm
 open Hardcaml_web
 
 module Design = struct
-  let top_level_name = "msm_top16"
+  let top_level_name = "krnl_msm_pippenger"
   let default_parameters = []
 
   module Make (P : Parameters.S) = struct
