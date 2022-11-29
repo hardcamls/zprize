@@ -1,0 +1,59 @@
+- title: Multi-scalar multiplication
+  link: /msm_overview
+  sublinks:
+    - title: Design Overview
+      sublinks:
+        - title: Field Multiplication
+          link: /msm_field_multiplication
+        - title: Mixed Point Addition with Precomputation
+          link: "#"
+        - title: Top level Pippenger design and it’s controller
+          link: "#"
+        - title: Implementation Details
+          link: "#"
+        - title: Results
+          link: "#"
+        - title: Future Work
+          link: "#"
+        - title: Host driver software
+          link: "#"
+        - title: Benchmarking and test harness
+    - title: Hardcaml on the Web
+      sublinks:
+        - title: Karatsuba ofman multiplier
+          link: "#"
+        - title: Barrett Reduction
+          link: "#"
+        - title: Top level design as a Vitis kernel
+          link: "#"
+- title: Inverse NTT
+  link: /ntt-overview
+  sublinks:
+    - title: Design Overviews
+      sublinks:
+        - title: Core (I)NTT design
+          link: /ntt-core.html
+        - title: NTT Performance Scaling
+          link: /ntt-performance-scaling.html
+        - title: 4 Step Algorithm
+          link: /ntt-4step.html
+        - title: NTT Bandwidth
+          link: /ntt-bandwidth.html
+        - title: NTT Results
+          link: /ntt-results.html
+        - title: Top level Hardcaml design
+          link: /ntt-top-level.html
+        - title: Zprize NTT Build Instructions
+          link: /ntt-build-instructions.html
+    - title: Hardcaml on the Web
+      sublinks:
+        - title: Core INTT design
+          link: /apps/ntt/ntt-core-app.html
+        - title: Core INTT with rams included
+          link: /apps/ntt/ntt-core-with-rams-app.html
+        - title: Scaled up design with multiple cores
+          link: /apps/ntt/ntt-parallel-cores-app.html
+        - title: Scaled design with support for the 4-step algorithm
+          link: /apps/ntt/ntt-4step-app.html
+        - title: Top level design as a Vitis kernel
+          link: /apps/ntt/ntt-vitis-top-app.html
