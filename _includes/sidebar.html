@@ -1,32 +1,29 @@
-<nav id="sidebar">
-	  <div class="sidebar-header">
-		    <h3><a href="/">Hardcaml</a></h3>
-	  </div>
-	  <ul class="nav-links">
-        {% for item in site.data.nav %}
-        <a href="{{ item.link }}">
-            <li>
-                {{ item.title }}
-                {% if item.sublinks %}
-                <ul>
-                    {% for sublink in item.sublinks %}
-                    <a href="{{ sublink.link }}">
-                        <li>{{ sublink.title }}</li>
-                        {% if sublink.sublinks %}
-                        <ul>
-                            {% for subsublink in sublink.sublinks %}
-                            <a href="{{ subsublink.link }}">
-                                <li>{{ subsublink.title }}</li>
-                            </a>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
+<nav id="sidenav" class="dashboard-nav-list">
+    <ul class="nav flex-column">
+        {% for section in site.data.nav %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ section.link}}">{{ section.title }}</a>
+            {% if section.sublinks %}
+            <ul class="sidenav-collapse show">
+                {% for link in section.sublinks %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ link.link }}">
+                        {{ link.title }}
                     </a>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-            </li>
-        </a>
+                    {% if link.sublinks %}
+                    <ul class="sidenav-collapse show">
+                        {% for sublink in link.sublinks %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ sublink.link }}">{{ sublink.title }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </li>
         {% endfor %}
-	  </ul>
-</nav>
+    </ul>
+    </nav>

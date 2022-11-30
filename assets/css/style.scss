@@ -1,0 +1,23 @@
+---
+---
+@charset "utf-8";
+@import "header-nav";
+@import "sidebar";
+
+#header-nav {
+    background-color: black;
+}
+
+#container {
+    transition: 0.4s;
+}
+
+
+.active-nav {
+    margin-left: 0;
+}
+
+/* for main section */
+.active-cont {
+    margin-left: 250px;
+}

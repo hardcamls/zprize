@@ -1,0 +1,70 @@
+.dashboard {
+  display: flex;
+  min-height: 100vh; }
+  .dashboard.nav-open .dashboard-nav {
+    margin-left: 0; }
+
+.dashboard-nav {
+  transition: 0.5s;
+  margin-left: -500px;
+  min-width: 238px;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow: auto;
+  background-color: black; }
+  .dashboard-nav header {
+    display: flex;
+    margin: 14px 20px; }
+    .dashboard-nav header #logo {
+      width: 200px; }
+  .dashboard-nav .dashboard-nav-list {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: #daf3dc; }
+    .dashboard-nav .dashboard-nav-list a {
+      color: black; }
+    .dashboard-nav .dashboard-nav-list ul {
+      list-style: none; }
+    .dashboard-nav .dashboard-nav-list .dashboard-nav-item {
+      padding: 8px 20px 8px 70px;
+      display: flex;
+      align-items: center;
+      transition: ease-out 0.5s; }
+
+.dashboard-app {
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2; }
+
+.dashboard-content {
+  flex-grow: 2;
+  padding: 25px; }
+
+.dashboard-toolbar {
+  min-height: 84px;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000; }
+  .dashboard-toolbar #hamburger-icon {
+    width: 30px; }
+
+#header-nav {
+  background-color: black; }
+
+#container {
+  transition: 0.4s; }
+
+.active-nav {
+  margin-left: 0; }
+
+/* for main section */
+.active-cont {
+  margin-left: 250px; }

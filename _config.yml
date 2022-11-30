@@ -10,3 +10,7 @@ exclude:
   - apps/msm/*.ml
   - apps/msm/*.bc-for-jsoo
   - apps/msm/.#*
+
+
+sass:
+    sass_dir: _sass
