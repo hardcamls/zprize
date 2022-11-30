@@ -1,0 +1,33 @@
+<div class="dashboard-nav">
+    <header>
+        <a href="#!" class="menu-toggle">
+            <img class="hamburger-icon" src="/assets/images/hamburger-icon.png">
+        </a>
+        <a href="#" class="brand-logo">
+            <img id="hardcaml-logo" src="/assets/images/hardcaml-logo.png">
+        </a>
+    </header>
+    <nav class="dashboard-nav-list">
+        {% for item in site.data.nav %}
+        <a href="{{ item.link }}" class="dashboard-nav-item dropdown-toggle collapsed" {% if item.sublinks %}data-toggle="collapse" aria-exapnded="false"{% endif%}>{{ item.title }}</a>
+        {% if item.sublinks %}
+        <div class="dashboard-nav-dropdown">
+            {% for sublink in item.sublinks %}
+            <a href="#!" class="dashboard-nav-item dashboard-nav-dropdown-toggle">
+                {{ sublink.title }}
+            </a>
+            {% if sublink.sublinks %}
+            <div class="dashboard-nav-dropdown-menu">
+                {% for subsublink in sublink.sublinks %}
+                <a href="{{ subsublink.link }}" class="dashboard-nav-dropdown-item">
+                    {{ subsublink.title }}
+                </a>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </nav>
+</div>

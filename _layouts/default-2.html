@@ -2,8 +2,6 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>{{ page.title }}</title>
 	      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=UnifrakturMaguntia">
         <link rel="stylesheet" href="/assets/jqmath-0.4.3.min.css">
@@ -18,17 +16,25 @@
         {% endif %}
     </head>
     <body>
-        <div class="wrapper">
+        <div class='dashboard'>
             {% include sidebar.html %}
-            <div id="content">
-                {% include header-nav.html %}
-                {{ content }}
+            <div class='dashboard-app'>
+                <header class='dashboard-toolbar'>
+                    <a href="#!" class="menu-toggle">
+                        <img class="hamburger-icon" src="/assets/images/hamburger-icon.png">
+                    </a>
+                </header>
+                <div class='dashboard-content'>
+                    {{ content }}
+                </div>
             </div>
         </div>
-        <!-- jQuery CDN - Slim version (=without AJAX) -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-       <!-- Bootstrap JS -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.slim.min.js"
+                integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA="
+                crossorigin="anonymous"></script>
+        <!-- Bootstrap core JS-->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript" src="/assets/js/site.js"></script>
     </body>
 </html>

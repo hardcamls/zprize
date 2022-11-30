@@ -1,29 +1,34 @@
-<nav id="sidenav" class="dashboard-nav-list">
-    <ul class="nav flex-column">
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <a href="/"><img src="/assets/images/hardcaml-logo.png" id="hardcaml-logo"></a>
+    </div>
+    <ul class="list-unstyled components">
         {% for section in site.data.nav %}
-        <li class="nav-item">
-            <a class="nav-link" href="{{ section.link}}">{{ section.title }}</a>
+        <li {% if page.title == section.title %}class="active"{% endif %}>
             {% if section.sublinks %}
-            <ul class="sidenav-collapse show">
-                {% for link in section.sublinks %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ link.link }}">
-                        {{ link.title }}
-                    </a>
-                    {% if link.sublinks %}
-                    <ul class="sidenav-collapse show">
-                        {% for sublink in link.sublinks %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ sublink.link }}">{{ sublink.title }}</a>
+            <a href="#{{ section.sublink_id }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ section.title }}</a>
+            <ul class="collapse list-unstyled" id="{{ section.sublink_id }}">
+                {% for subsection in section.sublinks %}
+                <li  {% if page.title == subsection.title %}class="active"{% endif %}>
+                    {% if subsection.sublinks %}
+                    <a href="#{{ subsection.sublink_id }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ subsection.title }}</a>
+                    <ul class="collapse list-unstyled" id="{{ subsection.sublink_id }}">
+                        {% for link in subsection.sublinks %}
+                        <li {% if page.title == link.title %}class="active"{% endif %}>
+                            <a href="{{ link.link }}">{{ link.title }}</a>
                         </li>
                         {% endfor %}
                     </ul>
+                    {% else %}
+                    <a href="{{ subsection.link }}">{{ subsection.title }}</a>
                     {% endif %}
                 </li>
                 {% endfor %}
             </ul>
+            {% else %}
+            <a href="{{ section.link }}">{{ section.title }}</a>
             {% endif %}
         </li>
         {% endfor %}
     </ul>
-    </nav>
+</nav>
