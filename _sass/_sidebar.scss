@@ -46,32 +46,3 @@
     }
 }
 
-
-.dashboard-app {
-    transition: 0.5s;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 2;
-}
-
-
-.dashboard-content {
-    flex-grow: 2;
-    padding: 25px;
-}
-
-.dashboard-toolbar {
-    min-height: 84px;
-    background-color: black;
-    display: flex;
-    align-items: center;
-    padding: 8px 15px;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1000;
-
-    #hamburger-icon {
-        width: 30px;
-    }
-}
