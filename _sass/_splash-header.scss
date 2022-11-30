@@ -1,0 +1,40 @@
+
+.splash-header {
+	position: relative;
+	height: 600px;
+	background: linear-gradient( 45deg, #ffdd8c 0%, #c9fcfc 100% );
+	box-shadow: $shadow-bottom;
+	overflow: hidden;
+
+	.content {
+		position: absolute;
+		left: 50%;
+		transform: translate(-50%);
+		height: 100%;
+		width: 100%;
+		max-width: 1000px;
+	}
+
+	.logo-splash {
+		position: absolute;
+		height: 90%;
+		top: 50%;
+		left: 45%;
+		transform: translate(-50%,-50%);
+	}
+
+	.text {
+		position: absolute;
+		width: 40%;
+		top: 46.5%;
+    left: 56.5%;
+		h1 {
+			font-size: 50px;
+			font-weight: bold;
+		}
+		p {
+			font-size: 17px;
+		}
+	}
+
+}

@@ -12,14 +12,15 @@
 
 .dashboard-nav {
     transition: 0.5s;
-    margin-left: -500px;
+    // margin-left: -500px;
     min-width: 238px;
     left: 0;
     top: 0;
     bottom: 0;
     overflow: auto;
     background-color: black;
-
+    box-shadow: $shadow-right;
+    z-index: 1;
     header {
         display: flex;
         margin: 14px 20px;

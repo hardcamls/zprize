@@ -1,16 +1,11 @@
 ---
 layout: default
 title: hardcaml_zprize
+cname: landing
+splash-header: true
 ---
 
 # Hardcaml Zprize
-
-In 2022, the hardcamls team (Andy Ray, Ben Devlin, Fu Yong Quah, Rahul
-Yesantharao) participated in the Zprize competition. We competed in the
-Multi-Scalar Multiplication (MSM) and Inverse Number Theoretic Transform (INTT).
-
-Read on to find out more about our submissions and view the code on
-[github](https://github.com/fyquah/hardcaml_zprize).
 
 ## Multi-scalar multiplication
 
