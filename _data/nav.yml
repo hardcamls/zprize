@@ -34,7 +34,7 @@
           link: /msm_test.html
     - title: Hardcaml on the Web
       sublink_id: "msm-hardcaml"
-      subcategory: hardcaml
+      subcategory: "on-the-web"
       sublinks:
         - title: Karatsuba ofman multiplier
           title_id: MSM Karatsuba Ofman Multiplier
@@ -77,16 +77,11 @@
           link: /ntt-build-instructions.html
     - title: Hardcaml on the Web
       sublink_id: "ntt-hardcaml"
-      subcategory: hardcaml
+      subcategory: "on-the-web"
       sublinks:
-        - title: Core INTT design
-          link: /apps/ntt/ntt-core-app.html
-        - title: INTT core with I/O Rams included
-          link: /apps/ntt/ntt-core-with-rams-app.html
+        - title: INTT Single Core Hardware Design
           title_id: INTT single core hardware design
-        - title: Scaled up design with multiple cores
-          link: /apps/ntt/ntt-parallel-cores-app.html
-        - title: Scaled design with support for the 4-step algorithm
-          link: /apps/ntt/ntt-4step-app.html
+          link: /apps/ntt/ntt-core-with-rams-app
         - title: Top level design as a Vitis kernel
-          link: /apps/ntt/ntt-vitis-top-app.html
+          title_id: INTT vitis top level
+          link: /apps/ntt/ntt-vitis-top-app

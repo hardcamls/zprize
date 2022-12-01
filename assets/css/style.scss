@@ -12,7 +12,7 @@
 
 
 body {
-   font-family: $regular-font;
+    font-family: $regular-font;
 }
 
 h1 {
@@ -39,8 +39,8 @@ h3 {
 }
 
 p {
-	font-family: $regular-font;
-	font-size: 16px;
+	  font-family: $regular-font;
+	  font-size: 16px;
 }
 
 a {
@@ -69,6 +69,8 @@ a > code {
     #content {
     		position: relative;
         width: 100%;
+        margin-top: 100px;
+        transition: all 0.2s;
     }
 
     .page {
@@ -84,3 +86,14 @@ a > code {
     }
 }
 
+@media (min-width: 992px) {
+    #content {
+        margin-left: 300px;
+    }
+}
+
+@media (max-width: 992px) {
+    body.sidenav-active #content {
+        margin-left: 300px;
+    }
+}

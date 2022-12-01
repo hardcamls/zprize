@@ -1,35 +1,19 @@
-
 #sidebar {
+    top: 97px;
     background: black;
     color: #fff;
-    transition: all 0.3s;
+    transition: all 0.2s;
     min-width: 300px;
     max-width: 300px;
-    min-height: 100vh;
+    min-height: calc(100vh - 100px);
     box-shadow: $shadow-right;
-    z-index: 1;
-
-    a {
-        color: black;
-        text-decoration: none;
-        &:hover {
-            background-color: #c1d5c3;
-        }
-    }
-
-    #hardcaml-logo {
-        width: 180px;
-    }
-    .components {
-        background-color: #daf3dc;
-    }
-
-    &.active {
-        margin-left: -300px;
-    }
+    position: fixed;
+    overflow-y: auto;
+    bottom: 0;
+    z-index: 999;
 
     .sidebar-header {
-        padding: 20px;
+        padding: 12px 20px;
         a, a:hover {
             background: transparent;
             text-decoration: none;
@@ -37,15 +21,20 @@
     }
 
     ul.components {
-        background-color: #daf3dc;
+        background-color: $peppermint;
         margin-bottom: 0;
         li {
+
+            a:hover {
+                background-color: #c1d5c3;
+            }
             a {
                 display: block;
-                padding: 10px 20px;
+                padding: 15px 20px;
+                color: black;
+                text-decoration: none;
             }
             ul li {
-                /* font-size: 0.9em !important; */
                 a {
                     padding-left: 40px;
                 }
@@ -56,13 +45,10 @@
         }
 
         li.active > a {
+            background-color: #c1d5c3;
             font-weight: bold;
         }
 
-        /* li.active > a,
-         * a[aria-expanded="true"] {
-         *     background-color: #c1d5c3;
-         * } */
     }
 
     a[data-toggle="collapse"] {
@@ -79,8 +65,7 @@
 }
 
 
-
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     #sidebar {
         margin-left: -300px;
     }

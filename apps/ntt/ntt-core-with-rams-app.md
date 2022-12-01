@@ -2,6 +2,8 @@
 layout: default
 title: INTT single core hardware design
 hardcaml_app: ntt_core_with_rams.bc.js
+category: ntt
+subcategory: on-the-web
 ---
 
 # INTT core with I/O Rams included

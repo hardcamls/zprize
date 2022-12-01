@@ -47,53 +47,56 @@
   src: url("/static/fonts/Alright-Sans-LTV-Bold-Italic/f8c83d76-2639-4503-9cb7-dc0e6d88dfe3-2.eot");
   src: url("/static/fonts/Alright-Sans-LTV-Bold-Italic/f8c83d76-2639-4503-9cb7-dc0e6d88dfe3-2.eot#iefix") format("embedded-opentype"), url("/static/fonts/Alright-Sans-LTV-Bold-Italic/f8c83d76-2639-4503-9cb7-dc0e6d88dfe3-3.woff") format("woff"), url("/static/fonts/Alright-Sans-LTV-Bold-Italic/f8c83d76-2639-4503-9cb7-dc0e6d88dfe3-5.woff2") format("woff2"); }
 nav.navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 9;
   background-color: black;
-  padding: 21px 0; }
+  padding: 21px 0;
+  z-index: 999; }
+  nav.navbar .container-fluid {
+    justify-content: flex-start; }
   nav.navbar #hamburger-icon {
-    width: 30px; }
+    width: 30px;
+    margin-left: 20px; }
+  nav.navbar #hardcaml-logo {
+    width: 255px; }
 
 #sidebar {
+  top: 97px;
   background: black;
   color: #fff;
-  transition: all 0.3s;
+  transition: all 0.2s;
   min-width: 300px;
   max-width: 300px;
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
   box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
-  z-index: 1; }
-  #sidebar a {
-    color: black;
-    text-decoration: none; }
-    #sidebar a:hover {
-      background-color: #c1d5c3; }
-  #sidebar #hardcaml-logo {
-    width: 180px; }
-  #sidebar .components {
-    background-color: #daf3dc; }
-  #sidebar.active {
-    margin-left: -300px; }
+  position: fixed;
+  overflow-y: auto;
+  bottom: 0;
+  z-index: 999; }
   #sidebar .sidebar-header {
-    padding: 20px; }
+    padding: 12px 20px; }
     #sidebar .sidebar-header a, #sidebar .sidebar-header a:hover {
       background: transparent;
       text-decoration: none; }
   #sidebar ul.components {
     background-color: #daf3dc;
-    margin-bottom: 0;
-    /* li.active > a,
-     * a[aria-expanded="true"] {
-     *     background-color: #c1d5c3;
-     * } */ }
+    margin-bottom: 0; }
+    #sidebar ul.components li a:hover {
+      background-color: #c1d5c3; }
     #sidebar ul.components li a {
       display: block;
-      padding: 10px 20px; }
-    #sidebar ul.components li ul li {
-      /* font-size: 0.9em !important; */ }
-      #sidebar ul.components li ul li a {
-        padding-left: 40px; }
-      #sidebar ul.components li ul li ul li a {
-        padding-left: 60px; }
+      padding: 15px 20px;
+      color: black;
+      text-decoration: none; }
+    #sidebar ul.components li ul li a {
+      padding-left: 40px; }
+    #sidebar ul.components li ul li ul li a {
+      padding-left: 60px; }
     #sidebar ul.components li.active > a {
+      background-color: #c1d5c3;
       font-weight: bold; }
   #sidebar a[data-toggle="collapse"] {
     position: relative; }
@@ -104,7 +107,7 @@ nav.navbar {
     right: 20px;
     transform: translateY(-50%); }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   #sidebar {
     margin-left: -300px; }
 
@@ -140,7 +143,7 @@ nav.navbar {
       margin-bottom: 10px; }
 
 .landing .wrapper .page {
-  margin: 0; }
+  padding: 0; }
 .landing .heading-ribbon-container {
   width: 100%;
   height: 100px;
@@ -185,13 +188,13 @@ h1 {
     margin-top: 55px; }
 
 h2 {
-  font-family: "Alright Sans LTV Medium", "Alright Sans Medium", Helvetica, Arial, sans-serif;
+  font-family: "Alright Sans LTV Med", "Alright Sans Med", Helvetica, Arial, sans-serif;
   font-size: 22px;
   margin: 50px 0 20px;
   text-transform: uppercase; }
 
 h3 {
-  font-family: "Alright Sans LTV Medium", "Alright Sans Medium", Helvetica, Arial, sans-serif;
+  font-family: "Alright Sans LTV Med", "Alright Sans Med", Helvetica, Arial, sans-serif;
   font-size: 18px;
   margin: 30px 0 15px; }
 
@@ -218,7 +221,9 @@ a > code {
   align-items: stretch; }
   .wrapper #content {
     position: relative;
-    width: 100%; }
+    width: 100%;
+    margin-top: 100px;
+    transition: all 0.2s; }
   .wrapper .page {
     position: relative;
     padding: 80px;
@@ -228,3 +233,10 @@ a > code {
     max-width: 1000px; }
     .wrapper .page img {
       max-width: 100%; }
+
+@media (min-width: 992px) {
+  #content {
+    margin-left: 300px; } }
+@media (max-width: 992px) {
+  body.sidenav-active #content {
+    margin-left: 300px; } }
