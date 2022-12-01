@@ -81,7 +81,8 @@ body.sidebar-active .wrapper #content {
   min-width: 300px;
   max-width: 300px;
   min-height: 100vh;
-  box-shadow: 4px 0 12px -4px rgba(0, 0, 0, 0.8);
+  /* box-shadow: 4px 0 12px -4px rgba(0, 0,0, .8); */
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
   /* position: fixed; */
   overflow-y: auto;
   top: 0;
@@ -106,12 +107,10 @@ body.sidebar-active .wrapper #content {
       padding: 15px 20px;
       color: black;
       text-decoration: none; }
-    #sidebar ul.components li ul li {
-      /* font-size: 0.9em !important; */ }
-      #sidebar ul.components li ul li a {
-        padding-left: 40px; }
-      #sidebar ul.components li ul li ul li a {
-        padding-left: 60px; }
+    #sidebar ul.components li ul li a {
+      padding-left: 40px; }
+    #sidebar ul.components li ul li ul li a {
+      padding-left: 60px; }
     #sidebar ul.components li.active > a {
       background-color: #c1d5c3;
       font-weight: bold; }

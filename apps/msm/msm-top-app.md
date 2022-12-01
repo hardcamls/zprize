@@ -3,7 +3,7 @@ layout: default
 title: MSM Top level Vitis Kernel
 hardcaml_app: msm_top.bc.js
 category: msm
-subcategory: hardcaml
+subcategory: on-the-web
 ---
 
 # MSM Top Level Vitis Kernel

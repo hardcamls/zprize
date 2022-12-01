@@ -24,7 +24,8 @@ body.sidebar-active .wrapper #content {
     min-width: 300px;
     max-width: 300px;
     min-height: 100vh;
-    box-shadow: 4px 0 12px -4px rgba(0, 0,0, .8);
+    /* box-shadow: 4px 0 12px -4px rgba(0, 0,0, .8); */
+    box-shadow: $shadow-right;
     /* position: fixed; */
     overflow-y: auto;
     top: 0;
@@ -48,7 +49,7 @@ body.sidebar-active .wrapper #content {
     }
 
     ul.components {
-        background-color: #daf3dc;
+        background-color: $peppermint;
         margin-bottom: 0;
         li {
 
@@ -62,7 +63,6 @@ body.sidebar-active .wrapper #content {
                 text-decoration: none;
             }
             ul li {
-                /* font-size: 0.9em !important; */
                 a {
                     padding-left: 40px;
                 }
