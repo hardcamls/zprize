@@ -1,8 +1,24 @@
 ---
 ---
+
 @charset "utf-8";
+
+@import "fonts";
+@import "settings";
 @import "header-nav";
 @import "sidebar";
+@import "splash-header";
+@import "landing";
+
+
+body {
+    font-family: $main-font;
+}
+
+a {
+	color: $link-color;
+	text-decoration: none;
+}
 
 .wrapper {
     display: flex;
@@ -12,3 +28,4 @@
         width: 100%;
     }
 }
+

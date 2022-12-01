@@ -83,6 +83,7 @@
           link: /apps/ntt/ntt-core-app.html
         - title: INTT core with I/O Rams included
           link: /apps/ntt/ntt-core-with-rams-app.html
+          title_id: INTT single core hardware design
         - title: Scaled up design with multiple cores
           link: /apps/ntt/ntt-parallel-cores-app.html
         - title: Scaled design with support for the 4-step algorithm

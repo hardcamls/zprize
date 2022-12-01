@@ -14,12 +14,13 @@
         <script type="text/javascript" defer="defer" src="{{ page.hardcaml_app }}"></script>
         {% endif %}
     </head>
-    <body>
+    <body {% if page.cname %}class="{{ page.cname }}"{% endif %}>
         <div class="wrapper">
             {% include sidebar.html %}
             <div id="content">
                 {% include header-nav.html %}
-                {{ content }}
+		{% if page.splash-header %} {% include splash-header.html %} {% endif %}
+		{{ content }}
             </div>
         </div>
         <!-- jQuery CDN - Slim version -->
