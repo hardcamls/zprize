@@ -63,15 +63,11 @@ nav.navbar {
   nav.navbar #hardcaml-logo {
     width: 255px; }
 
-body.sidebar-active .wrapper #content {
-  margin-left: 300px;
-  transition: all 0.3s; }
-
 #sidebar {
   top: 97px;
   background: black;
   color: #fff;
-  transition: all 0.3s;
+  transition: all 0.2s;
   min-width: 300px;
   max-width: 300px;
   min-height: calc(100vh - 100px);
@@ -80,8 +76,6 @@ body.sidebar-active .wrapper #content {
   overflow-y: auto;
   bottom: 0;
   z-index: 999; }
-  #sidebar.active {
-    margin-left: -300px; }
   #sidebar .sidebar-header {
     padding: 12px 20px; }
     #sidebar .sidebar-header a, #sidebar .sidebar-header a:hover {
@@ -179,10 +173,6 @@ body.sidebar-active .wrapper #content {
 
 body {
   font-family: "Alright Sans LTV Regular", "Alright Sans", Helvetica, Arial, sans-serif; }
-  body.sidenav-active {
-    overflow: hidden; }
-    body.sidenav-active #overlay {
-      background-color: rgba(0, 0, 0, 0.3); }
 
 h1 {
   font-family: "Alright Sans LTV Bold", "Alright Sans Bold", Helvetica, Arial, sans-serif;
@@ -207,17 +197,14 @@ a {
 .wrapper {
   display: flex;
   align-items: stretch; }
-  .wrapper #overlay {
-    position: absolute;
-    right: 0;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 99; }
   .wrapper #content {
     width: 100%;
-    margin-top: 100px; }
+    margin-top: 100px;
+    transition: all 0.2s; }
 
 @media (min-width: 992px) {
   #content {
+    margin-left: 300px; } }
+@media (max-width: 992px) {
+  body.sidenav-active #content {
     margin-left: 300px; } }
