@@ -22,7 +22,7 @@ Learn more about our design.
 * [Point Representation](msm_point_representation.html)
 * [Scalar Transformation](scalar_transformation.html)
 * [Mixed Point Addition with Precomputation](msm_mixed_point_addition_with_precomputation.html)
-* [Top level Pippenger design](pippenger.html) and it's [controller](msm-pippenger-controller.html)
+* [Top level Pippenger design](pippenger.html) and its [controller](msm-pippenger-controller.html)
 * [Implementation Details](msm_implementation_details.html)
 * [Results](msm_results.html)
 * [Future Work](msm_future_work.html)
