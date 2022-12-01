@@ -1,12 +1,14 @@
 ---
 layout: default
 title: Pippenger Controller
+category: msm
+subcategory: design
 ---
 
 # Pippenger controller
 
 The key computation of the pippenger algorithm is adding each input coefficient to a value
-stored in RAM (also called a bucket).  This would be trivial except for the latency of the 
+stored in RAM (also called a bucket).  This would be trivial except for the latency of the
 point adder, which is over 200 clock cycles.
 
 Naively, if a coefficient needs to be added to a bucket that is currently in
@@ -36,12 +38,12 @@ FIFO and we insert a bubble into the pipeline for that cycle.
 
 There are separate FIFOs for each window being processed.
 
-The FIFOs are only a few elements in size and are actually all combined into a single 
+The FIFOs are only a few elements in size and are actually all combined into a single
 (wide) set of RAMs.
 
 ## Heuristics
 
-We initially did some 
+We initially did some
 [modelling](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/pippenger/test/model.ml)
 to try to find an efficient algorithm.
 

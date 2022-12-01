@@ -1,6 +1,8 @@
 ---
 layout: default
-title: NTT performance scaling
+title: NTT Performance Scaling
+category: ntt
+subcategory: design
 ---
 
 # 8 parallel cores
@@ -10,12 +12,12 @@ A large transform is broken up into thousands of smaller INTT transforms which m
 performed in parallel.
 
 This is the approach taken in our core.  The first level of scaling is implemented in the
-[parallel cores](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/parallel_cores.ml) 
+[parallel cores](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/parallel_cores.ml)
 module which conceptually groups 8 INTT cores together.  The actual design is slightly more
 optimal in that it shares a single controller module for all 8 data paths and related memories.
 
-The grouping of 8 cores was chosen as this matches our memory bus width.  Each core has a 64 bit 
-input and output bus for loading and storing coefficients.  $8 x 64 = 512$ which is the required 
+The grouping of 8 cores was chosen as this matches our memory bus width.  Each core has a 64 bit
+input and output bus for loading and storing coefficients.  $8 x 64 = 512$ which is the required
 width.
 
 # More parallelism
@@ -40,5 +42,5 @@ per pass.
 This module controls that iteration and sequences the memory access steps in parallel with the
 INTT transforms.
 
-The overall performance of the design, assuming memory can be accessed quickly enough, is bound 
+The overall performance of the design, assuming memory can be accessed quickly enough, is bound
 by the number of require iterations plus an initial memory load and final memory store operation.

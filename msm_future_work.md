@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Future Work
+category: msm
+subcategory: design
 ---
 
 # Future Work

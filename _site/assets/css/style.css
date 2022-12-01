@@ -28,19 +28,23 @@ nav.navbar {
       background: transparent;
       text-decoration: none; }
   #sidebar ul.components {
-    border-bottom: 1px solid #47748b;
-    background-color: #daf3dc; }
+    background-color: #daf3dc;
+    margin-bottom: 0;
+    /* li.active > a,
+     * a[aria-expanded="true"] {
+     *     background-color: #c1d5c3;
+     * } */ }
     #sidebar ul.components li a {
       display: block;
       padding: 10px 20px; }
     #sidebar ul.components li ul li {
-      font-size: 0.9em !important; }
+      /* font-size: 0.9em !important; */ }
       #sidebar ul.components li ul li a {
         padding-left: 40px; }
       #sidebar ul.components li ul li ul li a {
         padding-left: 60px; }
-    #sidebar ul.components li.active > a, #sidebar ul.components a[aria-expanded="true"] {
-      background-color: #c1d5c3; }
+    #sidebar ul.components li.active > a {
+      font-weight: bold; }
   #sidebar a[data-toggle="collapse"] {
     position: relative; }
   #sidebar .dropdown-toggle::after {

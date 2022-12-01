@@ -1,6 +1,8 @@
 ---
 layout: default
 title: ntt_build
+category: ntt
+subcategory: design
 ---
 
 # Zprize NTT Build Instructions

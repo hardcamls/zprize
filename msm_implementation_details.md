@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Implementation Details
+category: msm
+subcategory: design
 ---
 
 # Implementation Details
@@ -105,7 +107,7 @@ SLR1<->SLR2.
 
 In our design, we have carefully partitioned our design such that:
 
-- The RAM for running bucket sums for the windows are spreaded out into 3 SLRs 
+- The RAM for running bucket sums for the windows are spreaded out into 3 SLRs
 - The fully pipelined adder have stages explicitly splitted across multiple
   SLRs and fitted with necessary SLR-crossing registers.
 

@@ -1,6 +1,8 @@
 ---
 layout: default
-title: Ntt results
+title: NTT Results
+category: ntt
+subcategory: design
 ---
 
 # Experiments

@@ -1,6 +1,8 @@
 ---
 layout: default
 title: MSM overview
+category: msm
+subcategory: overview
 ---
 
 # Code structure

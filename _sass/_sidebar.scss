@@ -35,16 +35,15 @@
     }
 
     ul.components {
-        border-bottom: 1px solid #47748b;
         background-color: #daf3dc;
-
+        margin-bottom: 0;
         li {
             a {
                 display: block;
                 padding: 10px 20px;
             }
             ul li {
-                font-size: 0.9em !important;
+                /* font-size: 0.9em !important; */
                 a {
                     padding-left: 40px;
                 }
@@ -54,9 +53,14 @@
             }
         }
 
-        li.active > a, a[aria-expanded="true"] {
-            background-color: #c1d5c3;
+        li.active > a {
+            font-weight: bold;
         }
+
+        /* li.active > a,
+         * a[aria-expanded="true"] {
+         *     background-color: #c1d5c3;
+         * } */
     }
 
     a[data-toggle="collapse"] {

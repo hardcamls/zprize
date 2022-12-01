@@ -1,6 +1,8 @@
 ---
 layout: default
-title: NTT overview
+title: NTT Overview
+category: ntt
+subcategory: overview
 ---
 
 # Code structure
@@ -12,7 +14,7 @@ The code is built from a couple of libraries within our [submission repository](
 
 The `Hardcaml_ntt` library provides the base implementation of the NTT core and includes a software model and various unit tests.
 
-`Zprize_ntt` contains the code for both the top level 
+`Zprize_ntt` contains the code for both the top level
 [Hardcaml INTT kernel](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/hardcaml/src) and
 [tests](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/hardcaml/test) , the
 [C++ HLS DMA kernel](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/fpga/common),
@@ -26,13 +28,13 @@ You can read more about our
 [scaled up](ntt-performance-scaling.html) with shared controllers and wide
 memory bus.
 
-To achieve the required transform sizes we used the 
-[4-step](ntt-4step.html) algorithm and had to carefully consider 
+To achieve the required transform sizes we used the
+[4-step](ntt-4step.html) algorithm and had to carefully consider
 [bandwidth](ntt-bandwidth.html) limitations.
 
 We present the
-[performance](ntt-results.html) results for our 
-[top level Vitis design](ntt-top-level.html) and show how you can 
+[performance](ntt-results.html) results for our
+[top level Vitis design](ntt-top-level.html) and show how you can
 [build](ntt-build-instructions.html) the design.
 
 # Hardcaml on the Web

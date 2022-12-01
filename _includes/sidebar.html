@@ -2,19 +2,27 @@
     <div class="sidebar-header">
         <a href="/"><img src="/assets/images/hardcaml-logo.png" id="hardcaml-logo"></a>
     </div>
-    <ul class="list-unstyled components">
-        {% for section in site.data.nav %}
-        <li {% if page.title == section.title %}class="active"{% endif %}>
+    {% for section in site.data.nav %}
+    <ul class="list-unstyled components {% if page.category == section.category %}show{% endif %}">
+        <li {% if page.category == section.category %}class="active"{% endif %}>
             {% if section.sublinks %}
-            <a href="#{{ section.sublink_id }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ section.title }}</a>
-            <ul class="collapse list-unstyled" id="{{ section.sublink_id }}">
+            <a href="#{{ section.sublink_id }}"
+               data-toggle="collapse"
+               aria-expanded="{% if page.category == section.category %}true{% else %}false{% endif %}"
+               class="dropdown-toggle">{{ section.title }}</a>
+            <ul class="list-unstyled {% if page.category == section.category %}show{% else %}collapse{% endif %}"
+                id="{{ section.sublink_id }}">
                 {% for subsection in section.sublinks %}
-                <li  {% if page.title == subsection.title %}class="active"{% endif %}>
+                <li {% if page.title == subsection.title or page.title == link.title_id %}class="active"{% endif %}>
                     {% if subsection.sublinks %}
-                    <a href="#{{ subsection.sublink_id }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ subsection.title }}</a>
-                    <ul class="collapse list-unstyled" id="{{ subsection.sublink_id }}">
+                    <a href="#{{ subsection.sublink_id }}"
+                       data-toggle="collapse"
+                       aria-expanded="{% if page.subcategory == subsection.subcategory %}true{% else %}false{% endif %}"
+                       class="dropdown-toggle">{{ subsection.title }}</a>
+                    <ul class="collapse list-unstyled {% if page.subcategory == subsection.subcategory %}show{% endif %}"
+                        id="{{ subsection.sublink_id }}">
                         {% for link in subsection.sublinks %}
-                        <li {% if page.title == link.title %}class="active"{% endif %}>
+                        <li {% if page.title == link.title or page.title == link.title_id" %}class="active"{% endif %}>
                             <a href="{{ link.link }}">{{ link.title }}</a>
                         </li>
                         {% endfor %}
@@ -29,6 +37,6 @@
             <a href="{{ section.link }}">{{ section.title }}</a>
             {% endif %}
         </li>
-        {% endfor %}
     </ul>
+    {% endfor %}
 </nav>

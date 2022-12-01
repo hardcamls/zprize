@@ -1,6 +1,8 @@
 ---
 layout: default
-title: 4 step algorithm
+title: 4 Step Algorithm
+category: ntt
+subcategory: design
 ---
 
 # 4 step algorithm
@@ -16,7 +18,7 @@ target transform size of $2^24$.  We first reformulate the input data as a $2^12
 The following steps are then performed.
 
 1. Perform $2^12$ INTTs on each column
-2. Multiply each element of the matrix at location $(i,j)$ by $ω^(i.j)$, where $ω$ is the appropriate 
+2. Multiply each element of the matrix at location $(i,j)$ by $ω^(i.j)$, where $ω$ is the appropriate
    root of unity of the transform size.
 3. Perform $2^12$ INTTs on each row
 4. Transpose the result
@@ -46,7 +48,7 @@ The following table gives the total operations and overhead for a few transform 
 ## Transposition
 
 The 4-step algorithm talks about row and column transforms and a final transposition step.  This is not
-actually performed by the hardware design.  Rather data is read and written from the matrix in memory as 
+actually performed by the hardware design.  Rather data is read and written from the matrix in memory as
 follows
 
 1. Read columns
@@ -54,8 +56,8 @@ follows
 3. Read rows
 4. Write columns
 
-Reading a single column would be very inefficient for DDR style dynamic memories.  Fortunately as we 
-[scale up](ntt-performance-scaling.html) the design for performance we can read multiple columns 
+Reading a single column would be very inefficient for DDR style dynamic memories.  Fortunately as we
+[scale up](ntt-performance-scaling.html) the design for performance we can read multiple columns
 at a time. We will also show a
-[data reorganisation approach](ntt-bandwidth.html) which leads to very efficient memory 
+[data reorganisation approach](ntt-bandwidth.html) which leads to very efficient memory
 access at the cost of reordering the coefficients in the input matrix.

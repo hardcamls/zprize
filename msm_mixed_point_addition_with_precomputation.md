@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Mixed Point Addition with Precomputation
+category: msm
+subcategory: design
 ---
 
 # Mixed Point Addition with Precomputation
@@ -48,7 +50,7 @@ We can make some observations here:
 - The intermediate value of `acc` is never accessed
 - `ps` is known ahead of time
 
-The key idea in our precomputation optimization is to express the running sum 
+The key idea in our precomputation optimization is to express the running sum
 and affine points in a different coordinate system from the extended
 coordinate system. In the end of the computation, the running sum is converted
 back to the extended coordinate system.

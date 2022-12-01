@@ -1,6 +1,8 @@
 ---
 layout: default
 title: msm_test
+category: msm
+subcategory: design
 ---
 
 # MSM FPGA Test Harness

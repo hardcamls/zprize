@@ -1,59 +1,83 @@
 - title: Multi-scalar multiplication
-  nav_title: MSM overview
-  link: /msm_overview
   sublink_id: "msm-children"
+  category: msm
   sublinks:
+    - title: MSM overview
+      link: /msm_overview
+      subcategory: overview
     - title: Design Overview
       sublink_id: "msm-design"
-      link: "#"
+      subcategory: design
       sublinks:
         - title: Field Multiplication
           link: /msm_field_multiplication
+        - title: Twisted Edwards Point Representation
+          link: /msm_point_representation.html
+        - title: Scalar Transformation
+          link: /scalar_transformation.html
         - title: Mixed Point Addition with Precomputation
-          link: "#"
-        - title: Top level Pippenger design and it’s controller
-          link: "#"
+          link: /msm_mixed_point_addition_with_precomputation.html
+        - title: Top level Pippenger design
+          link: /pippenger.html
+        - title: Top level Pippenger controller
+          link: /msm-pippenger-controller.html
         - title: Implementation Details
-          link: "#"
+          link: /msm_implementation_details.html
         - title: Results
-          link: "#"
+          link: /msm_results.html
         - title: Future Work
-          link: "#"
+          link: /msm_future_work.html
         - title: Host driver software
-          link: "#"
+          title_id: Host Driver
+          link: /msm_host.html
         - title: Benchmarking and test harness
+          link: /msm_test.html
     - title: Hardcaml on the Web
       sublink_id: "msm-hardcaml"
+      subcategory: hardcaml
       sublinks:
         - title: Karatsuba ofman multiplier
-          link: "#"
+          title_id: MSM Karatsuba Ofman Multiplier
+          link: /apps/msm/msm-karatsuba-ofman-mult.html
         - title: Barrett Reduction
-          link: "#"
+          title_id: MSM Barrett Reduction
+          link: /apps/msm/msm-barrett-reduction.html
         - title: Top level design as a Vitis kernel
-          link: "#"
+          title_id: MSM Top level Vitis Kernel
+          link: /apps/msm/msm-top-app.html
 - title: Inverse NTT
   link: /ntt-overview
   sublink_id: "ntt-children"
+  category: ntt
   sublinks:
+    - title: NTT Overview
+      link: /ntt-overview
+      subcategory: overview
     - title: Design Overviews
       sublink_id: "ntt-design"
+      subcategory: design
       sublinks:
         - title: Core (I)NTT design
+          title_id: Core INTT design
           link: /ntt-core.html
         - title: NTT Performance Scaling
           link: /ntt-performance-scaling.html
         - title: 4 Step Algorithm
           link: /ntt-4step.html
         - title: NTT Bandwidth
+          title_id: NTT Memory Bandwidth
           link: /ntt-bandwidth.html
         - title: NTT Results
           link: /ntt-results.html
         - title: Top level Hardcaml design
+          title_id: FPGA top level design
           link: /ntt-top-level.html
         - title: Zprize NTT Build Instructions
+          title_id: ntt_build
           link: /ntt-build-instructions.html
     - title: Hardcaml on the Web
       sublink_id: "ntt-hardcaml"
+      subcategory: hardcaml
       sublinks:
         - title: Core INTT design
           link: /apps/ntt/ntt-core-app.html

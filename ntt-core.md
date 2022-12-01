@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Core INTT design
+category: ntt
+subcategory: design
 ---
 
 # Core (I)NTT design
@@ -45,8 +47,8 @@ The controller sequences a decimation in time INTT.
 
 ## Data path
 
-The [data path](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/datapath.ml) 
-consists of 2 field [multipliers and adders](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/gf.ml) 
+The [data path](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/datapath.ml)
+consists of 2 field [multipliers and adders](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/gf.ml)
 and takes and produces 2 coefficients per cycle.
 
 The datapath is heavily pipelined, which is a problem for updating the root each cycle.  To
@@ -72,4 +74,3 @@ When a `flip` signal is toggled the port directions swap.
 
 The RAMs are architected such that we can load new INTT coefficients and store
 a processed INTT concurrently with an INTT computation.
-

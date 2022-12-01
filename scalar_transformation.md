@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Scalar Transformation
+category: msm
+subcategory: design
 ---
 
 # Scalar Transformation
@@ -24,7 +26,7 @@ binary representation).
 
 Then, we perform the following iterative transform from $i = 0$ to $N-2$.
 
-$$ 
+$$
 If d_i ≥ 2^{b_i-1}: (d_i, d_{i+1}) → (d_i - 2^{b_i}, d_{i+1} + 1)
 $$
 
@@ -35,6 +37,6 @@ affine space, it just corresponds to negating the x-coordinate). So, for all but
 we can halve the number of buckets and use point subtraction for all the negative buckets.
 
 The module implements this transform as a fully unrolled (N-1)-stage pipeline, with optional skid buffers
-in order to cut combinational ready signal paths. It is designed in a modular way so that the 
-overall scalar transformation can be extended to include many further transforms using other 
+in order to cut combinational ready signal paths. It is designed in a modular way so that the
+overall scalar transformation can be extended to include many further transforms using other
 scalars (i.e. 2, 3, etc.), if point multiples were precomputed and loaded in the FPGA.

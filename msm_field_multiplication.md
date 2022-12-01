@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Field Multiplication
+category: msm
+subcategory: design
 ---
 
 # Field Multiplication
@@ -105,33 +107,33 @@ and post adder stages. This allowed us to easily experiment with various
 multiplier design points.
 
 ## Barrett Reduction
-When computing multiplications in modular arithmetic, we will necessarily need to reduce our 
+When computing multiplications in modular arithmetic, we will necessarily need to reduce our
 products within the modulus - in other words, given $A ⋅ B = q ⋅ P + r$, where $q, r$ are integers
-and $r∈[0,P-1]$, we wish to find $r$. In the most general case, performing this reduction requires 
+and $r∈[0,P-1]$, we wish to find $r$. In the most general case, performing this reduction requires
 us to divide the product by $P$, which is very expensive on FPGAs (because often, the best way to do
 this is to simply long divide). However, in our specific case, we know that $P$ is a fixed constant,
 so we can do better. We implement [Barrett Reduction](https://en.wikipedia.org/wiki/Barrett_reduction),
 an efficient modular reduction algorithm, with several optimizations (discussed below).
 
-The idea of the Barrett Reduction algorithm is to take the product $A ⋅ B$ and approximate $c$ 
+The idea of the Barrett Reduction algorithm is to take the product $A ⋅ B$ and approximate $c$
 based on 2 main stages.
 
 ### Stage 1: Coarse Approximation
 We wish to compute $q = ⌊{ AB } / P⌋$. Let $n = ⌊ \log_2P ⌋$ be the number of bits needed to
-represent $P$. 
+represent $P$.
 
 For the coarse approximation, we can approximate $q$ by approximating $1/P$ as $⌊2^{2n}/P⌋/2^{2n}$.
-In other words, we take the $2n$ most significant bits of $1/P$ and use them as an approximation. 
+In other words, we take the $2n$ most significant bits of $1/P$ and use them as an approximation.
 Letting $c = ⌊2^{2n}/P⌋ < 2^{n+1}$, our first approximation for $q$ is given by $q' = ⌊{ AB ⋅ c } / 2^{2n}⌋$.
 
-However, note that this still requires a $2n$-by-$n$ multiplication - because our Karatsuba 
+However, note that this still requires a $2n$-by-$n$ multiplication - because our Karatsuba
 multiplier described above only works over equal-width operands, this creates an inefficient multiplication.
 So, we perform a second approximation in order to reduce the width of the numbers being multiplied -
 $q'' = ⌊⌊ { AB } / 2^n ⌋ ⋅{c / 2^{n}}⌋$. To compute $q''$, we perform two multiplications - first we compute
 $ AB $, and then we multiply the top $n$ bits of the result by $c$ (an $n+1$-digit number) and take
 the top $n$ bits of the result.
 
-Overall, for stage 1 of Barrett's Algorithm, we compute $q''$, and then compute $r' = AB - q''P$. We can show with 
+Overall, for stage 1 of Barrett's Algorithm, we compute $q''$, and then compute $r' = AB - q''P$. We can show with
 some bounding arguments that $0 ≤ q - q'' ≤ 3$, so we know that approximate remainder $r'$ is within 3 multiples of $P$
 from the true remainder $r$.
 
@@ -141,7 +143,7 @@ a coarse reduction scheme that gives $e=3$, but we can tune this using optimizat
 
 In the standard implementation of Barrett reduction, the coarse approximation stage is followed by a
 fine approximation stage in which we compute $r' - mP$ for $ m∈[0,e] $ and pick the result that is within the
-range $[0, P-1]$. As $e$ gets large, this naive implementation becomes very expensive, so we show an 
+range $[0, P-1]$. As $e$ gets large, this naive implementation becomes very expensive, so we show an
 optimized implementation based on BRAM lookups below.
 
 This is the most basic form of Barrett reduction, but we extend it with further optimizations.
@@ -156,7 +158,7 @@ an LSB-truncated Karatsuba multiplier.
 
 ## Approximate MSB Multiplication
 
-In the discussion above, we only keep the $n$ most-significant bits of $⌊ { AB } / 2^n ⌋ ⋅c$. Instead of 
+In the discussion above, we only keep the $n$ most-significant bits of $⌊ { AB } / 2^n ⌋ ⋅c$. Instead of
 using a full multiplier to perform this computation, we can use an approximate MSB-truncated multiplier
 and propagate the error into the overall error bounds on the coarse reduction stage of Barrett reduction.
 
@@ -169,7 +171,7 @@ For further reading, there are many thorough resources on Barrett reduction and 
 
 ## BRAM Reduction
 
-From the MSB approximation, we essentially get a knob which lets us trade-off the coarseness of 
+From the MSB approximation, we essentially get a knob which lets us trade-off the coarseness of
 Barrett reduction with the resource usage of its constituent multipliers. Even when pipelined, if $e$
 is large, the fine reduction scheme presented above requires many stages of shifts and subtractions
 to choose the final reduced remainder. Instead, we use a BRAM lookup to reduce this to a 2-stage pipeline that
@@ -182,7 +184,7 @@ We do this by precomputing and loading a ROM $R$ with $2^e$ entries. We set $R[0
 for $i≥1$, entry $R[i]$ holds the final $n$ bits of the largest multiple of $p$ that has $i-1$ as its $e$-bit
 prefix when written with $e+n$ bits. In particular,
 
- $$R[i] = ⌊{(i-1) ⋅ 2^n} / {p} ⌋ (\mod 2^{n}) $$ 
+ $$R[i] = ⌊{(i-1) ⋅ 2^n} / {p} ⌋ (\mod 2^{n}) $$
 
 Then, given an input $r'∈[0, {2^e}P)$ with $e+n$ bits, we can lookup its $e$-bit prefix in the ROM
 and subtract the resulting value from the $n$-bit suffix of our input value:
@@ -190,7 +192,7 @@ and subtract the resulting value from the $n$-bit suffix of our input value:
 $$ r'[n-1:0] - R[r'[e-1+n:n]] $$
 
 (note that we only need to use the lower $n$ bits because we know what the higher bits are by construction). Then,
-when the lookup index is nonzero, we have to invert the MSB of the signed result to get an unsigned reduction 
+when the lookup index is nonzero, we have to invert the MSB of the signed result to get an unsigned reduction
 $r''$ to the range $\[0,3p)$.
 
 After this, we do one more subtraction stage where we just multiplex between $\{r'', r''-p, r''-2p\}$

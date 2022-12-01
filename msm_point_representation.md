@@ -1,6 +1,8 @@
 ---
 layout: default
 title: Twisted Edwards Point Representation
+category: msm
+subcategory: design
 ---
 
 # Twisted Edwards Point Representation

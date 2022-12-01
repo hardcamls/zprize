@@ -1,6 +1,8 @@
 ---
 layout: default
 title: pippenger
+category: msm
+subcategory: design
 ---
 
 # FPGA Implementation of the MSM Pippengers algorithm

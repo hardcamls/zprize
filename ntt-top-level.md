@@ -1,12 +1,14 @@
 ---
 layout: default
 title: FPGA top level design
+category: ntt
+subcategory: design
 ---
 
 # Top level Hardcaml design
 
-The [top level Hardcaml design](https://github.com/fyquah/hardcaml_zprize/blob/master/zprize/ntt/hardcaml/src/top.ml) 
-instantiates the [parallel INTT cores](ntt-performance-scaling.html) 
+The [top level Hardcaml design](https://github.com/fyquah/hardcaml_zprize/blob/master/zprize/ntt/hardcaml/src/top.ml)
+instantiates the [parallel INTT cores](ntt-performance-scaling.html)
 along with state machines to sequence memory reads and writes and a transposer module.
 
 <img src="images/parallel-ntt-top-level.png" width="70%">
