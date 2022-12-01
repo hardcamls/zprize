@@ -16,7 +16,7 @@ splash-header: true
 </div>
 
 
-# Hardcaml Zprize
+# HARDCAML ZPRIZE
 
 
 <div class="columns-container">

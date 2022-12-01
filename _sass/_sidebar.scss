@@ -6,6 +6,8 @@
     min-width: 300px;
     max-width: 300px;
     min-height: 100vh;
+    box-shadow: $shadow-right;
+    z-index: 1;
 
     a {
         color: black;
