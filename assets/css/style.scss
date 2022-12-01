@@ -69,7 +69,7 @@ a > code {
     #content {
     		position: relative;
         width: 100%;
-        margin-top: 100px;
+        margin-top: 98px;
         transition: all 0.2s;
     }
 
@@ -86,7 +86,7 @@ a > code {
     }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 993px) {
     #content {
         margin-left: 300px;
     }
@@ -96,4 +96,12 @@ a > code {
     body.sidenav-active #content {
         margin-left: 300px;
     }
+}
+
+@media (max-width: 500px) {
+		.wrapper {
+				.page {
+					 padding: $page-margin-mobile;
+				}
+		}
 }
