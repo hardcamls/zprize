@@ -16,17 +16,26 @@ body {
 }
 
 h1 {
-    font-family: $bold-font;
-	  font-size: 24px;
-    margin-bottom: 30px;
-    text-transform: uppercase;
+  font-family: $bold-font;
+	font-size: 28px;
+  margin-bottom: 45px;
+  text-transform: uppercase;
+  &:not(:first-child) {
+  	margin-top: 55px;
+  }
 }
 
 h2 {
-    font-family: $bold-font;
-	  font-size: 14px;
-    margin-bottom: 16px;
-    text-transform: uppercase;
+  font-family: $medium-font;
+	font-size: 22px;
+  margin: 50px 0 20px;
+  text-transform: uppercase;
+}
+
+h3 {
+  font-family: $medium-font;
+	font-size: 18px;
+  margin: 30px 0 15px;
 }
 
 p {
@@ -35,8 +44,22 @@ p {
 }
 
 a {
-	  color: $link-color;
-	  text-decoration: none;
+	color: $link-color;
+	text-decoration: none;
+	&:hover {
+		color: $link-color;
+	}
+}
+
+a > code {
+	color: $code-color;
+	&:hover {
+		color: $code-color;
+	}
+}
+
+.kdmath {
+	margin-bottom: 20px;
 }
 
 .wrapper {
@@ -44,9 +67,22 @@ a {
     align-items: stretch;
 
     #content {
+    		position: relative;
         width: 100%;
         margin-top: 100px;
         transition: all 0.2s;
+    }
+
+    .page {
+    	position: relative;
+    	padding: $page-margin;
+    	margin-bottom: 150px;
+    	left: 50%;
+    	transform: translate(-50%);
+    	max-width: 1000px;
+    	img {
+    		max-width: 100%;
+    	}
     }
 }
 

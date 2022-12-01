@@ -129,21 +129,21 @@ nav.navbar {
   .splash-header .logo-splash {
     position: absolute;
     height: 90%;
-    top: 50%;
+    top: 48%;
     left: 45%;
     transform: translate(-50%, -50%); }
   .splash-header .text {
     position: absolute;
     width: 40%;
-    top: 46.5%;
+    top: 44.5%;
     left: 56.5%; }
     .splash-header .text h1 {
       font-size: 50px;
       margin-left: 0;
       margin-bottom: 10px; }
-    .splash-header .text p {
-      font-size: 17px; }
 
+.landing .wrapper .page {
+  padding: 0; }
 .landing .heading-ribbon-container {
   width: 100%;
   height: 100px;
@@ -162,6 +162,11 @@ nav.navbar {
   transform: translate(0, -50%); }
 .landing h1 {
   margin-left: 80px; }
+.landing h2 {
+  font-family: "Alright Sans LTV Bold", "Alright Sans Bold", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  margin-bottom: 16px;
+  text-transform: uppercase; }
 .landing .columns-container {
   display: flex;
   justify-content: space-between;
@@ -176,15 +181,22 @@ body {
 
 h1 {
   font-family: "Alright Sans LTV Bold", "Alright Sans Bold", Helvetica, Arial, sans-serif;
-  font-size: 24px;
-  margin-bottom: 30px;
+  font-size: 28px;
+  margin-bottom: 45px;
   text-transform: uppercase; }
+  h1:not(:first-child) {
+    margin-top: 55px; }
 
 h2 {
-  font-family: "Alright Sans LTV Bold", "Alright Sans Bold", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  margin-bottom: 16px;
+  font-family: "Alright Sans LTV Med", "Alright Sans Med", Helvetica, Arial, sans-serif;
+  font-size: 22px;
+  margin: 50px 0 20px;
   text-transform: uppercase; }
+
+h3 {
+  font-family: "Alright Sans LTV Med", "Alright Sans Med", Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  margin: 30px 0 15px; }
 
 p {
   font-family: "Alright Sans LTV Regular", "Alright Sans", Helvetica, Arial, sans-serif;
@@ -193,14 +205,34 @@ p {
 a {
   color: #e15ca0;
   text-decoration: none; }
+  a:hover {
+    color: #e15ca0; }
+
+a > code {
+  color: #26b832; }
+  a > code:hover {
+    color: #26b832; }
+
+.kdmath {
+  margin-bottom: 20px; }
 
 .wrapper {
   display: flex;
   align-items: stretch; }
   .wrapper #content {
+    position: relative;
     width: 100%;
     margin-top: 100px;
     transition: all 0.2s; }
+  .wrapper .page {
+    position: relative;
+    padding: 80px;
+    margin-bottom: 150px;
+    left: 50%;
+    transform: translate(-50%);
+    max-width: 1000px; }
+    .wrapper .page img {
+      max-width: 100%; }
 
 @media (min-width: 992px) {
   #content {
