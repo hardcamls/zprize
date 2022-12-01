@@ -1,7 +1,4 @@
-<nav id="sidebar">
-    <div class="sidebar-header">
-        <a href="/"><img src="/assets/images/hardcaml-logo.png" id="hardcaml-logo"></a>
-    </div>
+<div id="sidebar">
     {% for section in site.data.nav %}
     <ul class="list-unstyled components {% if page.category == section.category %}show{% endif %}">
         <li {% if page.category == section.category %}class="active"{% endif %}>
@@ -39,4 +36,4 @@
         </li>
     </ul>
     {% endfor %}
-</nav>
+</div>

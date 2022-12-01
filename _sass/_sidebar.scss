@@ -1,43 +1,24 @@
-.close-navbar-toggler{
-    position:absolute;
-    top:0;
-    left:0;
-    height:100%;
-    width:100%;
-    z-index:1;
-    cursor:pointer;
-}
-.close-navbar-toggler.collapsed{
-    z-index:-1;
-}
-
-
 body.sidebar-active .wrapper #content {
     margin-left: 300px;
     transition: all 0.3s;
 }
 
 #sidebar {
+    top: 97px;
     background: black;
     color: #fff;
     transition: all 0.3s;
     min-width: 300px;
     max-width: 300px;
-    min-height: 100vh;
-    /* box-shadow: 4px 0 12px -4px rgba(0, 0,0, .8); */
+    min-height: calc(100vh - 100px);
     box-shadow: $shadow-right;
-    /* position: fixed; */
+    position: fixed;
     overflow-y: auto;
-    top: 0;
     bottom: 0;
-    z-index: 2;
+    z-index: 999;
 
     &.active {
         margin-left: -300px;
-    }
-
-    #hardcaml-logo {
-        width: 255px;
     }
 
     .sidebar-header {
@@ -94,7 +75,7 @@ body.sidebar-active .wrapper #content {
 
 
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     #sidebar {
         margin-left: -300px;
     }

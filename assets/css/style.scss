@@ -13,6 +13,13 @@
 
 body {
     font-family: $main-font;
+
+    &.sidenav-active {
+        overflow: hidden;
+        #overlay {
+            background-color: rgba(0,0,0,0.3);
+        }
+    }
 }
 
 a {
@@ -24,7 +31,22 @@ a {
     display: flex;
     align-items: stretch;
 
+    #overlay {
+        position: absolute;
+        right: 0;
+        left: 0;
+        top: 0;
+        bottom:0;
+        z-index: 99;
+    }
     #content {
         width: 100%;
+        margin-top: 100px;
+    }
+}
+
+@media (min-width: 992px) {
+    #content {
+        margin-left: 300px;
     }
 }

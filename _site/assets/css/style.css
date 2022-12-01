@@ -53,45 +53,41 @@
   src: url("/static/fonts/Alright-Sans-LTV-Bold/99c5df9c-344e-4a66-b917-e8854e06ff97-2.eot");
   src: url("/static/fonts/Alright-Sans-LTV-Bold/99c5df9c-344e-4a66-b917-e8854e06ff97-2.eot#iefix") format("embedded-opentype"), url("/static/fonts/Alright-Sans-LTV-Bold/99c5df9c-344e-4a66-b917-e8854e06ff97-3.woff") format("woff"), url("/static/fonts/Alright-Sans-LTV-Bold/99c5df9c-344e-4a66-b917-e8854e06ff97-5.woff2") format("woff2"); }
 nav.navbar {
-  background-color: black;
-  padding: 21px 0; }
-  nav.navbar #hamburger-icon {
-    width: 30px; }
-
-.close-navbar-toggler {
-  position: absolute;
+  position: fixed;
   top: 0;
+  right: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 1;
-  cursor: pointer; }
-
-.close-navbar-toggler.collapsed {
-  z-index: -1; }
+  z-index: 9;
+  background-color: black;
+  padding: 21px 0;
+  z-index: 999; }
+  nav.navbar .container-fluid {
+    justify-content: flex-start; }
+  nav.navbar #hamburger-icon {
+    width: 30px;
+    margin-left: 20px; }
+  nav.navbar #hardcaml-logo {
+    width: 255px; }
 
 body.sidebar-active .wrapper #content {
   margin-left: 300px;
   transition: all 0.3s; }
 
 #sidebar {
+  top: 97px;
   background: black;
   color: #fff;
   transition: all 0.3s;
   min-width: 300px;
   max-width: 300px;
-  min-height: 100vh;
-  /* box-shadow: 4px 0 12px -4px rgba(0, 0,0, .8); */
+  min-height: calc(100vh - 100px);
   box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
-  /* position: fixed; */
+  position: fixed;
   overflow-y: auto;
-  top: 0;
   bottom: 0;
-  z-index: 2; }
+  z-index: 999; }
   #sidebar.active {
     margin-left: -300px; }
-  #sidebar #hardcaml-logo {
-    width: 255px; }
   #sidebar .sidebar-header {
     padding: 12px 20px; }
     #sidebar .sidebar-header a, #sidebar .sidebar-header a:hover {
@@ -123,7 +119,7 @@ body.sidebar-active .wrapper #content {
     right: 20px;
     transform: translateY(-50%); }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   #sidebar {
     margin-left: -300px; }
 
@@ -178,6 +174,10 @@ body.sidebar-active .wrapper #content {
 
 body {
   font-family: "Alright Sans LTV", "Alright Sans", Helvetica, Arial, sans-serif; }
+  body.sidenav-active {
+    overflow: hidden; }
+    body.sidenav-active #overlay {
+      background-color: rgba(0, 0, 0, 0.3); }
 
 a {
   color: #e15ca0;
@@ -186,5 +186,17 @@ a {
 .wrapper {
   display: flex;
   align-items: stretch; }
+  .wrapper #overlay {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 99; }
   .wrapper #content {
-    width: 100%; }
+    width: 100%;
+    margin-top: 100px; }
+
+@media (min-width: 992px) {
+  #content {
+    margin-left: 300px; } }
