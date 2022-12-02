@@ -57,16 +57,19 @@ nav.navbar {
   z-index: 999; }
   nav.navbar .container-fluid {
     justify-content: space-between; }
+  nav.navbar .navbar-toggler {
+    border: 0;
+    box-shadow: none; }
   nav.navbar #hamburger-icon {
     width: 30px;
     margin-left: 20px; }
   nav.navbar #hardcaml-logo {
     margin-left: 10px;
-    width: 255px; }
+    width: 200px; }
 
 #sidebar {
-  top: 97px;
   background: #daf3dc;
+  top: 86px;
   color: #fff;
   transition: all 0.2s;
   min-width: 300px;
@@ -264,7 +267,7 @@ a > code {
   .wrapper #content {
     position: relative;
     width: 100%;
-    margin-top: 98px;
+    margin-top: 86px;
     transition: all 0.2s; }
   .wrapper .page {
     position: relative;

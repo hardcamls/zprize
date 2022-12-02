@@ -69,7 +69,7 @@ a > code {
     #content {
     		position: relative;
         width: 100%;
-        margin-top: 98px;
+        margin-top: 86px;
         transition: all 0.2s;
     }
 
@@ -101,7 +101,7 @@ a > code {
 @media (max-width: 500px) {
 		.wrapper {
 				.page {
-					 padding: $page-margin-mobile;
+					padding: $page-margin-mobile;
 				}
 		}
 }
