@@ -18,8 +18,10 @@
         - title: Mixed Point Addition with Precomputation
           link: /msm_mixed_point_addition_with_precomputation.html
         - title: Top level Pippenger design
+          title_id: pippenger
           link: /pippenger.html
         - title: Top level Pippenger controller
+          title_id: Pippenger Controller
           link: /msm-pippenger-controller.html
         - title: Implementation Details
           link: /msm_implementation_details.html
