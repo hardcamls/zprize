@@ -35,4 +35,44 @@
 		}
 	}
 
+
+
+
+	@media ( max-width: 1300px ) {
+		height: auto;
+		.content {
+			position: relative;
+		}
+    .logo-splash {
+    	position: relative;
+    	left: 50%;
+    	height: auto;
+    	top: auto;
+    	width: 100%;
+    	transform: translate(-50%);
+    	padding: $page-margin;
+    }
+    .text {
+    	position: relative;
+    	width: 100%;
+    	left: 50%;
+    	transform: translate(-50%);
+    	padding: 0 $page-margin $page-margin;
+    	p:last-child {
+    		margin: 0;
+    	}
+    }
+	}
+
+	@media ( max-width: 500px ) {
+    .logo-splash {
+    	padding: $page-margin-mobile;
+    }
+    .text {
+    	padding: $page-margin-mobile;
+    }
+	}
+
+
+
 }

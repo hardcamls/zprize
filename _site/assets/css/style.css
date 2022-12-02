@@ -56,7 +56,7 @@ nav.navbar {
   padding: 21px 0;
   z-index: 999; }
   nav.navbar .container-fluid {
-    justify-content: flex-start; }
+    justify-content: space-between; }
   nav.navbar .navbar-toggler {
     border: 0;
     box-shadow: none; }
@@ -64,11 +64,13 @@ nav.navbar {
     width: 30px;
     margin-left: 20px; }
   nav.navbar #hardcaml-logo {
+    margin-left: 10px;
     width: 200px; }
 
 #sidebar {
   top: 86px;
-  background: black;
+  background: #daf3dc;
+  width: 200px; 
   color: #fff;
   transition: all 0.2s;
   min-width: 300px;
@@ -144,13 +146,39 @@ nav.navbar {
       font-size: 50px;
       margin-left: 0;
       margin-bottom: 10px; }
+  @media (max-width: 1300px) {
+    .splash-header {
+      height: auto; }
+      .splash-header .content {
+        position: relative; }
+      .splash-header .logo-splash {
+        position: relative;
+        left: 50%;
+        height: auto;
+        top: auto;
+        width: 100%;
+        transform: translate(-50%);
+        padding: 80px; }
+      .splash-header .text {
+        position: relative;
+        width: 100%;
+        left: 50%;
+        transform: translate(-50%);
+        padding: 0 80px 80px; }
+        .splash-header .text p:last-child {
+          margin: 0; } }
+  @media (max-width: 500px) {
+    .splash-header .logo-splash {
+      padding: 20px; }
+    .splash-header .text {
+      padding: 20px; } }
 
 .landing .wrapper .page {
   padding: 0; }
 .landing .heading-ribbon-container {
   width: 100%;
   height: 100px;
-  padding-left: 80px;
+  padding: 0 80px;
   margin: 0 0 50px 0; }
 .landing .heading-ribbon {
   position: relative;
@@ -164,7 +192,8 @@ nav.navbar {
   left: 39px;
   transform: translate(0, -50%); }
 .landing h1 {
-  margin-left: 80px; }
+  margin-left: 80px;
+  margin-bottom: 0; }
 .landing h2 {
   font-family: "Alright Sans LTV Bold", "Alright Sans Bold", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -178,6 +207,20 @@ nav.navbar {
   .landing .columns-container .column {
     flex: 1 1 0;
     width: 48%; }
+@media (max-width: 800px) {
+  .landing .columns-container {
+    display: block; }
+    .landing .columns-container .column {
+      width: 100%; }
+  .landing .heading-ribbon {
+    max-width: 100%; } }
+@media (max-width: 500px) {
+  .landing .heading-ribbon-container {
+    padding: 0 20px; }
+  .landing h1 {
+    margin-left: 20px; }
+  .landing .columns-container {
+    margin: 0 20px 150px; } }
 
 body {
   font-family: "Alright Sans LTV Regular", "Alright Sans", Helvetica, Arial, sans-serif; }
@@ -237,9 +280,12 @@ a > code {
     .wrapper .page img {
       max-width: 100%; }
 
-@media (min-width: 992px) {
+@media (min-width: 993px) {
   #content {
     margin-left: 300px; } }
 @media (max-width: 992px) {
   body.sidenav-active #content {
     margin-left: 300px; } }
+@media (max-width: 500px) {
+  .wrapper .page {
+    padding: 20px; } }
