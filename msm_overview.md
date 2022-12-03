@@ -20,14 +20,25 @@ implementation.
 
 # Design overview
 
-Learn more about our design.
+Our implementation is built around pippenger's algorithm to compute
+multi-scalar multiplication. Our implementation splits work between the
+FPGA (work is coordinated by a pippenger controller) and the host device.
+
+* [Top level Pippenger Algorithm Design](pippenger.html)
+* [Pippenger controller](msm-pippenger-controller.html)
+
+The heart of the computation is performed by a 1-per-cycle throughput mixed
+adders. The pages below details the mathematics behind the implementation of
+the adder.
 
 * [Field Multiplication](msm_field_multiplication.html)
 * [Point Representation](msm_point_representation.html)
 * [Scalar Transformation](scalar_transformation.html)
 * [Mixed Point Addition with Precomputation](msm_mixed_point_addition_with_precomputation.html)
-* [Top level Pippenger Algorithm Design](pippenger.html)
-* [Pippenger controller](msm-pippenger-controller.html)
+
+We discuss the low-level engineering implementation details, final results
+and reproduction guides in the pages below.
+
 * [Implementation Details](msm_implementation_details.html)
 * [Results](msm_results.html)
 * [Future Work](msm_future_work.html)
@@ -36,8 +47,7 @@ Learn more about our design.
 
 # Hardcaml on the Web
 
-Configure our designs, download RTL and perform simulations all within the
-comfort of your web browser!
+Configure our designs, download RTL and perform simulations all within your browser!
 
 - [Karatsuba ofman multiplier](apps/msm/msm-karatsuba-ofman-mult.html)
 - [Barrett Reduction](apps/msm/msm-barrett-reduction.html)
