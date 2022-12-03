@@ -43,7 +43,7 @@ and reproduction guides in the pages below.
 * [Results](msm_results.html)
 * [Future Work](msm_future_work.html)
 * [Host driver software](msm_host.html)
-* [Benchmarking and test harness](msm_test.html)
+* [Building, Testing and Benchmarking](msm_test.html)
 
 # Hardcaml on the Web
 
