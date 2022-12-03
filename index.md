@@ -1,6 +1,6 @@
 ---
 layout: default
-title: hardcaml_zprize
+title: Hardcaml Zprize
 cname: landing
 splash-header: true
 ---
