@@ -25,9 +25,9 @@ splash-header: true
 
 		<h2>Multi-scalar multiplication</h2>
 
-		<p>The Multi-scalar multiplication (MSM) competition tasked us with building an FPGA design to multiply $2^26$ BLS12-377 G1 affine points by 253 bit scalars from the associated scalar field and add them all as fast as possible.</p>
+		<p>The Multi-scalar multiplication (MSM) competition tasked us with building an FPGA design to multiply $2^26$ points on the BLS12-377 elliptic curve (with the G1 subgroup generator) by scalars from the associated 253 bit scalar field and add them all as fast as possible.</p>
 
-		<p>The platform targeted was <a href="https://aws.amazon.com/ec2/instance-types/f1/">Amazon F1</a> which uses Xilinx UltraScale+ V9P FPGAs.</p>
+		<p>The platform targeted was Amazon F1, which uses a Xilinx UltraScale+ V9P FPGA with DDR memory banks.</p>
 
 		<p>Read more about the <a href="msm_overview.html">implementation</a></p>
 
@@ -38,13 +38,11 @@ splash-header: true
 
 		<h2>Inverse NTT</h2>
 
-		<p>This competition track required us to build an Inverse Number Theoretic Transform (INTT) accelerator capable of performing transforms of size $2^24$.</p>
+		<p>This competition track required us to build an Inverse Number Theoretic Transform (INTT) accelerator capable of performing transforms of size $2^24$. INTTs are conceptually similar to the Fourier Transforms - working over a finite field instead of complex numbers.</p>
 
-		<p>NTT's are conceptually very similar to the well known Fast Fourier	Transform. The only difference is instead of working over complex numbers, the transform works over a finite field. For this project the finite field contains values of size 64 bits modulo a so called <a href="https://en.wikipedia.org/wiki/Solinas_prime">Solinas prime</a> equal to $2^64 - 2^32 + 1$.</p>
+		<p>The platform tergetted was the Xilinx Varium C1100 accelerator card. The card contains Virtex UltrasScale+ FPGA with HBM2.</p>
 
-		<p>The platform tergetted is the Xilinx <a href="https://www.xilinx.com/products/accelerators/varium/c1100.html">Varium C1100</a> accelerator card. The card contains Virtex UltrasScale+ FPGA with HBM2.</p>
-
-		<p>Read more about the [implementation](ntt-overview.html).</p>
+		<p>Read more about the <a href="ntt-overview.html">implementation</a></p>
 
 	</div>
 
