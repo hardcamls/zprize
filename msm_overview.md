@@ -5,7 +5,9 @@ category: msm
 subcategory: overview
 ---
 
-The Multi-scalar multiplication (MSM) competition tasked us with building an
+# Multi-Scalar Multiplication (MSM)
+
+The Multi-Scalar multiplication (MSM) competition tasked us with building an
 FPGA design to multiply $2^26$ points on the BLS12-377 elliptic curve (with the
 G1 subgroup generator) by scalars from the associated 253 bit scalar field and
 add them all as fast as possible.
