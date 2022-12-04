@@ -12,8 +12,24 @@ FPGA design to multiply $2^26$ points on the BLS12-377 elliptic curve (with the
 G1 subgroup generator) by scalars from the associated 253 bit scalar field and
 add them all as fast as possible.
 
+The mathematical formulation of the MSM problem is as follows:
+
+$$∑↙{i=0}↖{N-1} p_{i} s_{i}$$
+
+where $p_{i}$ are points on the BLS12-377 elliptic curve, $s_{i}$ are
+scalars from a corresponding 253-bit scalar field and $N$ is the number of
+points. The points $p_{i}$ are known at initialization, but the scalars $s_{i}$
+are only known during evaluation.
+
+The challenge here is that [point
+addition](https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication#Point_addition)
+(adding two elliptic curve points together) and [point
+multiplication](https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication#Point_multiplication)
+(multiplying a point on an elliptic curve by a scalar) are both very expensive
+operations.
+
 The platform targeted was [Amazon
-F1 f1.2xlarge](https://aws.amazon.com/ec2/instance-types/f1/), which uses a Xilinx
+f1.2xlarge](https://aws.amazon.com/ec2/instance-types/f1/), which uses a Xilinx
 UltraScale+ VU9P FPGA with DDR memory banks. We have utilized the [aws-fpga
 Vitis flow](https://github.com/aws/aws-fpga/blob/master/Vitis/README.md) in our
 implementation.
@@ -22,10 +38,11 @@ implementation.
 
 Our implementation is built around pippenger's algorithm to compute
 multi-scalar multiplication. Our implementation splits work between the
-FPGA (work is coordinated by a pippenger controller) and the host device.
+FPGA and the host device. The pages below describes the architecture of our
+design and the main controller to compute pippenger's algorithm.
 
-* [Top level Pippenger Algorithm Design](pippenger.html)
-* [Pippenger controller](msm-pippenger-controller.html)
+* [Top level Pippenger Design](pippenger.html)
+* [Pippenger Controller](msm-pippenger-controller.html)
 
 The heart of the computation is performed by a 1-per-cycle throughput mixed
 adders. The pages below details the mathematics behind the implementation of
@@ -41,9 +58,12 @@ and reproduction guides in the pages below.
 
 * [Implementation Details](msm_implementation_details.html)
 * [Results](msm_results.html)
-* [Future Work](msm_future_work.html)
 * [Host driver software](msm_host.html)
 * [Building, Testing and Benchmarking](msm_test.html)
+
+We possible improvements on our work in the following page.
+
+* [Future Work](msm_future_work.html)
 
 # Hardcaml on the Web
 

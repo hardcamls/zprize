@@ -7,41 +7,23 @@ subcategory: design
 
 # Top-Level Pippenger Design
 
-The naive formulation of the dot product is as follows:
-
-$$∑↙{i=0}↖{N-1} P_{i} S_{i}$$
-
-Implementing this dot product directly on the FPGA is infeasiable!
-
-- Computing the point multiplication $P_{i} S_{i}$ for every element using the
-  [double and add
-  algorithm](https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication#Double-and-add)
-  is extremely slow
-- The FPGA has finite resources -- occupying area to perform both doubling
-and adding is largely infeasiable.
-
-As per most of the existing work in the literature, we utilize pippenger's
-algorithm to compute the MSM.
-
 ## Pippenger's Algorithm
 
 The main idea of [Pippenger's algorithm](https://dl.acm.org/doi/abs/10.1137/0209022)
-reformulate the dot product into buckets and windows.
+reformulate the dot product $∑↙{i=0}↖{N-1} p_{i} s_{i}$ into smaller dot
+product over windows, where every window represents a view over bits of the scalar.
 
-We reformulate the equation above into a sum over several "windows", where
-every window represents a view over bits of the scalar.
+$$∑↙{w=0}↖{W-1} 2^{wB} (∑↙{b=0}↖{2^{B}-1} b ∑↙{i=0}↖{N-1} p_{i} select\_bits(s_{i}, (w + 1)B - 1, wB)) $$
 
-$$∑↙{w=0}↖{W-1} 2^{wB} (∑↙{b=0}↖{2^{B}-1} b ∑↙{i=0}↖{N-1} P_{i} select\_bits(S_{i}, (w + 1)B - 1, wB)) $$
-
-where $P_{i}$ and $S_{i}$ are elements of the prime field and scalar fields
+where $p_{i}$ and $s_{i}$ are elements of the prime field and scalar fields
 respectively, and $BW$ must be greater or equal to the number of bits of the
 scalar fields. $B$ and $W$ can be chosen by the implementation.
 
-The inner sum (the components in parantheses) is computed using the bucket
-method, as depicted by the following python pseudocode.
+The inner sum parantheses is computed using the bucket method, as depicted by
+the following python pseudocode.
 
 ```python
-B : int = .. # log size of buckets, This is a tunable parameter
+B : int = .. # log size of buckets, This is a tunable parameter.
 
 def bucket_sum(scalars, points):
   buckets = [ identity for p in range(2**B) ]
@@ -80,8 +62,8 @@ We have chosen $B=13$ and $W=20$ in our implementation, as this uses up ~60% of
 the memory resources available and the bucket aggregation will be 1/10th the
 speed of of bucket sum. This allows our implementation to have a comfortable
 margin for routing in the FPGA and for the bucket accumulation to be fast
-enough relative to bucket sum. We discuss some ideas on pushing this further
-in the [future work section](msm_future_work).
+enough relative to bucket sum. We discuss some ideas on improving the
+performance further in the [future work section](msm_future_work).
 
 ## FPGA Dataflow
 

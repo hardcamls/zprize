@@ -8,30 +8,29 @@ subcategory: design
 # Field Multiplication
 
 A key operation is field multiplication in a prime field, ie: computing
-`C = A * B mod P`, where P is a 377-bit prime number, and `A` and `B` are
-both elements of the prime field (ie: `0 <= A < P`, A is an unsigned integer).
+$C = AB mod P$, where P is a 377-bit prime number, and $A$ and $B$ are
+both elements of the prime field (ie: $0 ≤ A < P$, A is an unsigned integer).
 
-Our field multiplication has several requirements
+Our field multiplication component has important properties:
+
 - it's fully pipelined - in other words, it has a throughput of one per cycle
 - $P$ is known at compile time
 - $A$ and $B$ are known at runtime
 
 ## Computing $A × B$
 
-The very first stage of the computation pipeline is to evaluate `A * B`.
-The obvious way to implement this is.
-
-The FPGA part we were working with comes with contains 6,800 DSP slices. Each
-DSP slice is capable of performing an unsigned 27 x 16 multiplication. However,
-we can realistically expect to use ~2500 of them. This is due to routing
-congestion and the price of crossing SLRs.
+The FPGA part we were working with contains DSP slices, where each slice is
+capable of performing an unsigned 27 x 16 multiplication. While there is 6,800
+DSP slices in the FPGA part, we can expect to use around 3,000 of them if
+we wccounting for the area of the AWS shell and general routing congestion.
 
 Implementing a 377 by 377 multiplication naively with
-[Long multiplication](https://en.wikipedia.org/wiki/Multiplication_algorithm#Long_multiplication)
-would take up `ceil(377/17) * ceil(377/26) = 330` DSPs just to produce partial
-results! This is not acceptable, as we need 7 field multiplications, each of
-which requires 3 377-bit multiplications. This would require `330 * 3 * 7 = 6,930`
-DSP slices, which is way above our budget!
+[long multiplication (also known as the high school multiplication
+algorithm)](https://en.wikipedia.org/wiki/Multiplication_algorithm#Long_multiplication)
+would take up $ceil(377/17) × ceil(377/26) = 330$ DSPs just to produce partial
+results! We need 7 field multiplications to perform point addition, each of
+which requires 3 377-bit multiplications. This would require $330 × 3 × 7 =
+6,930$ DSP slices, which is way above our budget!
 
 We have instead implemented the
 [Karatsuba-Ofman Multiplication Algorithm](https://en.wikipedia.org/wiki/Karatsuba_algorithm),

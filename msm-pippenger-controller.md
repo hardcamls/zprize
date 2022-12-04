@@ -5,7 +5,7 @@ category: msm
 subcategory: design
 ---
 
-# Pippenger controller
+# Pippenger Controller
 
 The key computation of the pippenger algorithm is adding each input coefficient to a value
 stored in RAM (also called a bucket).  This would be trivial except for the latency of the
