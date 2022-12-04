@@ -19,10 +19,10 @@
           link: /msm-field-multiplication
         - title: Twisted Edwards Point Representation
           link: /msm-point-representation.html
-        - title: Scalar Transformation
-          link: /msm-scalar-transformation.html
         - title: Mixed Point Addition with Precomputation
           link: /msm-mixed-point-addition-with-precomputation.html
+        - title: Scalar Transformation
+          link: /msm-scalar-transformation.html
         - title: Implementation Details
           link: /msm-implementation-details.html
         - title: Host driver software

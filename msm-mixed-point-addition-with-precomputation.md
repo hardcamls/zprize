@@ -11,7 +11,7 @@ The main computation of the MSM design is performed by a fully pipelined point
 addition core. The addition cores computes the addition of a point in
 [extended coordinate system](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html) and an affine point in extended coordinate system but with $z = 1$.
 
-In our work, we managed to get a _strongly unified mixed adder_ with `7M + 6A`,
+In our work, we implement a _strongly unified mixed adder_ with `7M + 6A`,
 by exploiting some precomputation. This is a very big improvement over [`7M +
 4S + 9A` required for Jacobian coordinates](https://hyperelliptic.org/EFD/g1p/auto-shortw-jacobian-0.html#addition-madd-2007-bl), and
 a small but meaningful improvement over [existing known methods for
