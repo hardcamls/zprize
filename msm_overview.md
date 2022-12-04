@@ -14,7 +14,7 @@ add them all as fast as possible.
 
 The mathematical formulation of the MSM problem is as follows:
 
-$$∑↙{i=0}↖{N-1} p_{i} s_{i}$$
+$$MSM(p, s) = ∑↙{i=0}↖{N-1} p_{i} s_{i}$$
 
 where $p_{i}$ are points on the BLS12-377 elliptic curve, $s_{i}$ are
 scalars from a corresponding 253-bit scalar field and $N$ is the number of

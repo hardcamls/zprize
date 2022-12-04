@@ -14,32 +14,51 @@ finite field instead of complex numbers. For this project the finite field
 contains values of size 64 bits modulo a so called [Solinas
 prime](https://en.wikipedia.org/wiki/Solinas_prime) equal to $2^64 - 2^32 + 1$.
 
+The mathematical formulation of the NTT is as the following:
+
+$$X_{i} = ∑↙{j=0}↖{N-1} x_{j} w^{ij} (mod P)$$
+
+where $N$ is the size of the input vector $x$, $P$ is the solanis prime $2^64 -
+2^32 + 1$ and $w$ defined as per [the wikipedia article on
+NTTs](https://en.wikipedia.org/wiki/Discrete_Fourier_transform_over_a_ring#Number-theoretic_transform).
+$X_{i}$ is defined for $0 ≤ i < N$
+
+For this competition track, we are interested building a FPGA design targetting
+$N = 2^24$.
+
 The platform tergetted is the Xilinx [Varium
 C1100](https://www.xilinx.com/products/accelerators/varium/c1100.html)
 accelerator card. The card contains Virtex UltrasScale+ FPGA with HBM2.
 
+The main challenge in such an implementation is transforms of this size cannot
+fit on a single FPGA's on-chip memory, and hence requires efficient usage of
+the off-chip HBM banks to achieve high performance.
+
 # Design overview
 
-You can read more about our
-[core INTT design](ntt-core.html) and how it is
-[scaled up](ntt-performance-scaling.html) with shared controllers and wide
-memory bus.
+Our work is built around the 4-step algorithm to compute the large NTT in terms
+of much smaller NTTs. The smaller NTTs are computed using the well-known
+[Cooley-Tukey FFT algorithm](https://en.wikipedia.org/wiki/Cooley–Tukey_FFT_algorithm).
+The following pages discusses the algorithms and design considerations:
 
-To achieve the required transform sizes we used the
-[4-step](ntt-4step.html) algorithm and had to carefully consider
-[bandwidth](ntt-bandwidth.html) limitations.
+- [4-step](ntt-4step.html) details the 4-step algorithm
+- [Bandwidth Considerations](ntt-bandwidth.html)
 
-We present the
-[performance](ntt-results.html) results for our
-[top level Vitis design](ntt-top-level.html) and show how you can
-[build](ntt-build-instructions.html) the design.
+You can read more about our FPGA implementation in the following pages:
+
+- [core NTT design](ntt-core.html)
+- [scaling Up performance with shared controllers and wide memory bus](ntt-performance-scaling.html)
+- [top level Vitis design](ntt-top-level.html)
+
+We present the [performance](ntt-results.html) results for our design and show
+how you can [build](ntt-build-instructions.html) the design.
 
 # Hardcaml on the Web
 
 Configure our designs, download RTL and perform simulations all within your browser!
 
-- [Core INTT design](apps/ntt/ntt-core-app-with-rams.html) which includes the IO RAMs, datapath and controller
-- [Top level design as a Vitis kernel](apps/ntt/ntt-vitis-top-app.html) which performs the full 4-step algorithm
+- [Core INTT design](apps/ntt/ntt-core-with-rams-app) which includes the IO RAMs, datapath and controller
+- [Top level design as a Vitis kernel](apps/ntt/ntt-vitis-top-app) which performs the full 4-step algorithm
 
 # Code structure
 
