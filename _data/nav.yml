@@ -11,7 +11,7 @@
       sublinks:
         - title: Top-Level Pippenger Design
           title_id: pippenger
-          link: /pippenger.html
+          link: /msm-top-level-pippenger-design.html
         - title: Pippenger Controller
           title_id: Pippenger Controller
           link: /msm-pippenger-controller.html

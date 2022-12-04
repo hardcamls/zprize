@@ -17,13 +17,14 @@ $$∑↙{w=0}↖{W-1} 2^{wB} (∑↙{b=0}↖{2^{B}-1} b ∑↙{i=0}↖{N-1} p_{i
 
 where $p_{i}$ and $s_{i}$ are elements of the prime field and scalar fields
 respectively, and $BW$ must be greater or equal to the number of bits of the
-scalar fields. $B$ and $W$ can be chosen by the implementation.
+scalar fields.
 
-The inner sum parantheses is computed using the bucket method, as depicted by
+The inner sum parantheses is computed using the bucket method depicted by
 the following python pseudocode.
 
 ```python
 B : int = .. # log size of buckets, This is a tunable parameter.
+identity = ...  # A special point such that P + identity = identity + P = P
 
 def bucket_sum(scalars, points):
   buckets = [ identity for p in range(2**B) ]
@@ -50,7 +51,7 @@ bits and 253 bits respectively. In our implementation, we have partitioned the
 work such that the FPGA performs the `bucket_aggergation` and the host performs
 the `bucket_sum`. When processing multiple MSMs, this allow us to mask out
 some of the latency of bucket aggregation by starting the bucket sum of the next
-MSM.
+MSM while computing bucket aggregation for the current MSM.
 
 The consideration for the choice of parameters $B$ and $W$ are for this choices
 are:
@@ -59,11 +60,12 @@ are:
 - The amount of time taken to perform the bucket aggregation on the host
 
 We have chosen $B=13$ and $W=20$ in our implementation, as this uses up ~60% of
-the memory resources available and the bucket aggregation will be 1/10th the
-speed of of bucket sum. This allows our implementation to have a comfortable
-margin for routing in the FPGA and for the bucket accumulation to be fast
-enough relative to bucket sum. We discuss some ideas on improving the
-performance further in the [future work section](msm-future-work).
+the memory resources available and the time taken for bucket aggregation is
+around 1/10th the time taken for bucket sum. This allows our implementation to
+have a comfortable margin for routing in the FPGA and for the bucket
+accumulation to be fast enough relative to bucket sum. We discuss some ideas on
+improving the performance further in the [future work
+section](msm-future-work).
 
 ## FPGA Dataflow
 
@@ -72,16 +74,17 @@ used in our MSM implementation.
 
 ![Block diagram](images/msm-block-diagram.png)
 
-Points are transformed and pre-loaded into DDR-4, so that at run time only
-scalars are sent from the host to the FPGA via PCIe. We implemented a single
-fully-pipelined point adder on the FPGA which adds points to buckets as
-directed by the controller until there are no more points left. The controller
-automatically handles stalls (only accessing a bucket when it does not already
-have an addition in-flight). Once all points have been added into buckets, the
-FPGA streams back the result for the host to do the final (much smaller)
-triangle summation. This approach allows us to focus on implementing a very
-high performance adder on the FPGA (as these additions dominate Pippenger's
-algorithm), and then leaving smaller tasks for the host to perform.
+Points are transformed into a custom representation and pre-loaded into DDR-4,
+so that at run time only scalars are sent from the host to the FPGA via PCIe.
+
+A single fully-pipelined point adder on the FPGA which adds points to buckets
+as directed by a pippenger controller until there are no more points left. Once
+all points have been added into buckets, the FPGA streams back the result for
+the host to do the final bucket aggregatioin.
+
+This approach allows us to focus on implementing a very high performance adder
+on the FPGA (as these additions dominate Pippenger's algorithm), and then
+leaving smaller tasks for the host to perform.
 
 ## FPGA Bucket Sum
 
@@ -90,21 +93,22 @@ pipelined point adder with a high but static latency (>200 cycles). Naively, if
 a coefficient needs to be added to a bucket that is currently in use by the
 point adder we need to wait until the addition is complete before trying again.
 Waiting 200 clock cycles will severely affect performance. The page about the
-[pippenger controller](msm-pippenger-controller) discusses adder scheduling
-implementation to work around this problem.
+[pippenger controller](msm-pippenger-controller) discusses some tricks to
+minimize the impact of this.
 
-We utilize a well-known trick to reduce the memory usage with signed digit
-representation for scalars for every bucket. The tricks are detailed by in the
-[scalar_transformation page](scalar_transformation).
+We utilize a well-known trick to reduce the memory usage by [transforming the
+scalar](scalar-transformation) into signed digit representation for scalars for
+every bucket.
 
 ## FPGA Point Adder
 
-The most expensive bits of the point adder computation is
+The most expensive parts of of the pipelined point adder computation is
 [field multiplications](msm-field-multiplication). Our implementation is
 based around well-known tricks in barrett reduction.
 
-To reduce, we use well-known tricks to [convert the points
+To reduce the numberf of field multiplications, we [convert the points
 representation](msm-point-representation) from it's original weistrass-curve
 form into twisted edwards curve representation. This reduces the amount of
 field multiplication substantially. We go one step further to reduce the field
-multiplication operations with [some precomputation tricks in the adder implementation](msm-mixed-point-addition-with-precomputation).
+multiplication operations with [some precomputation tricks in the adder
+implementation](msm-mixed-point-addition-with-precomputation).

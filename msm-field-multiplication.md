@@ -123,25 +123,25 @@ represent $P$.
 
 For the coarse approximation, we can approximate $q$ by approximating $1/P$ as $⌊2^{2n}/P⌋/2^{2n}$.
 In other words, we take the $2n$ most significant bits of $1/P$ and use them as an approximation.
-Letting $c = ⌊2^{2n}/P⌋ < 2^{n+1}$, our first approximation for $q$ is given by $q' = ⌊{ AB ⋅ c } / 2^{2n}⌋$.
+Letting $c = ⌊2^{2n}/P⌋ < 2^{n+1}$, our first approximation for $q$ is given by $q′ = ⌊{ AB ⋅ c } / 2^{2n}⌋$.
 
 However, note that this still requires a $2n$-by-$n$ multiplication - because our Karatsuba
 multiplier described above only works over equal-width operands, this creates an inefficient multiplication.
 So, we perform a second approximation in order to reduce the width of the numbers being multiplied -
-$q'' = ⌊⌊ { AB } / 2^n ⌋ ⋅{c / 2^{n}}⌋$. To compute $q''$, we perform two multiplications - first we compute
+$q′′ = ⌊⌊ { AB } / 2^n ⌋ ⋅{c / 2^{n}}⌋$. To compute $q′′$, we perform two multiplications - first we compute
 $ AB $, and then we multiply the top $n$ bits of the result by $c$ (an $n+1$-digit number) and take
 the top $n$ bits of the result.
 
-Overall, for stage 1 of Barrett's Algorithm, we compute $q''$, and then compute $r' = AB - q''P$. We can show with
-some bounding arguments that $0 ≤ q - q'' ≤ 3$, so we know that approximate remainder $r'$ is within 3 multiples of $P$
+Overall, for stage 1 of Barrett's Algorithm, we compute $q′′$, and then compute $r′ = AB - q′′P$. We can show with
+some bounding arguments that $0 ≤ q - q′′ ≤ 3$, so we know that approximate remainder $r′$ is within 3 multiples of $P$
 from the true remainder $r$.
 
 ### Stage 2: Fine Approximation
-Suppose that the approximation from Stage 1 has an error of $e$, so $0 ≤ q - q'' ≤ e$. (Above, we showed
+Suppose that the approximation from Stage 1 has an error of $e$, so $0 ≤ q - q′′ ≤ e$. (Above, we showed
 a coarse reduction scheme that gives $e=3$, but we can tune this using optimizations discussed below).
 
 In the standard implementation of Barrett reduction, the coarse approximation stage is followed by a
-fine approximation stage in which we compute $r' - mP$ for $ m∈[0,e] $ and pick the result that is within the
+fine approximation stage in which we compute $r′ - mP$ for $ m∈[0,e] $ and pick the result that is within the
 range $[0, P-1]$. As $e$ gets large, this naive implementation becomes very expensive, so we show an
 optimized implementation based on BRAM lookups below.
 
@@ -151,7 +151,7 @@ This is the most basic form of Barrett reduction, but we extend it with further 
 
 In the discussion above, the subtraction at the end of Stage 1 only requires the least significant
 $n+2$ bits (because the error is at most $3P$). As a result, we can use a truncated LSB multiplier to
-compute $q''P$ instead of a full multiplier. This follows from the Karatsuba multiplication formulation
+compute $q′′P$ instead of a full multiplier. This follows from the Karatsuba multiplication formulation
 by just dropping the high order term ($z_2$). Further, we can recursively apply this idea to build
 an LSB-truncated Karatsuba multiplier.
 
@@ -176,7 +176,7 @@ is large, the fine reduction scheme presented above requires many stages of shif
 to choose the final reduced remainder. Instead, we use a BRAM lookup to reduce this to a 2-stage pipeline that
 can reduce a very wide error.
 
-In particular, we design a module which can reduce any input $r'∈[0, {2^e}P)$ to an equivalent value modulo $P$ in the range
+In particular, we design a module which can reduce any input $r′∈[0, {2^e}P)$ to an equivalent value modulo $P$ in the range
 $[0, p)$ with just two subtraction stages, for any integer $e$.
 
 We do this by precomputing and loading a ROM $R$ with $2^e$ entries. We set $R[0] = 0$. Then,
@@ -185,16 +185,16 @@ prefix when written with $e+n$ bits. In particular,
 
  $$R[i] = ⌊{(i-1) ⋅ 2^n} / {p} ⌋ (\mod 2^{n}) $$
 
-Then, given an input $r'∈[0, {2^e}P)$ with $e+n$ bits, we can lookup its $e$-bit prefix in the ROM
+Then, given an input $r′∈[0, {2^e}P)$ with $e+n$ bits, we can lookup its $e$-bit prefix in the ROM
 and subtract the resulting value from the $n$-bit suffix of our input value:
 
-$$ r'[n-1:0] - R[r'[e-1+n:n]] $$
+$$ r′[n-1:0] - R[r′[e-1+n:n]] $$
 
 (note that we only need to use the lower $n$ bits because we know what the higher bits are by construction). Then,
 when the lookup index is nonzero, we have to invert the MSB of the signed result to get an unsigned reduction
-$r''$ to the range $\[0,3p)$.
+$r′′$ to the range $\[0,3p)$.
 
-After this, we do one more subtraction stage where we just multiplex between $\{r'', r''-p, r''-2p\}$
+After this, we do one more subtraction stage where we just multiplex between $\{r′′, r′′-p, r′′-2p\}$
 to choose the final result.
 
 This idea was inspired by work by [Langhammer and Pasca](https://dl.acm.org/doi/abs/10.1145/3431920.3439306).

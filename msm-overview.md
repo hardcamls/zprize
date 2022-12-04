@@ -36,12 +36,11 @@ implementation.
 
 # Design overview
 
-Our implementation is built around pippenger's algorithm to compute
-multi-scalar multiplication. Our implementation splits work between the
-FPGA and the host device. The pages below describes the architecture of our
-design and the main controller to compute pippenger's algorithm.
+Our implementation is built around pippenger's algorithm, splitting work
+between the FPGA and the host. The pages below describes the
+architecture of our design and the main FPGA controller to compute bucket sums.
 
-* [Top level Pippenger Design](pippenger.html)
+* [Top level Pippenger Design](msm-top-level-pippenger-design.html)
 * [Pippenger Controller](msm-pippenger-controller.html)
 
 The heart of the computation is performed by a 1-per-cycle throughput mixed
