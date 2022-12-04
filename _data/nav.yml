@@ -25,15 +25,15 @@
           link: /msm_mixed_point_addition_with_precomputation.html
         - title: Implementation Details
           link: /msm_implementation_details.html
-        - title: Results
-          link: /msm_results.html
-        - title: Future Work
-          link: /msm_future_work.html
         - title: Host driver software
           title_id: Host Driver
           link: /msm_host.html
-        - title: Benchmarking and test harness
+        - title: Results
+          link: /msm_results.html
+        - title: Building, Testing and Benchmarking
           link: /msm_test.html
+        - title: Future Work
+          link: /msm_future_work.html
     - title: Hardcaml on the Web
       sublink_id: "msm-hardcaml"
       subcategory: "on-the-web"

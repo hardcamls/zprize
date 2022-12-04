@@ -57,8 +57,8 @@ We discuss the low-level engineering implementation details, final results
 and reproduction guides in the pages below.
 
 * [Implementation Details](msm_implementation_details.html)
-* [Results](msm_results.html)
 * [Host driver software](msm_host.html)
+* [Results](msm_results.html)
 * [Building, Testing and Benchmarking](msm_test.html)
 
 We possible improvements on our work in the following page.
