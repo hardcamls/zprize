@@ -50,7 +50,7 @@ the adder.
 
 * [Field Multiplication](msm-field-multiplication.html)
 * [Point Representation](msm-point-representation.html)
-* [Scalar Transformation](scalar_transformation.html)
+* [Scalar Transformation](msm-scalar-transformation.html)
 * [Mixed Point Addition with Precomputation](msm-mixed-point-addition-with-precomputation.html)
 
 We discuss the low-level engineering implementation details, final results

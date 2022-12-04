@@ -3,7 +3,7 @@
   category: msm
   sublinks:
     - title: MSM overview
-      link: /msm_overview
+      link: /msm-overview
       subcategory: overview
     - title: Design Overview
       sublink_id: "msm-design"
@@ -16,24 +16,24 @@
           title_id: Pippenger Controller
           link: /msm-pippenger-controller.html
         - title: Field Multiplication
-          link: /msm_field_multiplication
+          link: /msm-field-multiplication
         - title: Twisted Edwards Point Representation
-          link: /msm_point_representation.html
+          link: /msm-point-representation.html
         - title: Scalar Transformation
-          link: /scalar_transformation.html
+          link: /msm-scalar-transformation.html
         - title: Mixed Point Addition with Precomputation
-          link: /msm_mixed_point_addition_with_precomputation.html
+          link: /msm-mixed-point-addition-with-precomputation.html
         - title: Implementation Details
-          link: /msm_implementation_details.html
+          link: /msm-implementation-details.html
         - title: Host driver software
           title_id: Host Driver
-          link: /msm_host.html
+          link: /msm-host.html
         - title: Results
-          link: /msm_results.html
+          link: /msm-results.html
         - title: Building, Testing and Benchmarking
-          link: /msm_test.html
+          link: /msm-test.html
         - title: Future Work
-          link: /msm_future_work.html
+          link: /msm-future-work.html
     - title: Hardcaml on the Web
       sublink_id: "msm-hardcaml"
       subcategory: "on-the-web"
