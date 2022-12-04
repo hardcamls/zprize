@@ -1,104 +1,128 @@
 ---
 layout: default
-title: pippenger
+title: Top-Level Pippenger Design
 category: msm
 subcategory: design
 ---
 
-# FPGA Implementation of the MSM Pippengers algorithm
+# Top-Level Pippenger Design
 
-We have implemented an FPGA design that runs on an AWS F1 instance and can compute
-the MSM of a large number of elliptic point and scalar pairs on the BLS12-377 G1
-curve.
+The naive formulation of the dot product is as follows:
 
-Performance is measured as per the ZPrize specs at 20.336s for 4 rounds of
-2<sup>26</sup> MSMs, which equates to **13.200** Mop/s.
+$$∑↙{i=0}↖{N-1} P_{i} S_{i}$$
 
-Detailed instructions on re-creating these results from source are in the
-[building from source](#building-the-design-from-source) and more detailed
-measurement results in the [benchmarking](#benchmarking) sections below.
+Implementing this dot product directly on the FPGA is infeasiable!
 
+- Computing the point multiplication $P_{i} S_{i}$ for every element using the
+  [double and add
+  algorithm](https://en.wikipedia.org/wiki/Elliptic_curve_point_multiplication#Double-and-add)
+  is extremely slow
+- The FPGA has finite resources -- occupying area to perform both doubling
+and adding is largely infeasiable.
 
-## Overview of the architecture
+As per most of the existing work in the literature, we utilize pippenger's
+algorithm to compute the MSM.
 
-We have implemented a heavily optimized version of [Pippenger's
-algorithm](https://dl.acm.org/doi/abs/10.1137/0209022) in order to solve the MSM
-problem.
+## Pippenger's Algorithm
 
-We picked window sizes of between 12 and 13 bits, which allowed for efficient
-mapping to FPGA URAM resources which are natively 4096 elements deep. Points are
-transformed and pre-loaded into DDR-4, so that at run time only scalars are sent
-from the host to the FPGA via PCIe. We implemented a single fully-pipelined
-point adder on the FPGA which adds points to buckets as directed by the
-controller until there are no more points left. The controller automatically
-handles stalls (only accessing a bucket when it does not already have an
-addition in-flight). Once all points have been added into buckets, the FPGA
-streams back the result for the host to do the final (much smaller) triangle
-summation. This approach allows us to focus on implementing a very high
-performance adder on the FPGA (as these additions dominate Pippenger's
-algorithm), and then leaving smaller tasks for the host to perform.
+The main idea of [Pippenger's algorithm](https://dl.acm.org/doi/abs/10.1137/0209022)
+reformulate the dot product into buckets and windows.
 
-The above description overly simplifies the amount of optimizations and tricks we
-have implemented to get performance. A summary of the optimizations are listed
-out below.
+We reformulate the equation above into a sum over several "windows", where
+every window represents a view over bits of the scalar.
 
-## Key optimizations
+$$∑↙{w=0}↖{W-1} 2^{wB} (∑↙{b=0}↖{2^{B}-1} b ∑↙{i=0}↖{N-1} P_{i} select\_bits(S_{i}, (w + 1)B - 1, wB)) $$
 
- 1. Early on we decided rather than implementing all of Pippenger's algorithm on
-the FPGA, it would be better to only implement point additions, and focus on as
-high throughput as possible. This decision also means the resource requirements
-of the adder is drastically reduced, as we only require a mixed adder.
-We implemented a fully pipelined adder which can take new inputs to add every clock
-cycle, with a result appearing on the output after 238 clock cycles in the final version.
+where $P_{i}$ and $S_{i}$ are elements of the prime field and scalar fields
+respectively, and $BW$ must be greater or equal to the number of bits of the
+scalar fields. $B$ and $W$ can be chosen by the implementation.
 
- 2. Implementing an adder on affine or projective coordinates requires more FPGA
-resources (DSPs, LUTs, carry chains, ...), so we investigated different
-transforms we could do in advance that would reduce the complexity on the FPGA.
-We ended up deciding to transform to a scaled twisted Edwards curve and a
-coordinate system loosely based on extended coordinates, but with heavy
-precomputation. This [document describes the the details of the
-transformation](docs/optimizing_point_representation.md)
-The pre-transformation from affine points on a Weierstrass curve to extended
-projective points on an equivalent twisted Edwards curve significantly decreases
-the computational complexity of point addition (removing some modulo adds and a
-modulo multiplication by constant, compared to the vanila mixed addition formulae
-for scaled twisted edwards curve).
+The inner sum (the components in parantheses) is computed using the bucket
+method, as depicted by the following python pseudocode.
 
-    This transformation requires special care as there are 5 points on the Weierstrass
-    curve that cannot map to our selected twisted Edwards curve. This is such a rare
-    edge case that in generating 2<sup>26</sup> random points we never hit one, but
-    we add a check in our driver to detect these and perform point multiplication on
-    the host if needed. Corner case tests confirm this code works as expected.
+```python
+B : int = .. # log size of buckets, This is a tunable parameter
 
- 3. We mask PCIe latency and host-post-processing by allowing MSM operations to start
-    while points are being streamed in batches from the host. When a result is being processed,
-    we are also able to start the MSM on the next batch. This masks out the host post-processing
-    latency for all but the last batch.
+def bucket_sum(scalars, points):
+  buckets = [ identity for p in range(2**B) ]
+  for scalar, point in zip(scalars, points):
+    buckets[scalar] += point
+  return buckets
 
- 4. Multiplier optimizations in the Barrett reduction algorithm so that constants
-    require less FPGA resources.
+def bucket_aggergation(bucket):
+  acc = identity
+  running = identity
+  for point in reversed(points):
+    running += point
+    acc += running
+  return acc
 
- 5. Instead of performing a full Barrett reduction or full modular addition/subtraction, we perform
- a coarse reduction and allow additive error to accumulate through our point adder. Then, we correct
- this error all at once using BRAMs as ROMs to store coefficients that can be used to reduce values
- in the range $[0,512q]$ to their modular equivalents in $[0,q]$. The implementation of the
- ROM-based fine-reduction is described [here in the Bram_reduce module's documentation](https://fyquah.github.io/hardcaml_zprize/zprize/Field_ops_lib/Bram_reduce/index.html).
+def bucket_method(scalars, points):
+  return bucket_aggregation(bucket_sum(scalars, points))
+```
 
- 6. Selecting a bucket size that allows for efficient usage of FPGA URAM,
-  allowing non-uniform bucket sizes, and pblocking windows to separate SLRs in
-  the FPGA to avoid routing congestion.
+## Overview of the Architecture
 
- 7. Scalars are converted into signed form and our twisted Edwards point adder is
-    modified to support point subtraction, which allows all bucket memory to be
-    reduced in half. The details of the scalar transformation are described
-    [here in the Scalar_transformation module's documentation](https://fyquah.github.io/hardcaml_zprize/zprize/Msm_pippenger/Scalar_transformation/index.html).
+In the specific case of BLS12-377, the prime field and scalar field are 377
+bits and 253 bits respectively. In our implementation, we have partitioned the
+work such that the FPGA performs the `bucket_aggergation` and the host performs
+the `bucket_sum`. When processing multiple MSMs, this allow us to mask out
+some of the latency of bucket aggregation by starting the bucket sum of the next
+MSM.
 
- 8. Host code is optimized to allow for offloading the final triangle sum and
-    bucket doubling operations.
+The consideration for the choice of parameters $B$ and $W$ are for this choices
+are:
 
-## Block diagram
+- The amount of on-chip memory resources available in the FPGA
+- The amount of time taken to perform the bucket aggregation on the host
 
-A high level block diagram showing the different data flows and modules used in
-our MSM implementation.
+We have chosen $B=13$ and $W=20$ in our implementation, as this uses up ~60% of
+the memory resources available and the bucket aggregation will be 1/10th the
+speed of of bucket sum. This allows our implementation to have a comfortable
+margin for routing in the FPGA and for the bucket accumulation to be fast
+enough relative to bucket sum. We discuss some ideas on pushing this further
+in the [future work section](msm_future_work).
+
+## FPGA Dataflow
+
+Here's a high level block diagram showing the different data flows and modules
+used in our MSM implementation.
 
 ![Block diagram](images/msm-block-diagram.png)
+
+Points are transformed and pre-loaded into DDR-4, so that at run time only
+scalars are sent from the host to the FPGA via PCIe. We implemented a single
+fully-pipelined point adder on the FPGA which adds points to buckets as
+directed by the controller until there are no more points left. The controller
+automatically handles stalls (only accessing a bucket when it does not already
+have an addition in-flight). Once all points have been added into buckets, the
+FPGA streams back the result for the host to do the final (much smaller)
+triangle summation. This approach allows us to focus on implementing a very
+high performance adder on the FPGA (as these additions dominate Pippenger's
+algorithm), and then leaving smaller tasks for the host to perform.
+
+## FPGA Bucket Sum
+
+In our implementation, the meat of the computation is performned by a fully
+pipelined point adder with a high but static latency (>200 cycles). Naively, if
+a coefficient needs to be added to a bucket that is currently in use by the
+point adder we need to wait until the addition is complete before trying again.
+Waiting 200 clock cycles will severely affect performance. The page about the
+[pippenger controller](msm-pippenger-controller) discusses adder scheduling
+implementation to work around this problem.
+
+We utilize a well-known trick to reduce the memory usage with signed digit
+representation for scalars for every bucket. The tricks are detailed by in the
+[scalar_transformation page](scalar_transformation).
+
+## FPGA Point Adder
+
+The most expensive bits of the point adder computation is
+[field multiplications](msm_field_multiplication). Our implementation is
+based around well-known tricks in barrett reduction.
+
+To reduce, we use well-known tricks to [convert the points
+representation](msm_point_representation) from it's original weistrass-curve
+form into twisted edwards curve representation. This reduces the amount of
+field multiplication substantially. We go one step further to reduce the field
+multiplication operations with [some precomputation tricks in the adder implementation](msm_mixed_point_addition_with_precomputation).
