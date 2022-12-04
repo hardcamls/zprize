@@ -145,7 +145,8 @@ fine approximation stage in which we compute $r′ - mP$ for $ m∈[0,e] $ and p
 range $[0, P-1]$. As $e$ gets large, this naive implementation becomes very expensive, so we show an
 optimized implementation based on BRAM lookups below.
 
-This is the most basic form of Barrett reduction, but we extend it with further optimizations.
+This is the most basic form of Barrett reduction, but we extend it with further
+optimizations.
 
 ## LSB Multiplication
 
@@ -166,7 +167,9 @@ the Karatsuba formulation, keeping careful track of the error this propagates th
 aggressively we split the product (ie the wider the product $z_0$ that we drop), the more error is introduced into
 the approximation.
 
-For further reading, there are many thorough resources on Barrett reduction and truncated multipliers available on the internet.
+For further reading, there are many thorough resources on Barrett reduction and
+truncated multipliers available on the internet, such as [this work by
+Xavier](https://eprint.iacr.org/2022/999).
 
 ## BRAM Reduction
 
