@@ -63,7 +63,7 @@ the memory resources available and the bucket aggregation will be 1/10th the
 speed of of bucket sum. This allows our implementation to have a comfortable
 margin for routing in the FPGA and for the bucket accumulation to be fast
 enough relative to bucket sum. We discuss some ideas on improving the
-performance further in the [future work section](msm_future_work).
+performance further in the [future work section](msm-future-work).
 
 ## FPGA Dataflow
 
@@ -100,11 +100,11 @@ representation for scalars for every bucket. The tricks are detailed by in the
 ## FPGA Point Adder
 
 The most expensive bits of the point adder computation is
-[field multiplications](msm_field_multiplication). Our implementation is
+[field multiplications](msm-field-multiplication). Our implementation is
 based around well-known tricks in barrett reduction.
 
 To reduce, we use well-known tricks to [convert the points
-representation](msm_point_representation) from it's original weistrass-curve
+representation](msm-point-representation) from it's original weistrass-curve
 form into twisted edwards curve representation. This reduces the amount of
 field multiplication substantially. We go one step further to reduce the field
-multiplication operations with [some precomputation tricks in the adder implementation](msm_mixed_point_addition_with_precomputation).
+multiplication operations with [some precomputation tricks in the adder implementation](msm-mixed-point-addition-with-precomputation).

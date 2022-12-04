@@ -48,22 +48,22 @@ The heart of the computation is performed by a 1-per-cycle throughput mixed
 adders. The pages below details the mathematics behind the implementation of
 the adder.
 
-* [Field Multiplication](msm_field_multiplication.html)
-* [Point Representation](msm_point_representation.html)
+* [Field Multiplication](msm-field-multiplication.html)
+* [Point Representation](msm-point-representation.html)
 * [Scalar Transformation](scalar_transformation.html)
-* [Mixed Point Addition with Precomputation](msm_mixed_point_addition_with_precomputation.html)
+* [Mixed Point Addition with Precomputation](msm-mixed-point-addition-with-precomputation.html)
 
 We discuss the low-level engineering implementation details, final results
 and reproduction guides in the pages below.
 
-* [Implementation Details](msm_implementation_details.html)
-* [Host driver software](msm_host.html)
-* [Results](msm_results.html)
-* [Building, Testing and Benchmarking](msm_test.html)
+* [Implementation Details](msm-implementation-details.html)
+* [Host driver software](msm-host.html)
+* [Results](msm-results.html)
+* [Building, Testing and Benchmarking](msm-test.html)
 
 We possible improvements on our work in the following page.
 
-* [Future Work](msm_future_work.html)
+* [Future Work](msm-future-work.html)
 
 # Hardcaml on the Web
 

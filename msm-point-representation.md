@@ -11,7 +11,7 @@ We choose to convert points to the Twisted Edwards curve, rather than working in
 the Weierstrass form. Point Addition in Twisted edwards curve is significantly
 cheaper than in the vanilla weierstrass form. We go into greater detail about
 point addition in [this page on our adder
-implementation](msm_mixed_point_addition_with_precomputation.html).
+implementation](msm-mixed-point-addition-with-precomputation.html).
 
 This page details the algorithms to convert points in the original weistrass
 form into scaled Twisted edwards form.

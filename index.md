@@ -29,7 +29,7 @@ splash-header: true
 
 		<p>The platform targeted was Amazon F1, which uses a Xilinx UltraScale+ V9P FPGA with DDR memory banks.</p>
 
-		<p>Read more about the <a href="msm_overview.html">implementation</a></p>
+		<p>Read more about the <a href="msm-overview.html">implementation</a></p>
 
 	</div>
 

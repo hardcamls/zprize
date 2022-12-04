@@ -12,7 +12,7 @@ in `msm_init`:
 
 - Transform the affine points from Weistrass form into our internal affine
   point format based on scaled twisted edwards curves (See the page on [mixed
-  point addition](msm_mixed_point_addition_with_precomputation.html) for the
+  point addition](msm-mixed-point-addition-with-precomputation.html) for the
   formulae of the transformation.)
 - Transfer the preprocessed points into the FPGA
 
