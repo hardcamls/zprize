@@ -7,7 +7,7 @@ subcategory: design
 
 # Results
 
-As per the Zprize competition spec, we use an AWS f1.2xlarge instance,
+As per the ZPrize competition spec, we use an AWS f1.2xlarge instance,
 targeting the BLS12-377 curve with the G1 subgroup-generator. This AWS
 instance contains a Intel Xeon E5-2686 v4 Processor (2.3 GHz (base) and 2.7 GHz
 (turbo)) and a UltraScale+ VU9P FPGA.

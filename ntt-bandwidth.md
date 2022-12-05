@@ -39,7 +39,7 @@ data accessed 64 bytes at a time.
 We see tremendously improved throughput of the core with this scheme, though the host processing
 was relatively heavy (but still faster than the actual NTT computation, so could be hidden).
 
-Due to the Zprize judging criteria, we don't expect this optimisation to be useful due to the
+Due to the ZPrize judging criteria, we don't expect this optimisation to be useful due to the
 extra pre/post processing.  We include it nonetheless as it shows the potential performance
 we can get with either a more optimised HBM structure or different memory architecture
 (like DDR4).
