@@ -7,19 +7,34 @@ subcategory: design
 
 # Future Work
 
+## DDR Bandwidth
+Our current design uses about 19.2 Gbps DDR bandwidth, which is about 15% of the
+bandwidth available to a single DDR controller on the AWS F1 FPGA. There are 4
+controllers in the AWS shell, so we are using about 3.75% of the overall DDR 
+bandwidth available. We believe that we could make significant optimizations by 
+using more bandwidth.
+
+**Larger Buckets** We currently use 12-13 bit buckets in Pippenger's Algorithm
+in order to fit all of the partial sums in URAM on on the FPGA. Further, we
+iterate over all of the input points and scalars a single time, and compute all
+of the windows in one pass. We think that making multiple passes over the points
+and scalars and computing only a subset of the windows on each pass would allow us
+to use larger bucket sizes and improve our end-to-end latency by 10-20%.
+
 ## Pippenger Bucket Sum Computation
 
 **Redesign controller to natively accept scalars every clock cycle** The
 current pippenger implementation instantiates 2 controllers that accepts
 an input every 2 clock cycles to achieve full throughput. This is not terribly
 inefficient, but does require the number of windows to be even to achieve
-full throughput.
+full throughput. With a single-cycle controller, we would immediately get a
+5% performance improvement, as we would be able to use 19 windows instead of 20.
 
 **Further reducing pipeline stall** We also think we could get rid of nearly
 all bubbles in the pipeline if we presented the controller with two points per
-cycle.  The chances of both being a hazard are greatly reduced.  We would
+cycle because the chances of both being a hazard are greatly reduced. We could
+accomplish this by utilizing more DDR bandwidth, as noted above. We would
 expect to gain an extra 4-5% performance with this change.
-
 
 ## Improving the Field Multiplication
 
@@ -46,3 +61,10 @@ efficient.
 Xavier](https://eprint.iacr.org/2022/999) describes an algorithm to
 parallelize the final bucket accumulation on the FPGA. This can be readapted on
 the host using multiple threads.
+
+## FPGA Technology
+Our MSM solution was implemented on a previous-generation FPGA, as this is what 
+AWS currently supports. We would like to experiment with the latest FPGA architectures
+(such as Xilinx Versal Premium or Intel Agilex) to see if there are delay improvements
+which would allow our design to operate at a higher frequency, or whether we could 
+place and route another half-adder, which would afford our design greater parallelism.
