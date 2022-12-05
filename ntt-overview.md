@@ -45,7 +45,7 @@ following pages discusses the algorithms and design considerations:
 You can read more about our FPGA implementation in the following pages:
 
 - [core NTT design](ntt-core.html)
-- [scaling Up performance with shared controllers and wide memory bus](ntt-performance-scaling.html)
+- [scaling Up performance with shared controllers and a wide memory bus](ntt-performance-scaling.html)
 - [top level Vitis design](ntt-top-level.html)
 
 We present the [performance](ntt-results.html) results for our design and show
@@ -53,24 +53,24 @@ how you can [build](ntt-build-instructions.html) the design.
 
 # Hardcaml on the Web
 
-Configure our designs, download RTL and perform simulations all within your browser!
+Configure our designs, download RTL and perform simulations all within your browser:
 
 - [Core NTT design](apps/ntt/ntt-core-with-rams-app) which includes the IO RAMs, datapath and controller
 - [Top level design as a Vitis kernel](apps/ntt/ntt-vitis-top-app) which performs the full 4-step algorithm
 
 # Code structure
 
-The code is built from a couple of libraries within our [submission repository](https://github.com/fyquah/hardcaml_zprize).
+The code is built from a couple of libraries within our [submission repository](https://github.com/fyquah/hardcaml_zprize):
 
 - [`Hardcaml_ntt`](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt) ([source code docs](odoc/zprize/Hardcaml_ntt/index.html))
 - [`Zprize_ntt`](https://github.com/fyquah/hardcaml_zprize/blob/master/zprize/ntt) ([source code docs](odoc/zprize/Zprize_ntt/index.html))
 
 The `Hardcaml_ntt` library provides the base implementation of the NTT core and includes a software model and various unit tests.
 
-`Zprize_ntt` contains the code for both the top level
+`Zprize_ntt` contains the code for both the top-level
 [Hardcaml NTT kernel](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/hardcaml/src) and
-[tests](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/hardcaml/test) , the
+[tests](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/hardcaml/test), the
 [C++ HLS DMA kernel](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/fpga/common),
-[host benchmarking software](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/host) and
+[host benchmarking software](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/host), and
 [build scripts](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/fpga).
 
