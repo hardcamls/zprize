@@ -27,13 +27,13 @@ the following python pseudocode.
 B : int = .. # log size of buckets, This is a tunable parameter.
 identity = ...  # A special point such that P + identity = identity + P = P
 
-def bucket_sum(scalars, points):
+def bucket_aggregation(scalars, points):
   buckets = [ identity for p in range(2**B) ]
   for scalar, point in zip(scalars, points):
     buckets[scalar] += point
   return buckets
 
-def bucket_aggergation(bucket):
+def bucket_sum(bucket):
   acc = identity
   running = identity
   for point in reversed(points):
@@ -42,7 +42,7 @@ def bucket_aggergation(bucket):
   return acc
 
 def bucket_method(scalars, points):
-  return bucket_aggregation(bucket_sum(scalars, points))
+  return bucket_sum(bucket_aggregation(scalars, points))
 ```
 
 ## Overview of the Architecture
@@ -50,20 +50,20 @@ def bucket_method(scalars, points):
 In the specific case of BLS12-377, the prime field and scalar field are 377
 bits and 253 bits respectively. In our implementation, we have partitioned the
 work such that the FPGA performs the bucket aggregation and the host performs
-the final bucket summation. When processing multiple MSMs, this allows us to mask out
-some of the latency of bucket aggregation by starting the bucket sum of the next
-MSM while computing bucket aggregation for the current MSM.
+the final bucket sum. When processing multiple MSMs, this allows us to mask out
+the latency of bucket sum by starting the bucket aggregation of the next MSM
+while computing bucket sum for the current MSM.
 
 Considerations for the choice of parameters $B$ and $W$ are:
 
 - The amount of on-chip memory resources available in the FPGA
-- The amount of time taken to perform the bucket aggregation on the host
+- The amount of time taken to perform the bucket sum on the host
 
 We have chosen $B=13$ and $W=20$ in our implementation, as this uses up ~60% of
-the memory resources available and the time taken for bucket aggregation is
-around 1/10th the time taken for bucket sum. This allows our implementation to
+the memory resources available and the time taken for bucket sum is
+around 1/10th the time taken for bucket aggregation. This allows our implementation to
 have a comfortable margin for routing in the FPGA and for the bucket
-accumulation to be fast enough relative to bucket sum. We discuss some ideas on
+sum to be fast enough relative to bucket aggregation. We discuss some ideas on
 improving the performance further in the [future work
 section](msm-future-work).
 
@@ -80,7 +80,7 @@ so that at run time only scalars are sent from the host to the FPGA via PCIe.
 A single fully-pipelined point adder on the FPGA which adds points to buckets
 as directed by a pippenger controller until there are no more points left. Once
 all points have been added into buckets, the FPGA streams back the result for
-the host to do the final bucket aggregation.
+the host to do the final bucket sum.
 
 This approach allows us to focus on implementing a very high performance adder
 on the FPGA (as these additions dominate Pippenger's algorithm), and then

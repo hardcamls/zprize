@@ -52,7 +52,7 @@ much larger multipliers.
 
 ## Host Driver
 
-**Optimizing final bucket sum accumulation** While using gmp was useful for
+**Optimizing final bucket sum** While using gmp was useful for
 quick initial prototyping, a custom representation and implementation based on
 exploiting the known bit widths (377 bits) of the curve is likely to be more
 efficient.

@@ -21,7 +21,7 @@ Our FPGA design comprises of the following 3 high-level components
 
 - Memory Access Blocks (written with HLS)
 - IO transformation blocks (written in Hardcaml)
-- MSM block to compute pippenger bucket sums (written in Hardcaml,
+- MSM block to compute pippenger bucket aggregation (written in Hardcaml,
   discussed in detail in other sections)
 
 ## Memory Access Blocks
@@ -31,13 +31,13 @@ DDR memory bank via an AXI interface and transform them to/from AXI
 streams.
 
 We have two separate HLS kernels loading affine points and scalars from DDR,
-and a single HLS kernel to write bucket sum results to DDR. Using HLS blocks
+and a single HLS kernel to write bucket values to DDR. Using HLS blocks
 for these simple tasks is a massive productivity boost:
 
 - AXI Streams are much easier to work with than AXI ports in RTL
 - The HLS kernels have a predefined API for communication with the host drivers
 
-We used a single DDR bank for scalars, points and bucket sum results, because:
+We used a single DDR bank for scalars, points and bucket values, because:
 
 - Our memory access pattern is streaming friendly
 - Our computation is nowhere near memory bound
@@ -52,7 +52,7 @@ the appropriate data format.
 The `merge_axi_stream` block converts the 512-bit AXI stream into a stream of
 scalars and affine points and aligns the streams to be available at same clock cycle.
 
-The `msm_result_to_host` block does a similar alignment on the bucket sum
+The `msm_result_to_host` block does a similar alignment on the bucket values
 output to be written back to the host.
 
 ## Engineering to Improve Performance
@@ -102,7 +102,7 @@ The VU9P FPGA contains 3 SLRs. There are interconnects between SLR0<->SLR1 and
 SLR1<->SLR2.
 
 In our design, we have carefully partitioned our design such that the RAM for
-running bucket sums for the windows are carefully spreaded out into 3 SLRs,
+running bucket values for the windows are carefully spreaded out into 3 SLRs,
 and the pipelined point adder's various stages are explicitly splitted across
 multiple SLRs and fitted with necessary SLR-crossing registers.
 

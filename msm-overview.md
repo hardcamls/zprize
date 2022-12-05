@@ -38,7 +38,8 @@ implementation.
 
 Our implementation is built around pippenger's algorithm, splitting work
 between the FPGA and the host. The pages below describe the
-architecture of our design and the main FPGA controller to compute bucket sums.
+architecture of our design and the main FPGA controller to compute bucket
+aggregation.
 
 * [Top level Pippenger Design](msm-top-level-pippenger-design.html)
 * [Pippenger Controller](msm-pippenger-controller.html)
