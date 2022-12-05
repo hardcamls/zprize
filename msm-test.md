@@ -11,7 +11,7 @@ Please clone our [submission github
 repository](http://github.com/fyquah/hardcaml_zprize) before following any
 instructions below.
 
-# Building the design from source
+## Building the design from source
 
 Instructions are given below for building from source. A prerequisite is that
 OCaml has been setup (outlined in the main [README.md](https://github.com/fyquah/hardcaml_zprize/blob/master/README.md)).
@@ -20,7 +20,7 @@ It is important you use the AMI version 1.10.5 and Vivado version 2020.2 to
 acheive the same results. The `rtl_checksum` expected of the Verilog when
 generated from the Hardcaml source is 1929f78e1e4bafd9cf88d507a3afa055.
 
-## Compiling the BLS12-377 reference
+### Compiling the BLS12-377 reference
 
 Run `cargo build` in `libs/rust/ark_bls12_377_g1` to compile the dynamic library
 exposing a reference implementation of the BLS12-377 g1 curve. This is
@@ -28,7 +28,7 @@ necessary for the expect tests and verilog generator to work expectedly.
 
 z3 should also be installed to run Hardcaml RTL simulations.
 
-## Generating the Verilog from Hardcaml
+### Generating the Verilog from Hardcaml
 
 The following instructions assume you are in the `zprize/msm_pippenger` folder.
 
@@ -40,7 +40,7 @@ Verilog expected, so that if changes to the Hardcaml source are made that modify
 the Verilog (which is not checked into the repo), the rtl-checksum will show a
 difference.
 
-### Simulations in Hardcaml
+#### Simulations in Hardcaml
 
 We have various expect tests in the [test folders](https://github.com/fyquah/hardcaml_zprize/blob/master/zprize/msm_pippenger/hardcaml/test) which can be
 run by calling `dune runtest`. To optionally run a longer simulation, we added
@@ -58,7 +58,7 @@ The `-waves` switch can be optionally provided to open the simulation in the
 hardcaml waveform viewer. A larger timeout should be provided when simulating
 more points.
 
-## Building an FPGA image for AWS
+### Building an FPGA image for AWS
 
 You need to clone the [aws-fpga repo](https://github.com/aws/aws-fpga/), as well
 as run on an AWS box with the [FPGA Developer
@@ -93,7 +93,7 @@ Phase 4.5 Global Iteration 4 | Checksum: 231df891e
 Phase 13 Route finalize | Checksum: 176e41d90
 ```
 
-### Creating the AWS AFI
+#### Creating the AWS AFI
 
 Once you have successfully called `compile_hw.sh` in the `fpga` folder, you want
 to pass the results to the AWS script responsible for generating the AFI an
@@ -112,9 +112,9 @@ aws ec2 describe-fpga-images --fpga-image-ids <afi-...>
 ```
 Which will show up as "available" when the image is ready to use.
 
-# Benchmarking and Testing
+## Benchmarking and Testing
 
-## AWS setup
+### AWS setup
 
 You need to run these steps on an AWS F1 box with an FPGA. Make sure you have
 cloned the aws-fpga repo and run:
@@ -132,7 +132,7 @@ systemctl status mpd
 You need the .awsxclbin file from the build box - usually the easiest way is to
 download this from the s3 bucket or scp it over.
 
-## MSM FPGA Test Harness
+### MSM FPGA Test Harness
 
 We include a modified version of the [GPU MSM test harness](https://github.com/z-prize/test-msm-gpu)
 for testing and benchmarking our FPGA design. A feature we added is the ability
@@ -149,7 +149,7 @@ is also some extra work that we are required to do in precomputation and
 during evaluation, as we don't represent our points internally in montgomery
 space.
 
-## Generating Test Data
+### Generating Test Data
 
 _Note: If you have already previously generated test data, you can skip this step._
 
@@ -165,7 +165,7 @@ CMAKE=cmake3 XCLBIN=<file> TEST_NPOW=10 TEST_WRITE_DATA_TO=path/to/write/to carg
 For `TEST_NPOW=10`, this should run in a few seconds. For `TEST_NPOW=26`, it can take
 around 6-7hours to generate all the points.
 
-## Running Tests
+### Running Tests
 
 To load the points from disk, use the `TEST_LOAD_DATA_FROM` env-var. Note that
 you don't have to specify `TEST_NPOW` when specifying `TEST_LOAD_DATA_FROM`.
@@ -225,7 +225,7 @@ from the original GPU test harness)
 CMAKE=cmake3 XCLBIN=<file> TEST_NPOW=10 cargo test --release -- --nocapture
 ```
 
-## Benchmarking
+### Benchmarking
 
 This is similar to running tests, except unstead of running `cargo test`, you
 run `cargo bench`. The expect environment variables are similar:
@@ -243,7 +243,7 @@ The output shows show the result of 10 runs of 4 rounds each:
 FPGA-MSM/2**26x4 time: [20.336 s 20.336 s 20.337 s]
 ```
 
-## Power
+### Power
 
 AWS allows the average power to be measured during operation. Run the following
 command during the MSM evaluation to get a power measurement.
@@ -258,7 +258,7 @@ Power consumption (Vccint):
    Max measured: 56 watts
 ```
 
-## Breakdown of individual host steps
+### Breakdown of individual host steps
 
 The breakdown of how long each stage takes can be printed when changed the value
 of `mask_io` to `false` in `host/driver/driver.cpp` (this is not used in
@@ -280,9 +280,9 @@ and without other CPU-intensive tasks running at the same time.
 will leave the FPGA in a bad state which requires clearing and re-programming
 with these commands:
 
-# Debuging
+## Debuging
 
-## Running `host_buckets.exe` debug test
+### Running `host_buckets.exe` debug test
 
 `host_buckets.exe` is a debug application that pumps test vectors into the FPGA
 from a file, and compares against a reference file. Note this is NOT the
