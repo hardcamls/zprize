@@ -43,6 +43,11 @@ We used a single DDR bank for scalars, points and bucket values, because:
 - Our computation is nowhere near memory bound
 - The AWS shell has only 1 memory controller built-in
 
+We futher modify the memory access block `krnl_mm2s` to allow us to set the tlast bit of the 
+AXI stream when transfering data from the host. This was part of the key of allowing a subset of the point and scalar
+inputs to be streamed from DDR into the FPGA, while performing other calculations on the host
+in parallel. 
+
 ## IO Transformation Blocks
 
 The memory access blocks read / write AXI streams with a bus width of
@@ -62,7 +67,7 @@ output to be written back to the host.
 At realistic frequencies, our design is compute bound, rather than memory bound.
 So increasing frequency directly results in a faster MSM.
 
-The vitis linker config file allows us to easily specify a target frequency
+The Vitis linker config file allows us to easily specify a target frequency
 to compile our design at. This makes it very convenient to experiment with
 targeting various clock frequencies with a simple config file change.
 

@@ -10,7 +10,7 @@ subcategory: design
 ## Pippenger's Algorithm
 
 The main idea of [Pippenger's algorithm](https://dl.acm.org/doi/abs/10.1137/0209022)
-reformulate the dot products $∑↙{i=0}↖{N-1} p_{i} s_{i}$ into smaller dot
+is to reformulate the dot products $∑↙{i=0}↖{N-1} p_{i} s_{i}$ into smaller dot
 products over windows, where every window represents a small contiguous set of bits
 from the scalar:
 
@@ -21,7 +21,7 @@ respectively, and the product $BW$ must be greater or equal to the number of bit
 scalar field.
 
 The inner sum in parentheses is computed using the bucket method depicted by
-the following python pseudocode.
+the following Python pseudocode:
 
 ```python
 B : int = .. # log size of buckets, This is a tunable parameter.
