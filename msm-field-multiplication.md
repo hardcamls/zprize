@@ -98,7 +98,7 @@ As it turns out, for 377-bit multiplications in the prime field, we only require
 translates to requiring only 162 DSP slices. This is much more realistic than
 the 330 multipliers required from long multiplication.
 
-All the operations in the field multiplication is fully pipelined. This means
+All the operations in the field multiplication are fully pipelined. This means
 we can work out the exact latency of this component. In our work, we had
 parameters to tune the amount of pipelining in each of the pre, middle
 and post adder stages. This allowed us to easily experiment with various
