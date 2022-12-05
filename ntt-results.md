@@ -64,44 +64,6 @@ control. The number is reported as "fixed" in the post_route_utilisation.rpt
 |    BRAM36 |              1344 |                      0 |
 |      URAM |               640 |                      0 |
 
-## FOM Measurement for ZPrize
-
-As detailed in the evaluation criteria provided by the Zprize NTT track, FOM is
-computed as $latency * √{Power} * U_{norm}$ (lower better). Note that $N_{pipe}
-= 1$ for our design, since it can only support 1 evaluation at a time.
-
-Latency and Power is used as report above in seconds and Watts respectively.
-We calculate $U_{norm} = U_{LUTS} + U_{Registers} + U_{DSP} + U_{BRAM} + U_{URAM}$.
-The max possible value of `U_{norm}` is hence 5.0.
-
-These are FOM numbers assuming we don't include the platform (aka fixed resources)
-in our utlization
-
-|  Build  |  LUTs  |  Registers |    DSP |   BRAM |   URAM | $U_{norm}$ |  FOM   |
-|---------|--------|------------|--------|--------|--------|-----------------|
-| 8-core  | 0.0518 |     0.0341 | 0.0430 | 0.1205 | 0.0750 | 0.3245 | 0.3095 |
-| 16-core | 0.0749 |     0.0428 | 0.0860 | 0.1205 | 0.1500 | 0.4743 | 0.2505 |
-| 32-core | 0.1198 |     0.0590 | 0.1720 | 0.1205 | 0.3000 | 0.7714 | 0.2451 |
-| 64-core | 0.2335 |     0.0946 | 0.3441 | 0.1205 | 0.6000 | 1.3927 | 0.3301 |
-
-Our best-build for the evaluation criteria is the 32-core variant, with a __FOM of 0.2451__.
-
-The following FOM numbers are assuming we have to include the Vitis platform
-resources as part of our utilisation. To stress this fact -- we don't think
-those resources should be considered as part of the evaluation!
-
-
-|  Build  |   LUTs |  Registers |    DSP |   BRAM |   URAM | $U_{norm}$ |  FOM   |
-|---------|--------|------------|--------|--------|--------|--------|--------|
-| 8-core  | 0.1232 |     0.0809 | 0.0437 | 0.1205 | 0.0750 | 0.4433 | 0.4229 |
-| 16-core | 0.1463 |     0.0896 | 0.0867 | 0.1205 | 0.1500 | 0.5931 | 0.3132 |
-| 32-core | 0.1912 |     0.1058 | 0.1727 | 0.1205 | 0.3000 | 0.8903 | 0.2829 |
-| 64-core | 0.3049 |     0.1413 | 0.3448 | 0.1205 | 0.6000 | 1.5116 | 0.3583 |
-
-
-Using these criteria, our best build is also the 32-core variant with a FOM of
-0.2829
-
 ## Result from Optimised-Layout Builds
 
 Here is a detailed breakdown of a runtime sample of an optimised 64-core build:
