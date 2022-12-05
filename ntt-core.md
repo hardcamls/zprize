@@ -20,17 +20,17 @@ The core is designed to perform one butterfly operation per cycle.  This involve
 multiplications per cycle (one for the butterfly operation and one to update the root of unity).
 
 To keep the data path fully utilised we need to be able to read and write two coefficients per cycle.
-The various RAMs utilised to store coefficients are architected to allow two simultaneous read and
+The various RAMs used to store coefficients are architected to allow two simultaneous read and
 write ports.
 
-For a size $N$ transform (note $N$ is assumed to be a power of 2) we require $log_{2}N$ iterations.
+For a size-$N$ transform (note $N$ is assumed to be a power of 2) we require $log_{2}N$ iterations.
 
 Since we perform a full butterfly operation per cycle we require a total of $N/2 log_{2}N$ cycles
 to perform the full transform.
 
 The actual number of cycles is slightly larger than this.  In order to achieve a clock
 rate of 250Mhz, the butterfly data path (including the finite field multiplier) must be pipelined.
-The pipelining is currently set at 8 clock cycles.  After each NTT iteration we must account for the
+The pipelining is currently set at 8 clock cycles.  After each NTT iteration we must account for
 datapath pipelining to ensure data integrity.  At transform sizes greater than $2^8$ this extra
 cost becomes negligible.
 
@@ -57,13 +57,14 @@ latency while producing a new root each cycle.
 
 In the full design, the data path is reused to perform the twiddle phase after the
 first pass of the 4-step algorithm.  Each coefficient must be scaled by a specific
-root of unity and then the root scaled.  This pass takes a further $N$ cycles and uses a
-similar trick to the twiddle factor stream module to hide the multiplier latency.
+root of unity and then the root scaled. This pass takes a further N cycles and
+hides the multiplier latency using a trick similar to the one used by the
+twiddle factor stream module.
 
 ## RAMs
 
 We required 2 read and 2 write ports for all RAMs in the design.  This includes
-the inputs RAMs, internal ping-pong RAMs, and output RAMs.
+the input RAMs, internal ping-pong RAMs, and output RAMs.
 
 Since FPGA RAMs consist of 2 ports, we build the required structure from 2 UltraRAMs.
 Each UltraRAM has both its ports connected to either the read or write side.

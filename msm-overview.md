@@ -37,14 +37,15 @@ implementation.
 # Design overview
 
 Our implementation is built around pippenger's algorithm, splitting work
-between the FPGA and the host. The pages below describes the
-architecture of our design and the main FPGA controller to compute bucket sums.
+between the FPGA and the host. The pages below describe the
+architecture of our design and the main FPGA controller to compute bucket
+aggregation.
 
 * [Top level Pippenger Design](msm-top-level-pippenger-design.html)
 * [Pippenger Controller](msm-pippenger-controller.html)
 
 The heart of the computation is performed by a 1-per-cycle throughput mixed
-adders. The pages below details the mathematics behind the implementation of
+adder. The pages below detail the mathematics behind the implementation of
 the adder.
 
 * [Field Multiplication](msm-field-multiplication.html)
@@ -60,7 +61,7 @@ and reproduction guides in the pages below.
 * [Results](msm-results.html)
 * [Building, Testing and Benchmarking](msm-test.html)
 
-We possible improvements on our work in the following page.
+Some possible improvements on our work are noted here.
 
 * [Future Work](msm-future-work.html)
 
@@ -80,5 +81,5 @@ API Docs are available [here](/odoc/zprize/index.html#multi-scalar-multiplicatio
 - [`Msm_pippenger`](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/msm_pippenger) ([source code docs](odoc/zprize/Msm_pippenger/index.html)) implements the complete MSM computation using the Pippenger bucket method.
 - [`Pippenger`](https://github.com/fyquah/hardcaml_zprize/tree/master/libs/pippenger) ([source code docs](odoc/zprize/Pippenger/index.html)) implements the controller logic to sequence the MSM computation
 - [`Field_ops_lib`](https://github.com/fyquah/hardcaml_zprize/tree/master/libs/field_ops) ([source code docs](odoc/zprize/Field_ops_lib/index.html)) implements the core field arithmetic operations (modulo multiplications etc.)
-- [`Twisted_edwards_lib`](https://github.com/fyquah/hardcaml_zprize/tree/master/libs/twisted_edwards) ([source code docs](odoc/zprize/Twisted_edwards_lib/index.html)) implements the mixed addition in the twisted edwards curve.
+- [`Twisted_edwards_lib`](https://github.com/fyquah/hardcaml_zprize/tree/master/libs/twisted_edwards) ([source code docs](odoc/zprize/Twisted_edwards_lib/index.html)) implements the mixed addition in the Twisted Edwards curve.
 
