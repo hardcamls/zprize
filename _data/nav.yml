@@ -74,7 +74,7 @@
         - title: Top level Hardcaml design
           title_id: FPGA top level design
           link: /ntt-top-level.html
-        - title: Zprize NTT Build Instructions
+        - title: Build Instructions
           title_id: ntt_build
           link: /ntt-build-instructions.html
     - title: Hardcaml on the Web

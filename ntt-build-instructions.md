@@ -5,14 +5,7 @@ category: ntt
 subcategory: design
 ---
 
-# Zprize NTT Build Instructions
-
-Note for judges:
-
-If you're primarily interested in running the benchmark, please skip straight
-to the "Running Randomized Tests" section further down. For convenience, in our
-ZPrize submission tar, we have included the [.xclbin] files, so your don't need
-to rebuild them.
+# Build Instructions
 
 ## Building the Verilog Files
 

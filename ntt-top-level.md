@@ -32,18 +32,14 @@ of two kernels - the top level hardcaml design, and a
 [C++ HLS kernel](https://github.com/fyquah/hardcaml_zprize/blob/master/zprize/ntt/fpga/common/krnl_controller_normal_layout.cpp)
 to interface with PCIe and HBM2 memory.
 
-The C++ kernel coordinates the transfer of data ...
+The C++ kernel coordinates the transfer of data
 
-1. ... from the host to HBM2 memory.
-2. ... from HBM2 memory back to the host.
-3. ... from HBM2 into the Hardcaml INTT kernel
-4. ... from the INTT kernel into HBM
+1. from the host to HBM2 memory.
+2. from HBM2 memory back to the host.
+3. from HBM2 into the Hardcaml INTT kernel
+4. from the INTT kernel into HBM
 
-It is aware of the 2 passes of the 4-step algorithm and works in conjunction with the Hardcaml
-memory sequencers.
+It is aware of the 2 passes of the 4-step algorithm and works in conjunction
+with the Hardcaml memory sequencers.
 
 <img src="images/ntt-top-level.png" width="70%">>
-
-## Build and Testing Instructions
-
-Please refer to [this page](ntt_build_instructions).
