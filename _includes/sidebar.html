@@ -10,7 +10,7 @@
             <ul class="list-unstyled {% if page.category == section.category %}show{% else %}collapse{% endif %}"
                 id="{{ section.sublink_id }}">
                 {% for subsection in section.sublinks %}
-                <li {% if page.title == subsection.title or page.title == link.title_id %}class="active"{% endif %}>
+                <li {% if page.category == section.category and (page.title == subsection.title or page.title == link.title_id) %}class="active"{% endif %}>
                     {% if subsection.sublinks %}
                     <a href="#{{ subsection.sublink_id }}"
                        data-toggle="collapse"
@@ -19,7 +19,7 @@
                     <ul class="collapse list-unstyled {% if page.subcategory == subsection.subcategory %}show{% endif %}"
                         id="{{ subsection.sublink_id }}">
                         {% for link in subsection.sublinks %}
-                        <li {% if page.title == link.title or page.title == link.title_id" %}class="active"{% endif %}>
+                        <li {% if page.category == section.category and (page.title == link.title or page.title == link.title_id)" %}class="active"{% endif %}>
                             <a href="{{ link.link }}">{{ link.title }}</a>
                         </li>
                         {% endfor %}

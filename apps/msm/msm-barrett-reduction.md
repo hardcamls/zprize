@@ -1,12 +1,13 @@
 ---
-layout: default
+layout: app
 title: MSM Barrett Reduction
 hardcaml_app: msm_barrett_reduction.bc.js
-category: msm
-subcategory: on-the-web
 ---
 
-# MSM Barrett Reduction
+Our Barret Reduction design for our
+[field multiplier](../../msm-field-multiplication.html).
 
-<div id="hardcaml_app">
-</div>
+<br />
+
+This barrett reduction module computes $a\ mod\ P$, where $P$ is the prime of
+the BLS12-377 prime field and $a < P^2$.

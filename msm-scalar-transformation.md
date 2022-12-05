@@ -15,7 +15,7 @@ controller.
 The main transform currently implemented transforms the input scalar from unsigned digits
 in the range $[0,2^b-1]$ to signed digits in the range $[-2^{b-1}, 2^{b-1}-1]$.
 
-It does this as follows: suppose we have a B-bit scalar $k$, split into $N$
+It does this as follows - suppose we have a B-bit scalar $k$, split into $N$
 windows of size $b_i$, where $∑↙{i=0}↖{N-1}{b_i} = B$. Then, letting
 $o_i = ∑↙{j=0}↖{i-1}{b_i}$ be the offsets of each digit, we can write
 

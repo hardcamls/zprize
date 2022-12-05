@@ -9,7 +9,7 @@
 @import "sidebar";
 @import "splash-header";
 @import "landing";
-
+@import "cookie-banner";
 
 body {
     font-family: $regular-font;
@@ -51,7 +51,7 @@ a {
 	}
 }
 
-code {
+code, pre code {
   font-size: 16px;
   color: $code-color;
   &:hover, &:visited {
@@ -59,7 +59,7 @@ code {
   }
 }
 
-a > code {
+a > code, pre code {
 	color: $code-link-color;
 	&:hover, &:visited {
 		color: $code-link-color;

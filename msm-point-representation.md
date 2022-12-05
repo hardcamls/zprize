@@ -9,12 +9,13 @@ subcategory: design
 
 We choose to convert points to the Twisted Edwards curve, rather than working in
 the Weierstrass form. Point Addition in Twisted edwards curve is significantly
-cheaper than in the vanilla weierstrass form. We go into greater detail about
-point addition in [this page on our adder
-implementation](msm_mixed_point_addition_with_precomputation.html).
+cheaper than in the vanilla weierstrass form.
 
-This page details the algorithms to convert points in the original weistrass
-form into scaled Twisted edwards form.
+This page details the algorithms to convert points in the original Weierstrass
+form into scaled Twisted edwards form. We go into greater detail about [our
+pipelined point adder in a different
+page](msm-mixed-point-addition-with-precomputation.html).
+
 
 ## Converting Curve Parameters to Twisted Edwards
 
@@ -65,8 +66,8 @@ assumptions do hold in BLS12-377 G1.
 
 ## Converting Points from Weierstrass to Twisted Edwards
 
-The formulae for points conversion is detailed in the Wikipedia article
-linked above. Here's a summary:
+Having converted the curve parameters, the point transformations are
+straightforward:
 
 Given $(x, y)$ on a curve in Weierstrass form:
 
@@ -81,26 +82,23 @@ $$x_{twisted\_edwards} = x / y$$
 $$y_{twisted\_edwards} = {x - 1} / {x + 1}$$
 
 The main catch here is the mapping for points from Weierstrass to Twisted Edwards
-is not always defined. The transformation for points from Montgomery curve
-to Twisted Edwards is undefined when $y = 0$ or $x = -1$ on the Montgomery curve
-representation. This implies there is no Twisted Edwards curve representation
-for points where $y = 0$ or $x = α - 1/s$. There are exactly 5 such
-points on the BLS12-377 curve.
+is not defined when $y_{montgomery} = 0$ or $x_{montgomery} = -1$. This implies
+there is no Twisted Edwards curve representation for points where $y = 0$ or $x
+= α - 1/s$. There are exactly 5 such points on the BLS12-377 curve.
 
-In practice, this is not a problem, as:
-
-- The probability of these points occurring is miniscule, so we can fallback
-to a slow code path when handling these points. In our implementation, we simply
-offload these points to the CPU.
-- It's unclear if these points lie in the G1 subgroup, so it's not clear if
-  this case will ever be exercised
-
+In practice, this is not a problem, as the probability of these points randomly
+occurring is miniscule, so we can fallback to a slow code path when handling
+these points. In our implementation, we offload these points to the host.
 
 ## Converting Points from Twisted Edwards into Scaled Twisted Edwards
 
-A mixed addition on a Twisted Edwards curve [costs `8M + 1*a + 7A`](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended.html#addition-madd-2008-hwcd-2). But with a simple scaling transformation, we can [reduce
-this further to `7M + 1*k + 8A + 1*2`](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html#addition-madd-2008-hwcd-3).
-The reduced operation count applies to Twisted Edwards curve with `a = -1`.
+A mixed addition on a Twisted Edwards curve [costs `8M + 1*a +
+7A`](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended.html#addition-madd-2008-hwcd-2)
+(this notation means 8 field multiplication, 1 multiplication by a known
+constant `a` and 7 field additions). But with a simple scaling transformation,
+we can [reduce this further to `7M + 1*k + 8A +
+1*2`](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html#addition-madd-2008-hwcd-3).
+The reduced operation count applies to Twisted Edwards curves with `a = -1`.
 
 The coordinates can be transformed as follows:
 

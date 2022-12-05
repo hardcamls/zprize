@@ -110,13 +110,16 @@ nav.navbar {
     top: 50%;
     right: 20px;
     transform: translateY(-50%); }
+  #sidebar .dropdown-toggle[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+    top: 45%; }
 
 @media (max-width: 992px) {
   #sidebar {
-    margin-left: -300px; }
+    left: -300px; }
 
   #sidebar.active {
-    margin-left: 0; } }
+    left: 0; } }
 .splash-header {
   position: relative;
   height: 600px;
@@ -204,8 +207,45 @@ nav.navbar {
   margin: 0 80px 150px;
   gap: 8%; }
   .landing .columns-container .column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     flex: 1 1 0;
-    width: 48%; }
+    width: 48%;
+    border: 1px solid #000;
+    margin-top: 25px; }
+    .landing .columns-container .column .upper {
+      flex: 1 1 0; }
+      .landing .columns-container .column .upper .heading {
+        padding: 10px 0 10px;
+        margin-top: 0;
+        color: #fff;
+        background-color: #000;
+        text-align: center; }
+        .landing .columns-container .column .upper .heading h2 {
+          margin: 2px 0 0; }
+      .landing .columns-container .column .upper .content {
+        padding: 20px; }
+    .landing .columns-container .column a {
+      display: flex;
+      flex-direction: column;
+      flex: 0 1 0;
+      align-self: flex-end;
+      width: 100%; }
+      .landing .columns-container .column a .cta-button {
+        background-color: #ffa1b1;
+        text-align: center;
+        font-family: "Alright Sans LTV Med", "Alright Sans Med", Helvetica, Arial, sans-serif;
+        color: #fff;
+        border-radius: 4px;
+        margin: 0 20px 20px;
+        height: 30px; }
+        .landing .columns-container .column a .cta-button p {
+          position: relative;
+          top: 8px;
+          font-size: 13px;
+          font-weight: bold;
+          margin-bottom: 0; }
 @media (max-width: 800px) {
   .landing .columns-container {
     display: block; }
@@ -220,6 +260,25 @@ nav.navbar {
     margin-left: 20px; }
   .landing .columns-container {
     margin: 0 20px 150px; } }
+
+.cb-cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  border-radius: 0;
+  display: none; }
+  .cb-cookie-banner .button-wrapper {
+    margin-top: 10px; }
+  .cb-cookie-banner #disagree-cookies-msg {
+    display: none; }
+  .cb-cookie-banner.denied {
+    background-color: #ffcf5b; }
+  .cb-cookie-banner #deny-link {
+    text-decoration: underline;
+    border: 0;
+    background: transparent; }
 
 body {
   font-family: "Alright Sans LTV Regular", "Alright Sans", Helvetica, Arial, sans-serif; }
@@ -253,15 +312,15 @@ a {
   a:hover, a:visited {
     color: #e15ca0; }
 
-code {
+code, pre code {
   font-size: 16px;
   color: #26b832; }
-  code:hover, code:visited {
+  code:hover, code:visited, pre code:hover, pre code:visited {
     color: #26b832; }
 
-a > code {
+a > code, pre code {
   color: #c50517; }
-  a > code:hover, a > code:visited {
+  a > code:hover, a > code:visited, pre code:hover, pre code:visited {
     color: #c50517; }
 
 th, td {

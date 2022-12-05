@@ -1,12 +1,13 @@
 ---
-layout: default
+layout: app
 title: MSM Karatsuba Ofman Multiplier
 hardcaml_app: msm_karatsuba_ofman_mult.bc.js
-category: msm
-subcategory: on-the-web
 ---
 
-# MSM Karatsuba Ofman Multiplier
+Our Karatsuba-Ofman multiplier design for our field multiplier
+[field multiplier](../../msm-field-multiplication.html).
 
-<div id="hardcaml_app">
-</div>
+<br />
+
+This computes the `a * b` using the Karatsuba-Ofman algorithm where `a` and `b`
+are 377-bit numbers.

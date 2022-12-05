@@ -1,17 +1,15 @@
 ---
-layout: default
-title: INTT single core hardware design
+layout: app
+title: NTT Single Core Hardware Design
 hardcaml_app: ntt_core_with_rams.bc.js
-category: ntt
-subcategory: on-the-web
 ---
 
-# INTT core with I/O Rams included
+Basic single core NTT hardware design.
 
-Configure, download and simulate our core INTT design from the comfort of your browser!
+<br/>
 
-This design includes the input, output and ping-pong RAMs, along with the core data path
-and controller.
+Configure the size of the transform to the right, and click apply to run a simulation.
 
-<div id="hardcaml_app">
-</div>
+<br/>
+
+Running simulations for large transform sizes _will_ take a long time...

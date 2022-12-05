@@ -3,37 +3,37 @@
   category: msm
   sublinks:
     - title: MSM overview
-      link: /msm_overview
+      link: /msm-overview
       subcategory: overview
     - title: Design Overview
       sublink_id: "msm-design"
       subcategory: design
       sublinks:
-        - title: Field Multiplication
-          link: /msm_field_multiplication
-        - title: Twisted Edwards Point Representation
-          link: /msm_point_representation.html
-        - title: Scalar Transformation
-          link: /scalar_transformation.html
-        - title: Mixed Point Addition with Precomputation
-          link: /msm_mixed_point_addition_with_precomputation.html
-        - title: Top level Pippenger design
+        - title: Top-Level Pippenger Design
           title_id: pippenger
-          link: /pippenger.html
-        - title: Top level Pippenger controller
+          link: /msm-top-level-pippenger-design.html
+        - title: Pippenger Controller
           title_id: Pippenger Controller
           link: /msm-pippenger-controller.html
+        - title: Field Multiplication
+          link: /msm-field-multiplication
+        - title: Twisted Edwards Point Representation
+          link: /msm-point-representation.html
+        - title: Mixed Point Addition with Precomputation
+          link: /msm-mixed-point-addition-with-precomputation.html
+        - title: Scalar Transformation
+          link: /msm-scalar-transformation.html
         - title: Implementation Details
-          link: /msm_implementation_details.html
-        - title: Results
-          link: /msm_results.html
-        - title: Future Work
-          link: /msm_future_work.html
+          link: /msm-implementation-details.html
         - title: Host driver software
           title_id: Host Driver
-          link: /msm_host.html
-        - title: Benchmarking and test harness
-          link: /msm_test.html
+          link: /msm-host.html
+        - title: Results
+          link: /msm-results.html
+        - title: Building, Testing and Benchmarking
+          link: /msm-test.html
+        - title: Future Work
+          link: /msm-future-work.html
     - title: Hardcaml on the Web
       sublink_id: "msm-hardcaml"
       subcategory: "on-the-web"
@@ -47,7 +47,7 @@
         - title: Top level design as a Vitis kernel
           title_id: MSM Top level Vitis Kernel
           link: /apps/msm/msm-top-app.html
-- title: Inverse NTT
+- title: NTT
   link: /ntt-overview
   sublink_id: "ntt-children"
   category: ntt
@@ -59,31 +59,28 @@
       sublink_id: "ntt-design"
       subcategory: design
       sublinks:
-        - title: Core (I)NTT design
-          title_id: Core INTT design
-          link: /ntt-core.html
-        - title: NTT Performance Scaling
-          link: /ntt-performance-scaling.html
-        - title: 4 Step Algorithm
+        - title: 4-Step Algorithm
           link: /ntt-4step.html
-        - title: NTT Bandwidth
-          title_id: NTT Memory Bandwidth
+        - title: Memory Bandwidth
           link: /ntt-bandwidth.html
-        - title: NTT Results
-          link: /ntt-results.html
-        - title: Top level Hardcaml design
-          title_id: FPGA top level design
+        - title: Core NTT design
+          link: /ntt-core.html
+        - title: Performance Scaling
+          link: /ntt-performance-scaling.html
+        - title: Top-Level Hardcaml Design
           link: /ntt-top-level.html
-        - title: Zprize NTT Build Instructions
+        - title: Results
+          link: /ntt-results.html
+        - title: Build Instructions
           title_id: ntt_build
           link: /ntt-build-instructions.html
     - title: Hardcaml on the Web
       sublink_id: "ntt-hardcaml"
       subcategory: "on-the-web"
       sublinks:
-        - title: INTT Single Core Hardware Design
-          title_id: INTT single core hardware design
+        - title: NTT Single Core Hardware Design
+          title_id: NTT single core hardware design
           link: /apps/ntt/ntt-core-with-rams-app
         - title: Top level design as a Vitis kernel
-          title_id: INTT vitis top level
+          title_id: NTT vitis top level
           link: /apps/ntt/ntt-vitis-top-app

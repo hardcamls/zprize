@@ -1,15 +1,20 @@
 ---
-layout: default
-title: INTT vitis top level
+layout: app
+title: NTT Vitis Top Level
 hardcaml_app: ntt_vitis_top.bc.js
-category: ntt
-subcategory: on-the-web
 ---
 
-# INTT Vitis Top Level
+Our top level Vitis kernel design, with multiple parallel NTT cores.
 
-Configure, download and simulate our top level INTT Vitis kernel design from the comfort of
-your browser!
+<br/>
 
-<div id="hardcaml_app">
-</div>
+Configure the size of the overall transform and number of parallel cores.
+
+<br/>
+
+Note that the parallelism is limited depending on the transform size and a suitable
+maximum will be automatically applied when the design is generated.
+
+<br/>
+
+Running simulations for large transform sizes _will_ take a long time...

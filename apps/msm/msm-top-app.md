@@ -1,12 +1,12 @@
 ---
-layout: default
+layout: app
 title: MSM Top level Vitis Kernel
 hardcaml_app: msm_top.bc.js
-category: msm
-subcategory: on-the-web
 ---
 
-# MSM Top Level Vitis Kernel
+Download our top level MSM Vitis kernel design.
 
-<div id="hardcaml_app">
-</div>
+<br/>
+
+_We did not include a simulation example with this core as it takes a shockingly
+large amount of time to run, and might crash your browser..._

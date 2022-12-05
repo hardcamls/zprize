@@ -7,29 +7,26 @@ subcategory: design
 
 # Results
 
-As per the zprize competition spec, we target an AWS f1.2xlarge instance,
-targetting the BLS12-377 curve with the G1 subgroup-generator. This AWS
+As per the ZPrize competition spec, we use an AWS f1.2xlarge instance,
+targeting the BLS12-377 curve with the G1 subgroup-generator. This AWS
 instance contains a Intel Xeon E5-2686 v4 Processor (2.3 GHz (base) and 2.7 GHz
 (turbo)) and a UltraScale+ VU9P FPGA.
 
-For more details on our implementation, please read the
-[page in implementation details](msm_implementation_details.html).
-
-We achieved a performance of **20.33s** $2^26$ MSMs with batch size of 4.
+We achieved a performance of **20.33s** $2^26$ MSMs with a batch size of 4.
 
 <!-- CR fyquah: If have time, benchmark more configurations / MSM sizes -->
 
 ## Breakdown of Individual Steps
 
 In our actual work, we masked a memory transfer latency and host post
-processing latency with the bucket sum computation on the FPGA.
+processing latency with the bucket aggregation computation on the FPGA.
 
 | Task                                         |  Time(s)     |
 |----------------------------------------------|--------------|
 | Memcpy 2^26 scalars to special memory region |     0.289 |
 | Transferring 2^26 scalars to FPGA            |     0.198 |
-| Computing bucket sums on FPGA                |     4.968 |
-| Copying bucket sum results back from FPGA    |     0.001 |
+| Computing bucket aggregation on FPGA         |     4.968 |
+| Copying bucket values back from FPGA         |     0.001 |
 | Doing on-host postprocessing                 |     0.470 |
 |----------------------------------------------|--------------|
 | **Serialized total time per MSM**                 |   **5.927** |
