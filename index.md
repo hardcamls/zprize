@@ -38,7 +38,7 @@ splash-header: true
 
 		<h2>Inverse NTT</h2>
 
-		<p>This competition track required us to build an Inverse Number Theoretic Transform (INTT) accelerator capable of performing transforms of size $2^24$. INTTs are conceptually similar to the Fourier Transforms - working over a finite field instead of complex numbers.</p>
+		<p>This competition track required us to build an Inverse Number Theoretic Transform (NTT) accelerator capable of performing transforms of size $2^24$. NTTs are conceptually similar to the Fourier Transforms - working over a finite field instead of complex numbers.</p>
 
 		<p>The platform tergetted was the Xilinx Varium C1100 accelerator card. The card contains Virtex UltrasScale+ FPGA with HBM2.</p>
 

@@ -8,8 +8,8 @@ subcategory: overview
 # Number-Theoretic Transform (NTT)
 
 This competition track required us to build an Inverse Number Theoretic
-Transform (INTT) accelerator capable of performing transforms of size $2^24$.
-INTTs are conceptually similar to the Fourier Transforms - working over a
+Transform (NTT) accelerator capable of performing transforms of size $2^24$.
+NTTs are conceptually similar to the Fourier Transforms - working over a
 finite field instead of complex numbers. For this project the finite field
 contains values of size 64 bits modulo a so called [Solinas
 prime](https://en.wikipedia.org/wiki/Solinas_prime) equal to $2^64 - 2^32 + 1$.
@@ -55,7 +55,7 @@ how you can [build](ntt-build-instructions.html) the design.
 
 Configure our designs, download RTL and perform simulations all within your browser!
 
-- [Core INTT design](apps/ntt/ntt-core-with-rams-app) which includes the IO RAMs, datapath and controller
+- [Core NTT design](apps/ntt/ntt-core-with-rams-app) which includes the IO RAMs, datapath and controller
 - [Top level design as a Vitis kernel](apps/ntt/ntt-vitis-top-app) which performs the full 4-step algorithm
 
 # Code structure
@@ -68,7 +68,7 @@ The code is built from a couple of libraries within our [submission repository](
 The `Hardcaml_ntt` library provides the base implementation of the NTT core and includes a software model and various unit tests.
 
 `Zprize_ntt` contains the code for both the top level
-[Hardcaml INTT kernel](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/hardcaml/src) and
+[Hardcaml NTT kernel](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/hardcaml/src) and
 [tests](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/hardcaml/test) , the
 [C++ HLS DMA kernel](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/fpga/common),
 [host benchmarking software](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/ntt/host) and

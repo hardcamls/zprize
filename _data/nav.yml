@@ -63,7 +63,7 @@
           link: /ntt-4step.html
         - title: Memory Bandwidth
           link: /ntt-bandwidth.html
-        - title: Core INTT design
+        - title: Core NTT design
           link: /ntt-core.html
         - title: Performance Scaling
           link: /ntt-performance-scaling.html
@@ -79,9 +79,9 @@
       sublink_id: "ntt-hardcaml"
       subcategory: "on-the-web"
       sublinks:
-        - title: INTT Single Core Hardware Design
-          title_id: INTT single core hardware design
+        - title: NTT Single Core Hardware Design
+          title_id: NTT single core hardware design
           link: /apps/ntt/ntt-core-with-rams-app
         - title: Top level design as a Vitis kernel
-          title_id: INTT vitis top level
+          title_id: NTT vitis top level
           link: /apps/ntt/ntt-vitis-top-app

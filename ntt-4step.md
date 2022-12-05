@@ -17,13 +17,13 @@ target transform size of $2^24$.  We first reformulate the input data as a $2^12
 
 The following steps are then performed.
 
-1. Perform $2^12$ INTTs on each column
+1. Perform $2^12$ NTTs on each column
 2. Multiply each element of the matrix at location $(i,j)$ by $ω^(i.j)$, where $ω$ is the appropriate
    root of unity of the transform size.
-3. Perform $2^12$ INTTs on each row
+3. Perform $2^12$ NTTs on each row
 4. Transpose the result
 
-The required INTT transform can now easily fit within on-chip FPGA RAM resources, so long as we can
+The required NTT transform can now easily fit within on-chip FPGA RAM resources, so long as we can
 store the complete matrix in external memory and access it efficiently.
 
 ## Performance
@@ -32,7 +32,7 @@ Using the [Coole-Tukey FFT
 algorithm](https://en.wikipedia.org/wiki/Cooley–Tukey_FFT_algorithm), a
 transform of size $2^24$ requires $2^24 log_{2} 2^24 = 402,653,184$ operations.
 
-The 4-step algorithm performs smaller $2 . 2^12$ INTT transforms, each of size
+The 4-step algorithm performs smaller $2 . 2^12$ NTT transforms, each of size
 $2^12$. This works out to the same number of $402,653,184$ operations as using
 Coole-Tukey algorithm. However, we must add to this a further $2 . 2^24$
 operations to perform the scaling operation (the scaling requires 2
@@ -40,7 +40,7 @@ multiplications - one to scale the coefficient, and the other to update the scal
 
 The following table gives the total operations and overhead for a few transform sizes.
 
-| $log_{2} N$ INTT | Full transform operations | 4-step operations | Overhead % |
+| $log_{2} N$ NTT | Full transform operations | 4-step operations | Overhead % |
 |------------------|---------------------------|-------------------|------------|
 | 18 | 4718592    | 5242880    | 11.1    |
 | 20 | 20971520   |  23068672  | 10.0    |
