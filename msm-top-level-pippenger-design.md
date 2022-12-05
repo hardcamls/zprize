@@ -97,8 +97,8 @@ Waiting 200 clock cycles will severely affect performance. The page about the
 minimize the impact of this.
 
 We utilize a well-known trick to reduce the memory usage by [transforming the
-scalar](scalar-transformation) into signed digit representation for scalars for
-every bucket.
+scalar](msm-scalar-transformation) into signed digit representation for scalars
+for every bucket.
 
 ## FPGA Point Adder
 

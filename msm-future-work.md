@@ -28,11 +28,12 @@ $28 × 18$ _signed_ multiplication, which we currently just set the sign bit to 
 The karatsuba ofman algorithm contains a subtraction in its intermediate
 computation, which should be able to make use of the sign bit.
 
-**Rectangular Karatsuba-Ofman** [These slides](http://www.bogdan-pasca.org/resources/talks/Karatsuba.pdf)
-from Pasca et. al. describes performing the karatsuba-ofman multiplication
-which fully utilizes non uniform input widths of the multipliers in the DSP
-slice. The slides describes results for $55 × 55$ multipliers, which we believe
-should be able to be extended to much larger multipliers.
+**Rectangular Karatsuba-Ofman** [These slides from Pasca et.
+al.](http://www.bogdan-pasca.org/resources/talks/Karatsuba.pdf) describes
+performing the karatsuba-ofman multiplication which fully utilizes non uniform
+input widths of the multipliers in the DSP slice. The slides describes results
+for $55 × 55$ multipliers, which we believe should be able to be extended to
+much larger multipliers.
 
 ## Host Driver
 
@@ -41,7 +42,7 @@ quick initial prototyping, a custom representation and implementation based on
 exploiting the known bit widths (377 bits) of the curve is is likely to be more
 efficient.
 
-**Parallelizing final bucket sum** [This work form
-Xavier](https://eprint.iacr.org/2022/999.pdf) describes an algorithm to
+**Parallelizing final bucket sum** [This work from
+Xavier](https://eprint.iacr.org/2022/999) describes an algorithm to
 parallelize the final bucket accumulation on the FPGA. This can be readapted on
 the host using multiple threads.
