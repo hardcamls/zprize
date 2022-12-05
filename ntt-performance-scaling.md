@@ -45,4 +45,4 @@ This module controls that iteration and sequences the memory access steps in par
 NTT transforms.
 
 The overall performance of the design, assuming memory can be accessed quickly enough, is bound
-by the number of require iterations plus an initial memory load and final memory store operation.
+by the number of required iterations plus an initial memory load and final memory store operation.

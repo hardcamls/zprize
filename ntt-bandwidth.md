@@ -20,7 +20,7 @@ performance bottleneck for our design.
 We are pretty sure that the UltraScale+ HBM controller can provide much better bandwidth than this,
 but lacked time to see if we could get better results.
 
-The total burst size is dependant on the number of parallel NTT cores and gets better the more
+The total burst size is dependent on the number of parallel NTT cores and gets better the more
 we have.  With our current maximum of 64 cores we burst $64*8=512$ bytes.
 
 # Optimised layout
@@ -31,7 +31,7 @@ This led us to experiment with an
 [`optimised layout`](https://github.com/fyquah/hardcaml_zprize/blob/master/zprize/ntt/host/ntt_preprocessing.cpp)
 design.
 
-The optimised layouts uses the host for pre/post processing and dramatically improve bandwidth
+The optimised layout uses the host for pre/post processing and dramatically improves bandwidth
 efficiency.  Of the 4 memory transfers over 2 passes of the 4-step algorithm, 3 are totally linear,
 and 1 has a burst size of 4096 with 64 cores (2048 with 32).  The host is required to transpose blocks of
 data accessed 64 bytes at a time.
