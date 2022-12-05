@@ -80,5 +80,5 @@ API Docs are available [here](/odoc/zprize/index.html#multi-scalar-multiplicatio
 - [`Msm_pippenger`](https://github.com/fyquah/hardcaml_zprize/tree/master/zprize/msm_pippenger) ([source code docs](odoc/zprize/Msm_pippenger/index.html)) implements the complete MSM computation using the Pippenger bucket method.
 - [`Pippenger`](https://github.com/fyquah/hardcaml_zprize/tree/master/libs/pippenger) ([source code docs](odoc/zprize/Pippenger/index.html)) implements the controller logic to sequence the MSM computation
 - [`Field_ops_lib`](https://github.com/fyquah/hardcaml_zprize/tree/master/libs/field_ops) ([source code docs](odoc/zprize/Field_ops_lib/index.html)) implements the core field arithmetic operations (modulo multiplications etc.)
-- [`Twisted_edwards_lib`](https://github.com/fyquah/hardcaml_zprize/tree/master/libs/twisted_edwards) ([source code docs](odoc/zprize/Twisted_edwards_lib/index.html)) implements the mixed addition in the twisted edwards curve.
+- [`Twisted_edwards_lib`](https://github.com/fyquah/hardcaml_zprize/tree/master/libs/twisted_edwards) ([source code docs](odoc/zprize/Twisted_edwards_lib/index.html)) implements the mixed addition in the Twisted Edwards curve.
 
