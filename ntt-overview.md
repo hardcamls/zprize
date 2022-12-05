@@ -7,11 +7,11 @@ subcategory: overview
 
 # Number-Theoretic Transform (NTT)
 
-This competition track required us to build an Inverse Number Theoretic
-Transform (NTT) accelerator capable of performing transforms of size $2^24$.
-NTTs are conceptually similar to the Fourier Transforms - working over a
-finite field instead of complex numbers. For this project the finite field
-contains values of size 64 bits modulo a so called [Solinas
+This competition track required us to build a Number Theoretic Transform (NTT)
+accelerator capable of performing transforms of size $2^24$.  NTTs are
+conceptually similar to the Fourier Transforms - working over a finite field
+instead of complex numbers. For this project the finite field contains values
+of size 64 bits modulo a so called [Solinas
 prime](https://en.wikipedia.org/wiki/Solinas_prime) equal to $2^64 - 2^32 + 1$.
 
 The mathematical formulation of the NTT is as the following:

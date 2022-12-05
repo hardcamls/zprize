@@ -47,7 +47,7 @@
         - title: Top level design as a Vitis kernel
           title_id: MSM Top level Vitis Kernel
           link: /apps/msm/msm-top-app.html
-- title: Inverse NTT
+- title: NTT
   link: /ntt-overview
   sublink_id: "ntt-children"
   category: ntt
