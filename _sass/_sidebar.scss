@@ -67,9 +67,9 @@
 
 @media (max-width: 992px) {
     #sidebar {
-        margin-left: -300px;
+        left: -300px;
     }
     #sidebar.active {
-        margin-left: 0;
+        left: 0;
     }
 }
