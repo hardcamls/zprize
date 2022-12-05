@@ -5,7 +5,9 @@ category: ntt
 subcategory: design
 ---
 
-# 8 parallel cores
+# Performance Scaling
+
+## 8 parallel cores
 
 The [4-step algorithm](ntt-4step.html) provides an obvious way to scale up performance.
 A large transform is broken up into thousands of smaller INTT transforms which may be
@@ -20,7 +22,7 @@ The grouping of 8 cores was chosen as this matches our memory bus width.  Each c
 input and output bus for loading and storing coefficients.  $8 x 64 = 512$ which is the required
 width.
 
-# More parallelism
+## Multi-Parallel Cores
 
 The [multi-parallel cores](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/multi_parallel_cores.ml)
 module instantiates multiple parallel cores further increasing parallelism.
@@ -32,7 +34,7 @@ A simplification of the design made here is to only allow scaling at powers of 2
 internal address decoding.  This requirement limits our performance a little as we could
 match memory bandwidth or area constraints more accurately if we could scale up arbitrarily.
 
-# 4-step controller
+## 4-step controller
 
 The [4-step controller](https://github.com/fyquah/hardcaml_zprize/blob/master/libs/hardcaml_ntt/src/four_step_controller.ml)
 module sequences a single pass of the 4 step algorithm.  For a transform of size $2^24$ we
