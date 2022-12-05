@@ -49,22 +49,19 @@ The memory access blocks reads / writes an AXI Stream with a bus width of
 512-bits. We have some IO transformation blocks to reshape the stream into
 the appropriate data format.
 
-The `merge_axi_stream` block does two things:
-
-- Converts the 512-bit axi stream into a stream of scalars and affine points
-- Aligns the streams of scalar and affine point to be available at same clock
-  cycle on the output
+The `merge_axi_stream` block converts the 512-bit axi stream into a stream of
+scalars and affine points and aligns the streams of scalar and affine point to
+be available at same clock cycle on the output.
 
 The `msm_result_to_host` block does a similar alignment on the bucket sum
 output to be written back to the host.
 
-## Tricks to Improve Results
-
-Our design uses up a lot of the FPGA resources. Operating at a high clock rate
-at the edge of the device's capability is challenging, here are some tricks
-that we have used to get good results.
+## Engineering to Improve Performance
 
 ### Targetting a High Frequency
+
+At realistic frequencies, our design is compute bound, rather than memory bound.
+So increasing frequency directly results in a faster MSM.
 
 The vitis linker config file allows us to easily specify a target frequency
 to compile our design at. This makes it very convenient to experiment with
@@ -100,29 +97,28 @@ Needless to say, we _did not_ include retiming as part of our submission!
 ### SLR Partitioning
 
 Modern FPGAs are really several dies stacked together with limited interconnect
-resources between them. Xilinx refers to these dies as [Super Logic Regions
+resources between them. Xilinx calls these dies [Super Logic Regions
 (SLRs)](https://docs.xilinx.com/r/2021.2-English/ug949-vivado-design-methodology/Super-Logic-Region-SLR).
 The VU9P FPGA contains 3 SLRs. There're interconnects between SLR0<->SLR1 and
 SLR1<->SLR2.
 
-In our design, we have carefully partitioned our design such that:
+In our design, we have carefully partitioned our design such that the RAM for
+running bucket sums for the windows are carefully spreaded out into 3 SLRs,
+and the pipelined point adder's various stages are explicitly splitted across
+multiple SLRs and fitted with necessary SLR-crossing registers.
 
-- The RAM for running bucket sums for the windows are spreaded out into 3 SLRs
-- The fully pipelined adder have stages explicitly splitted across multiple
-  SLRs and fitted with necessary SLR-crossing registers.
+Hardcaml makes some of these complicated partitioning a lot more managable. We
+have config fields that allow us to specify the following:
 
-Hardcaml makes some of these complicated partitioning a lot more managable
-
-- There are config fields that allows us specify how the windows RAM should be
-  partitioned -- specifically, we can assign the number of windows per SLR.
-- There are config fields that allows us to assign adder stages to different
-  SLRs. The design will dynamically instantiate SLR crossing between stages
-  as needed.
+- How the windows RAM should be partitioned -- specifically, we can assign the
+  number of windows per SLR.
+- The assignment of adder stages to different SLRs. The design will dynamically
+  instantiate necessary SLR crossing between stages as needed.
 
 We added the following pre placement script to make the process of assigning
 module instantiations to SLRs more convenient. With this simple configuration,
-we simply had to add a `_SLR{0,1,2}` suffix to instantiation name to map a
-module instantiation into a particular SLR.
+our Hardcaml deisn simply needs to add `_SLR{0,1,2}` suffix to instantiation
+names based on the config to map a module instantiation into a particular SLR.
 
 ```
 add_cells_to_pblock pblock_dynamic_SLR0 [get_cells -hierarchical *SLR0*]

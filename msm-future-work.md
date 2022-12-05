@@ -41,7 +41,7 @@ quick initial prototyping, a custom representation and implementation based on
 exploiting the known bit widths (377 bits) of the curve is is likely to be more
 efficient.
 
-**Parallelizing final bucket sum** [This work](https://eprint.iacr.org/2022/999.pdf)
-from Xavier et. al. describes an algorithm to parallelize the final bucket
-accumulation on the FPGA. This can be readapted on the host using multiple
-threads.
+**Parallelizing final bucket sum** [This work form
+Xavier](https://eprint.iacr.org/2022/999.pdf) describes an algorithm to
+parallelize the final bucket accumulation on the FPGA. This can be readapted on
+the host using multiple threads.
