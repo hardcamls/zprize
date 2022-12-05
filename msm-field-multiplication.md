@@ -49,7 +49,7 @@ $$
 y = 2^{W/2}y_1 + y_0
 $$
 
-where $x_1, y_1 < 2^{W/2}$, $x_0, y_0 < 2^{W/2}$ and $W$ as the number of bits to
+where $x_1, y_1 < 2^{W/2}$, $x_0, y_0 < 2^{W/2}$ and $W$ is the number of bits to
 represent $x$ and $y$. Since we're "splitting" the numbers as parts of powers of
 two, this is simply a bit select (which is free in hardware!)
 
@@ -71,7 +71,7 @@ $$ b = y_1 + y_0 $$
 
 **2) Recursive partial multiplication**
 
-Then, the sub-multiplication, which are simply smaller karatsuba-ofman
+Then, the sub-multiplications, which are simply smaller Karatsuba-Ofman
 multiplications (up to a base case, which we'll touch on later).
 
 $$ z_2 = x_1 × y_0 $$
@@ -88,10 +88,10 @@ $$ z_1 = (m_1 - m_2) - z_2 - z_0 $$
 
 $$ xy = 2^{2W}z_2 + 2^{W}z_1 + z0 $$
 
-The karatsuba ofman algorithm is a recursive algorithm, so we have the freedom
-to choose the width where we fallback to a vanilla multiplication with DSP
+The Karatsuba Ofman algorithm is a recursive algorithm, so we have the freedom
+to choose the width where we fall back to a vanilla multiplication with DSP
 slices.  In practice, we experimentally found that the base case of W <= 26 works
-best (it maps to exactly 2 DSP slices to compute multiplication of 2 numbers)
+best (it maps to exactly 2 DSP slices to compute a multiplication of 2 numbers).
 
 As it turns out, for 377-bit multiplications in the prime field, we only require
 4 levels of recursion to arrive to a base case of 22-bit multipliers. This
@@ -106,7 +106,7 @@ multiplier design points.
 
 ## Barrett Reduction
 When computing multiplications in modular arithmetic, we will necessarily need to reduce our
-products within the modulus - in other words, given $A ⋅ B = q ⋅ P + r$, where $q, r$ are integers
+products within the modulus—in other words, given $A ⋅ B = q ⋅ P + r$, where $q, r$ are integers
 and $r∈[0,P-1]$, we wish to find $r$. In the most general case, performing this reduction requires
 us to divide the product by $P$, which is very expensive on FPGAs (because often, the best way to do
 this is to simply long divide). However, in our specific case, we know that $P$ is a fixed constant,
@@ -124,10 +124,10 @@ For the coarse approximation, we can approximate $q$ by approximating $1/P$ as $
 In other words, we take the $2n$ most significant bits of $1/P$ and use them as an approximation.
 Letting $c = ⌊2^{2n}/P⌋ < 2^{n+1}$, our first approximation for $q$ is given by $q′ = ⌊{ AB ⋅ c } / 2^{2n}⌋$.
 
-However, note that this still requires a $2n$-by-$n$ multiplication - because our Karatsuba
+However, note that this still requires a $2n$-by-$n$ multiplication—because our Karatsuba
 multiplier described above only works over equal-width operands, this creates an inefficient multiplication.
 So, we perform a second approximation in order to reduce the width of the numbers being multiplied -
-$q′′ = ⌊⌊ { AB } / 2^n ⌋ ⋅{c / 2^{n}}⌋$. To compute $q′′$, we perform two multiplications - first we compute
+$q′′ = ⌊⌊ { AB } / 2^n ⌋ ⋅{c / 2^{n}}⌋$. To compute $q′′$, we perform two multiplications: first we compute
 $ AB $, and then we multiply the top $n$ bits of the result by $c$ (an $n+1$-digit number) and take
 the top $n$ bits of the result.
 
@@ -159,16 +159,15 @@ an LSB-truncated Karatsuba multiplier.
 
 In the discussion above, we only keep the $n$ most-significant bits of $⌊ { AB } / 2^n ⌋ ⋅c$. Instead of
 using a full multiplier to perform this computation, we can use an approximate MSB-truncated multiplier
-and propagate the error into the overall error bounds on the coarse reduction stage of Barrett reduction.
+and propagate the error into the overall error bounds in the coarse reduction stage of Barrett reduction.
 
-In particular, in the truncated MSB multiplier, we recursively drop the lowest order term ($z_0$) from
+In particular, in the truncated MSB multiplier, we recursively drop the lowest-order term ($z_0$) from
 the Karatsuba formulation, keeping careful track of the error propagated through the product. The more
-aggressively we split the product (i.e. the wider the product $z_0$ that we drop), the more error is introduced into
+aggressively we split the product (i.e., the wider the product $z_0$ that we drop), the more error is introduced into
 the approximation.
 
-For further reading, there are many thorough resources on Barrett reduction and
-truncated multipliers available on the internet, such as [this work by
-Xavier](https://eprint.iacr.org/2022/999).
+For further reading on Barrett reduction and truncated multipliers, please
+refer to [this work by Xavier](https://eprint.iacr.org/2022/999).
 
 ## BRAM Reduction
 
@@ -192,7 +191,7 @@ and subtract the resulting value from the $n$-bit suffix of our input value:
 
 $$ r′[n-1:0] - R[r′[e-1+n:n]] $$
 
-(note that we only need to use the lower $n$ bits because we know what the higher bits are by construction). Then,
+(Note that we only need to use the lower $n$ bits because we know what the higher bits are by construction) Then,
 when the lookup index is nonzero, we have to invert the MSB of the signed result to get an unsigned reduction
 $r′′$ to the range $\[0,3p)$.
 
@@ -206,8 +205,8 @@ This idea was inspired by work by [Langhammer and Pasca](https://dl.acm.org/doi/
 The LSB and Approximate MSB Multiplication routines above involve heavy
 multiplication by constants. In our work, we represent the constant in
 [non-adjacent form (NAF)](https://en.wikipedia.org/wiki/Non-adjacent_form) form.
-If the constant has a hamming weight in NAF larger than a certain threshold,
-we utilize DSP slices. Otherwise, it is implemented using long multiplication
+If the constant has a Hamming weight in NAF larger than a certain threshold,
+we use DSP slices. Otherwise, it is implemented using long multiplication
 with LUTs.
 
 ## Other Things We Tried
@@ -219,7 +218,7 @@ the final implementation:
 **Hybrid LUT / Multipliers** In computing the `A * B`, we've solely relied on
 DSP slices. This is suboptimal, since we use 2 slices of 26x17 multipliers just
 to compute 22x22! We could use a hybrid of DSP and LUTs to perform the 22x22
-multiplication to save 1 DSP per base case multiplier. However, we found our
+multiplication to save 1 DSP per base-case multiplier. However, we found our
 primary bottleneck to largely be in LUT routing congestion, so we ended up
 being more liberal in our DSP usage.
 
