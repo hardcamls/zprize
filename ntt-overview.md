@@ -18,7 +18,7 @@ The mathematical formulation of the NTT is as the following:
 
 $$X_{i} = ∑↙{j=0}↖{N-1} x_{j} w^{ij} (mod P)$$
 
-where $N$ is the size of the input vector $x$, $P$ is the solanis prime
+where $N$ is the size of the input vector $x$, $P$ is the Solinas prime
 and $w$ is the $N$th [root of unity](https://en.wikipedia.org/wiki/Discrete_Fourier_transform_over_a_ring#Number-theoretic_transform).
 $X_{i}$ is defined for $0 ≤ i < N$.
 
@@ -37,7 +37,7 @@ much smaller NTTs. The smaller NTTs are computed using the well-known
 decimation in time
 [Cooley-Tukey FFT
 algorithm](https://en.wikipedia.org/wiki/Cooley–Tukey_FFT_algorithm).  The
-following pages discusses the algorithms and design considerations:
+following pages discuss the algorithms and design considerations:
 
 - [4-step](ntt-4step.html) details the 4-step algorithm
 - [Bandwidth Considerations](ntt-bandwidth.html)

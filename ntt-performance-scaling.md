@@ -28,7 +28,7 @@ The [multi-parallel cores](https://github.com/fyquah/hardcaml_zprize/blob/master
 module instantiates multiple parallel cores, further increasing parallelism.
 
 Each block of 8 parallel cores shares the memory bus at this level of the design so it must be
-decoder/multiplexed into a unified address space.
+decoded/multiplexed into a unified address space.
 
 A simplification of the design made here is to only allow scaling at powers of 2 to simplify
 internal address decoding.  This requirement limits our performance a little as we could
