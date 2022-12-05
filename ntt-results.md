@@ -67,8 +67,8 @@ control. The number is reported as "fixed" in the post_route_utilisation.rpt
 ## FOM Measurement for ZPrize
 
 As detailed in the evaluation criteria provided by the Zprize NTT track, FOM is
-computed as $latency * √{Power} * U_{norm}$. Note that `N_pipe = 1` for our
-design, since it can only support 1 evaluation at a time.
+computed as $latency * √{Power} * U_{norm}$ (lower better). Note that $N_{pipe}
+= 1$ for our design, since it can only support 1 evaluation at a time.
 
 Latency and Power is used as report above in seconds and Watts respectively.
 We calculate $U_{norm} = U_{LUTS} + U_{Registers} + U_{DSP} + U_{BRAM} + U_{URAM}$.
