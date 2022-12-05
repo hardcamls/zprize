@@ -1,6 +1,6 @@
 ---
 layout: default
-title: NTT Performance Scaling
+title: Performance Scaling
 category: ntt
 subcategory: design
 ---

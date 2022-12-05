@@ -1,6 +1,6 @@
 ---
 layout: default
-title: NTT Memory Bandwidth
+title: Memory Bandwidth
 category: ntt
 subcategory: design
 ---

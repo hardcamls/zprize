@@ -1,11 +1,11 @@
 ---
 layout: default
-title: NTT Results
+title: Results
 category: ntt
 subcategory: design
 ---
 
-# Experiments
+# Results
 
 To evaluate our results, we perform 2 sets of experiments.
 

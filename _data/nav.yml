@@ -61,19 +61,17 @@
       sublinks:
         - title: 4 Step Algorithm
           link: /ntt-4step.html
-        - title: NTT Bandwidth
-          title_id: NTT Memory Bandwidth
+        - title: Memory Bandwidth
           link: /ntt-bandwidth.html
-        - title: Core (I)NTT design
-          title_id: Core INTT design
+        - title: Core INTT design
           link: /ntt-core.html
-        - title: NTT Performance Scaling
+        - title: Performance Scaling
           link: /ntt-performance-scaling.html
-        - title: NTT Results
-          link: /ntt-results.html
         - title: Top level Hardcaml design
           title_id: FPGA top level design
           link: /ntt-top-level.html
+        - title: Results
+          link: /ntt-results.html
         - title: Build Instructions
           title_id: ntt_build
           link: /ntt-build-instructions.html
