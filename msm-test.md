@@ -5,22 +5,28 @@ category: msm
 subcategory: design
 ---
 
+# Building, Testing and Benchmarking
+
+Please clone our [submission github
+repository](http://github.com/fyquah/hardcaml_zprize) before following any
+instructions below.
+
 # Building the design from source
 
 Instructions are given below for building from source. A prerequisite is that
 OCaml has been setup (outlined in the main [README.md](https://github.com/fyquah/hardcaml_zprize/blob/master/README.md)).
 
 It is important you use the AMI version 1.10.5 and Vivado version 2020.2 to
-acheive the same results. The rtl_checksum expected of the Verilog when
+acheive the same results. The `rtl_checksum` expected of the Verilog when
 generated from the Hardcaml source is 1929f78e1e4bafd9cf88d507a3afa055.
 
 ## Compiling the BLS12-377 reference
 
 Run `cargo build` in `libs/rust/ark_bls12_377_g1` to compile the dynamic library
 exposing a reference implementation of the BLS12-377 g1 curve. This is
-necessary for the expect tests to work expectedly.
+necessary for the expect tests and verilog generator to work expectedly.
 
-z3 should also be installed to run tests.
+z3 should also be installed to run Hardcaml RTL simulations.
 
 ## Generating the Verilog from Hardcaml
 
@@ -36,7 +42,7 @@ difference.
 
 ### Simulations in Hardcaml
 
-We have various expect tests in the [test folders](hardcaml/test) which can be
+We have various expect tests in the [test folders](https://github.com/fyquah/hardcaml_zprize/blob/master/zprize/msm_pippenger/hardcaml/test) which can be
 run by calling `dune runtest`. To optionally run a longer simulation, we added
 binaries that can be called and various arguments set. These run with the
 [Verilator](https://www.veripool.org/verilator/) backend, which after a longer
@@ -62,9 +68,10 @@ AMI](https://aws.amazon.com/marketplace/pp/prodview-gimv3gqbpe57k) installed.
 source ~/aws-fpga/vitis_setup.sh
 ```
 
-Cd into the `fpga` directory which contains the scripts to build an actual FPGA
-design (takes 6-8 hours). The compile script below will also build the Hardcaml
-to generate the required Verilog.
+Navigate into the `fpga` directory which contains the scripts to build an actual FPGA
+design (takes 8-10 hours). The compile script below will also build the Hardcaml
+to generate the required Verilog. As this takes awhile, it is recommended that
+you run this from a tmux session in the build instance.
 
 ```
 cd fpga
@@ -72,10 +79,7 @@ cd fpga
 ```
 
 The image built from the source at the time of writing will produce an FPGA
-AFI that runs at 278MHz, automatically clocked down from 280MHz by Vitis. We
-have also provided this AFI we built and tested with in the home directory of
-the fpga (runner) box, as well as in the s3 bucket provided to us in a `/afis`
-folder.
+AFI that runs at 278MHz, automatically clocked down from 280MHz by Vitis.
 
 We have done repeated builds to make sure the image built from source is
 identical to what we tested. As a checkpoint, here are a few checksums that will
@@ -108,7 +112,7 @@ aws ec2 describe-fpga-images --fpga-image-ids <afi-...>
 ```
 Which will show up as "available" when the image is ready to use.
 
-# Benchmarking
+# Benchmarking and Testing
 
 ## AWS setup
 
@@ -128,20 +132,19 @@ systemctl status mpd
 You need the .awsxclbin file from the build box - usually the easiest way is to
 download this from the s3 bucket or scp it over.
 
-# MSM FPGA Test Harness
+## MSM FPGA Test Harness
 
-This is modified version of the GPU test harness for testing our FPGA msm design. A
-feature we added is the ability to load test data from file using an environment
-variable `TEST_LOAD_DATA_FROM`.
-
-## A Note about Points Representation
+We include a modified version of the [GPU MSM test harness](https://github.com/z-prize/test-msm-gpu)
+for testing and benchmarking our FPGA design. A feature we added is the ability
+to load test data from file using an environment variable
+`TEST_LOAD_DATA_FROM`.
 
 As the original GPU test harness expected the points returned by the FPGA to
 be in projective form. We modified our host driver code to convert our result
 point to this form.
 
 The input and output points Basefield values are all in (or expected to be in)
-montgomery space (montgomery here refers to montgomery multiplication). This
+montgomery form (montgomery here refers to montgomery multiplication). This
 is also some extra work that we are required to do in precomputation and
 during evaluation, as we don't represent our points internally in montgomery
 space.
@@ -222,7 +225,7 @@ from the original GPU test harness)
 CMAKE=cmake3 XCLBIN=<file> TEST_NPOW=10 cargo test --release -- --nocapture
 ```
 
-## Running Benchmarks
+## Benchmarking
 
 This is similar to running tests, except unstead of running `cargo test`, you
 run `cargo bench`. The expect environment variables are similar:
@@ -234,7 +237,7 @@ CMAKE=cmake3 \
   cargo bench
 ```
 
-Output to show the result of 10 runs of 4 rounds each:
+The output shows show the result of 10 runs of 4 rounds each:
 
 ```
 FPGA-MSM/2**26x4 time: [20.336 s 20.336 s 20.337 s]
@@ -283,9 +286,7 @@ with these commands:
 
 `host_buckets.exe` is a debug application that pumps test vectors into the FPGA
 from a file, and compares against a reference file. Note this is NOT the
-benchmarking program and has not been optimized in anyway. For actual runs and
-benchmarking, please look in [test_fpga_harness](test_fpga_harness) and/or see
-the benchmarking section above.
+benchmarking program and has not been optimized in anyway.
 
 Firstly, compile the host binaries:
 
