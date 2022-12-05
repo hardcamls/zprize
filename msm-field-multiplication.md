@@ -20,9 +20,9 @@ Our field multiplication component has important properties:
 ## Computing $A × B$
 
 The FPGA part we were working with contains DSP slices, where each slice is
-capable of performing an unsigned 27 x 16 multiplication. While there is 6,800
-DSP slices in the FPGA part, we can expect to use around 3,000 of them if
-we wccounting for the area of the AWS shell and general routing congestion.
+capable of performing an unsigned 27 x 16 multiplication. While there are 6,800
+DSP slices in the FPGA part, we can only use around 3,000 of them
+when accounting for the area of the AWS shell and general routing congestion.
 
 Implementing a 377 by 377 multiplication naively with
 [long multiplication (also known as the high school multiplication
@@ -30,15 +30,14 @@ algorithm)](https://en.wikipedia.org/wiki/Multiplication_algorithm#Long_multipli
 would take up $ceil(377/17) × ceil(377/26) = 330$ DSPs just to produce partial
 results! We need 7 field multiplications to perform point addition, each of
 which requires 3 377-bit multiplications. This would require $330 × 3 × 7 =
-6,930$ DSP slices, which is way above our budget!
+6,930$ DSP slices, which is way above our budget.
 
 We have instead implemented the
 [Karatsuba-Ofman Multiplication Algorithm](https://en.wikipedia.org/wiki/Karatsuba_algorithm),
-which requires less multiplication.
+which requires fewer multipliers.
 
-The key idea of the algorithm is to reexpress the multiplication as smaller
-multiplication recursively, and reuse results to reduce the number of
-multiplication.
+The key idea of the algorithm is to reexpress the overall multiplication as smaller
+multiplications recursively, and reuse results.
 
 For example, to multiply $x$ and $y$, firstly, express $x$ and $y$ as follows
 
@@ -90,14 +89,14 @@ $$ z_1 = (m_1 - m_2) - z_2 - z_0 $$
 $$ xy = 2^{2W}z_2 + 2^{W}z_1 + z0 $$
 
 The karatsuba ofman algorithm is a recursive algorithm, so we have the freedom
-to choose the width where we fallback to a vanila multiplication with DSP
+to choose the width where we fallback to a vanilla multiplication with DSP
 slices.  In practice, we experimentally found that the base case of W <= 26 works
 best (it maps to exactly 2 DSP slices to compute multiplication of 2 numbers)
 
 As it turns out, for 377-bit multiplications in the prime field, we only require
 4 levels of recursion to arrive to a base case of 22-bit multipliers. This
-translates to requiring only 162 DSP slices! This is much more realistic than
-330 multipliers requires from long multiplication.
+translates to requiring only 162 DSP slices. This is much more realistic than
+the 330 multipliers required from long multiplication.
 
 All the operations in the field multiplication is fully pipelined. This means
 we can work out the exact latency of this component. In our work, we had
@@ -133,7 +132,7 @@ $ AB $, and then we multiply the top $n$ bits of the result by $c$ (an $n+1$-dig
 the top $n$ bits of the result.
 
 Overall, for stage 1 of Barrett's Algorithm, we compute $q′′$, and then compute $r′ = AB - q′′P$. We can show with
-some bounding arguments that $0 ≤ q - q′′ ≤ 3$, so we know that approximate remainder $r′$ is within 3 multiples of $P$
+some bounding arguments that $0 ≤ q - q′′ ≤ 3$, so we know that the approximate remainder $r′$ is within 3 multiples of $P$
 from the true remainder $r$.
 
 ### Stage 2: Fine Approximation
@@ -163,8 +162,8 @@ using a full multiplier to perform this computation, we can use an approximate M
 and propagate the error into the overall error bounds on the coarse reduction stage of Barrett reduction.
 
 In particular, in the truncated MSB multiplier, we recursively drop the lowest order term ($z_0$) from
-the Karatsuba formulation, keeping careful track of the error this propagates through the product. The more
-aggressively we split the product (ie the wider the product $z_0$ that we drop), the more error is introduced into
+the Karatsuba formulation, keeping careful track of the error propagated through the product. The more
+aggressively we split the product (i.e. the wider the product $z_0$ that we drop), the more error is introduced into
 the approximation.
 
 For further reading, there are many thorough resources on Barrett reduction and
@@ -188,7 +187,7 @@ prefix when written with $e+n$ bits. In particular,
 
  $$R[i] = ⌊{(i-1) ⋅ 2^n} / {p} ⌋ (\mod 2^{n}) $$
 
-Then, given an input $r′∈[0, {2^e}P)$ with $e+n$ bits, we can lookup its $e$-bit prefix in the ROM
+Then, given an input $r′∈[0, {2^e}P)$ with $e+n$ bits, we can look up it's $e$-bit prefix in the ROM
 and subtract the resulting value from the $n$-bit suffix of our input value:
 
 $$ r′[n-1:0] - R[r′[e-1+n:n]] $$

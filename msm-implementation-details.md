@@ -45,27 +45,26 @@ We used a single DDR bank for scalars, points and bucket sum results, because:
 
 ## IO Transformation Blocks
 
-The memory access blocks reads / writes an AXI Stream with a bus width of
+The memory access blocks read / write AXI streams with a bus width of
 512-bits. We have some IO transformation blocks to reshape the stream into
 the appropriate data format.
 
-The `merge_axi_stream` block converts the 512-bit axi stream into a stream of
-scalars and affine points and aligns the streams of scalar and affine point to
-be available at same clock cycle on the output.
+The `merge_axi_stream` block converts the 512-bit AXI stream into a stream of
+scalars and affine points and aligns the streams to be available at same clock cycle.
 
 The `msm_result_to_host` block does a similar alignment on the bucket sum
 output to be written back to the host.
 
 ## Engineering to Improve Performance
 
-### Targetting a High Frequency
+### Targeting a High Frequency
 
 At realistic frequencies, our design is compute bound, rather than memory bound.
 So increasing frequency directly results in a faster MSM.
 
 The vitis linker config file allows us to easily specify a target frequency
 to compile our design at. This makes it very convenient to experiment with
-targetting various clock frequencies with a simple config file change.
+targeting various clock frequencies with a simple config file change.
 
 Another nice feature of the Vitis is that it automatically downclocks the
 design when it fails to meet timing closure. This allows us to experiment
@@ -74,21 +73,21 @@ long 12-hour build that fails timing. In our submission, we used a config that
 targets 280MHz, but got downclocked to 278MHz.
 
 (Note that the choice of frequency might affect the implementation results!
-Notably, targetting 278MHz directly might not have delivered the same result.)
+Notably, targeting 278MHz directly might not have delivered the same result.)
 
 ### Vivado Implementation Strategies
 
 We experimented with various Vivado implementation strategies. We found that
-`Congestion_SSI_spreadLogic_high` tend to have delivered better results, likely
+`Congestion_SSI_spreadLogic_high` tends to deliver better results, likely
 due to the high congestion in our design.
 
 ### Not Enabling Retiming
 
 We have experimented with synthesis retiming by adding
 `set_param synth.elaboration.rodinMoreOptions "rt::set_parameter synRetiming true"`
-in our pre synthesis hooks. Surprisingly, we have found that it degrades a
+in our pre-synthesis hooks. Surprisingly, we have found that it degrades a
 build's frequency from ~250MHZ to ~125MHZ!. We did not investigate why. We
-hypothesize that this could be due to presence of a lot of
+hypothesize that this could be due to the presence of a lot of
 register->register paths in our design dedicated for SLR crossing which synth
 retiming tries to insert combinational logic into, damaging routing results.
 
@@ -99,7 +98,7 @@ Needless to say, we _did not_ include retiming as part of our submission!
 Modern FPGAs are really several dies stacked together with limited interconnect
 resources between them. Xilinx calls these dies [Super Logic Regions
 (SLRs)](https://docs.xilinx.com/r/2021.2-English/ug949-vivado-design-methodology/Super-Logic-Region-SLR).
-The VU9P FPGA contains 3 SLRs. There're interconnects between SLR0<->SLR1 and
+The VU9P FPGA contains 3 SLRs. There are interconnects between SLR0<->SLR1 and
 SLR1<->SLR2.
 
 In our design, we have carefully partitioned our design such that the RAM for
@@ -107,7 +106,7 @@ running bucket sums for the windows are carefully spreaded out into 3 SLRs,
 and the pipelined point adder's various stages are explicitly splitted across
 multiple SLRs and fitted with necessary SLR-crossing registers.
 
-Hardcaml makes some of these complicated partitioning a lot more managable. We
+Hardcaml makes some of these complicated partitioning choices a lot more manageable. We
 have config fields that allow us to specify the following:
 
 - How the windows RAM should be partitioned -- specifically, we can assign the
@@ -117,7 +116,7 @@ have config fields that allow us to specify the following:
 
 We added the following pre placement script to make the process of assigning
 module instantiations to SLRs more convenient. With this simple configuration,
-our Hardcaml deisn simply needs to add `_SLR{0,1,2}` suffix to instantiation
+our Hardcaml design simply needs to add `_SLR{0,1,2}` suffix to instantiation
 names based on the config to map a module instantiation into a particular SLR.
 
 ```

@@ -37,14 +37,14 @@ implementation.
 # Design overview
 
 Our implementation is built around pippenger's algorithm, splitting work
-between the FPGA and the host. The pages below describes the
+between the FPGA and the host. The pages below describe the
 architecture of our design and the main FPGA controller to compute bucket sums.
 
 * [Top level Pippenger Design](msm-top-level-pippenger-design.html)
 * [Pippenger Controller](msm-pippenger-controller.html)
 
 The heart of the computation is performed by a 1-per-cycle throughput mixed
-adders. The pages below details the mathematics behind the implementation of
+adder. The pages below detail the mathematics behind the implementation of
 the adder.
 
 * [Field Multiplication](msm-field-multiplication.html)
@@ -60,7 +60,7 @@ and reproduction guides in the pages below.
 * [Results](msm-results.html)
 * [Building, Testing and Benchmarking](msm-test.html)
 
-We possible improvements on our work in the following page.
+Some possible improvements on our work are noted here.
 
 * [Future Work](msm-future-work.html)
 

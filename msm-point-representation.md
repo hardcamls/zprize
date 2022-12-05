@@ -11,7 +11,7 @@ We choose to convert points to the Twisted Edwards curve, rather than working in
 the Weierstrass form. Point Addition in Twisted edwards curve is significantly
 cheaper than in the vanilla weierstrass form.
 
-This page details the algorithms to convert points in the original weistrass
+This page details the algorithms to convert points in the original Weierstrass
 form into scaled Twisted edwards form. We go into greater detail about [our
 pipelined point adder in a different
 page](msm-mixed-point-addition-with-precomputation.html).
@@ -98,7 +98,7 @@ A mixed addition on a Twisted Edwards curve [costs `8M + 1*a +
 constant `a` and 7 field additions). But with a simple scaling transformation,
 we can [reduce this further to `7M + 1*k + 8A +
 1*2`](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html#addition-madd-2008-hwcd-3).
-The reduced operation count applies to Twisted Edwards curve with `a = -1`.
+The reduced operation count applies to Twisted Edwards curves with `a = -1`.
 
 The coordinates can be transformed as follows:
 

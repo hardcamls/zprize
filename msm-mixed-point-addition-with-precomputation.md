@@ -23,7 +23,7 @@ in increasing performance!
 
 While there is a [mixed addition formula for addition in scaled twisted Edwards
 form with `7M + 8A`](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html#addition-madd-2008-hwcd-4),
-that formulae is not strongly unified. Using this implementation would have
+that formula is not strongly unified. Using this implementation would have
 required us to carefully identify edge cases such as infinities and when the
 two points are identical (despite being numerically unequal). Using a strongly
 unified adder side-steps all of this entirely, which makes the MSM core a lot
@@ -88,9 +88,9 @@ $$
 (x,y,t) → ( (y-x)/2, (y+x)/2, 4dt )
 $$
 
-Simliar to the running sum's internal representation, $x × y ≠ t$ in the
+Similar to the running sums internal representation, $x × y ≠ t$ in the
 new coordinate system. Unlike running sum, we will never convert this back
-to the projective coordinates. It's main purpose to be converted into this
+to the projective coordinates. Its main purpose to be converted into this
 coordinate system is to be added into the running sum efficiently.
 
 Addition the a point in the running point coordinate system $(x_{running},
@@ -126,16 +126,15 @@ $x_{out} = J - I$
 
 $y_{out} = J + I$
 
-The exact proof of that this is equivalent to the
+The exact proof that this is equivalent to the
 [vanilla mixed addition formulae](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html#addition-madd-2008-hwcd-3)
-after the transformations is beyond the scope of this document, as it is too
-large to fit in the margin of our screen. But it should be easy to convince
-yourself that it's doing the same thing.
+after the transformations is beyond the scope of this document, but it should be easy
+to convince yourself that it's doing the same thing.
 
 ## Implementation Details
 
 Our implementation supports a fully-pipelined mixed precompute adder (one that
-can accept input every cycle). Our codebase does support a half-pipelined adder
+can accept input every cycle). Our codebase also supports a half-pipelined adder
 (one that can accept input every two cycles), but we did not use it as part of
 our final design.
 
@@ -148,10 +147,10 @@ does two things:
 - inserts a SLR\{0,1,2\} suffix to the instantiation name, which the user
 can use for pblocking in placement
 - automatically insert registers between stages which are not in the same
-SLR. These registers are hierachically created with SLR\{0,1,2\} suffix in
+SLR. These registers are hierarchically created with SLR\{0,1,2\} suffix in
 their instantiation name so they can be pblocked.
 
-In our implementation, 2 field multiplications in our adder is in SLR1, and 5
+In our implementation, 2 field multiplications in our adder are in SLR1, and 5
 of them are in SLR2.
 
 Some big benefits of using Hardcaml is that we can parameterize our

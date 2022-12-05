@@ -14,17 +14,17 @@ instructions below.
 ## Building the design from source
 
 Instructions are given below for building from source. A prerequisite is that
-OCaml has been setup (outlined in the main [README.md](https://github.com/fyquah/hardcaml_zprize/blob/master/README.md)).
+OCaml has been set up (outlined in the main [README.md](https://github.com/fyquah/hardcaml_zprize/blob/master/README.md)).
 
 It is important you use the AMI version 1.10.5 and Vivado version 2020.2 to
-acheive the same results. The `rtl_checksum` expected of the Verilog when
+achieve the same results. The `rtl_checksum` expected of the Verilog when
 generated from the Hardcaml source is 1929f78e1e4bafd9cf88d507a3afa055.
 
 ### Compiling the BLS12-377 reference
 
 Run `cargo build` in `libs/rust/ark_bls12_377_g1` to compile the dynamic library
 exposing a reference implementation of the BLS12-377 g1 curve. This is
-necessary for the expect tests and verilog generator to work expectedly.
+necessary for the unit tests and verilog generator to work correctly.
 
 z3 should also be installed to run Hardcaml RTL simulations.
 
@@ -55,7 +55,7 @@ dune exec ./hardcaml/bin/simulate.exe -- kernel -num-points 128 -verilator -time
 ```
 
 The `-waves` switch can be optionally provided to open the simulation in the
-hardcaml waveform viewer. A larger timeout should be provided when simulating
+Hardcaml waveform viewer. A larger timeout should be provided when simulating
 more points.
 
 ### Building an FPGA image for AWS
@@ -66,7 +66,7 @@ Make sure to clone the [aws-fpga repo](https://github.com/aws/aws-fpga/) to
 `~/aws-fpga`. We used the `2a36c4d76b68bb9c60bf2f7b0be0fd9ea134978e`
 revision of the repository.
 
-Run the following to setup the necessary environment for the build.
+Run the following to set up the necessary environment for the build.
 
 ```
 source ~/aws-fpga/vitis_setup.sh
@@ -140,7 +140,7 @@ download this from the s3 bucket or scp it over.
 
 We include a modified version of the [GPU MSM test harness](https://github.com/z-prize/test-msm-gpu)
 for testing and benchmarking our FPGA design. A feature we added is the ability
-to load test data from file using an environment variable
+to load test data from a file using an environment variable
 `TEST_LOAD_DATA_FROM`.
 
 As the original GPU test harness expected the points returned by the FPGA to
@@ -148,16 +148,16 @@ be in projective form. We modified our host driver code to convert our result
 point to this form.
 
 The input and output points Basefield values are all in (or expected to be in)
-montgomery form (montgomery here refers to montgomery multiplication). This
+Montgomery form (Montgomery here refers to Montgomery multiplication). This
 is also some extra work that we are required to do in precomputation and
-during evaluation, as we don't represent our points internally in montgomery
+during evaluation, as we don't represent our points internally in Montgomery
 space.
 
 ### Generating Test Data
 
 _Note: If you have already previously generated test data, you can skip this step._
 
-Run with freshly generated points and save the testdata and save the testdata
+Run with freshly generated points and save the test data
 to a directory. Note that this overwrites anything you have in 'path/to/write/to'
 without warning!
 
@@ -167,7 +167,7 @@ CMAKE=cmake3 XCLBIN=<file> TEST_NPOW=10 TEST_WRITE_DATA_TO=path/to/write/to carg
 ```
 
 For `TEST_NPOW=10`, this should run in a few seconds. For `TEST_NPOW=26`, it can take
-around 6-7hours to generate all the points.
+around 6-7 hours to generate all the points.
 
 ### Running Tests
 
@@ -191,7 +191,7 @@ The expected runtime for a 2^26 test:
   into twisted edwards form.
 - around 20s per MSM of batch size 4
 
-Amongst the vairous outputs, one of them will show the latency of 4 rounds and
+Amongst the various outputs, one of them will show the latency of 4 rounds and
 correctness:
 
 ```
@@ -215,7 +215,7 @@ test msm_correctness ... ok
 
 For debugging some driver code, it's usually easier to test on a set of trivial
 inputs (all points are G1 generator, all scalars are zero except for scalars[0]).
-Testdata for 2^26 takes <5s to generate on AWS.
+Test data for 2^26 takes <5s to generate on AWS.
 
 ```bash
 CMAKE=cmake3 XCLBIN=<file> TEST_TRIVIAL_INPUTS=1 XCLBIN=<file> cargo test --release -- --nocapture
@@ -231,7 +231,7 @@ CMAKE=cmake3 XCLBIN=<file> TEST_NPOW=10 cargo test --release -- --nocapture
 
 ### Benchmarking
 
-This is similar to running tests, except unstead of running `cargo test`, you
+This is similar to running tests, except instead of running `cargo test`, you
 run `cargo bench`. The expect environment variables are similar:
 
 ```bash
@@ -277,20 +277,20 @@ benchmarking as it has lower performance):
 ```
 
 ### Notes
- 1. Because our solution offloads a non-trival amount of work to the host
+ 1. Because our solution offloads a non-trivial amount of work to the host
  to perform in parallel, you will see the best performance after a fresh reboot,
 and without other CPU-intensive tasks running at the same time.
  2. When running the tests, if you terminate the binary early by `ctrl-c`, it
 will leave the FPGA in a bad state which requires clearing and re-programming
 with these commands:
 
-## Debuging
+## Debugging
 
 ### Running `host_buckets.exe` debug test
 
 `host_buckets.exe` is a debug application that pumps test vectors into the FPGA
 from a file, and compares against a reference file. Note this is NOT the
-benchmarking program and has not been optimized in anyway.
+benchmarking program and has not been optimized at all.
 
 Firstly, compile the host binaries:
 
