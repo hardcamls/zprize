@@ -1,7 +1,7 @@
 #sidebar {
     background: $peppermint;
     top: 86px;
-    color: #fff;
+    color: #ffffff;
     transition: all 0.2s;
     min-width: 300px;
     max-width: 300px;
@@ -26,12 +26,12 @@
         li {
 
             a:hover {
-                background-color: #c1d5c3;
+                background-color: #555555;
             }
             a {
                 display: block;
                 padding: 15px 20px;
-                color: black;
+                color: white;
                 text-decoration: none;
             }
             ul li {
@@ -45,7 +45,7 @@
         }
 
         li.active > a {
-            background-color: #c1d5c3;
+            background-color: #555555;
             font-weight: bold;
         }
 

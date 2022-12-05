@@ -2,7 +2,7 @@
 .splash-header {
 	position: relative;
 	height: 600px;
-	background: linear-gradient( 45deg, #ffdd8c 0%, #c9fcfc 100% );
+	background: linear-gradient( 45deg, #555555 0%, #000000 100% );
 	box-shadow: $shadow-bottom;
 	overflow: hidden;
 
@@ -16,7 +16,7 @@
 	}
 
 	.logo-splash {
-		position: absolute;
+		  position: absolute;
 		height: 90%;
 		top: 48%;
 		left: 45%;
@@ -28,6 +28,7 @@
 		width: 40%;
 		top: 44.5%;
     left: 56.5%;
+    color: white;
 		h1 {
 			font-size: 50px;
 			margin-left: 0;
