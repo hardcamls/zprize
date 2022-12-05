@@ -20,10 +20,10 @@ It performs the following when evaluating MSMs in `msm_mult`:
 
 - Transfers scalars to the DDR
 - Startup Xilinx Vitis kernels to transfer (scalar & points) from DDR to the
-  MSM evaluation blocks for performing bucket sums
-- Startup Xilinx Vitis kernels to transfer pippenger bucket sums results back
+  MSM evaluation blocks for performing bucket aggregation
+- Startup Xilinx Vitis kernels to transfer pippenger bucket results back
   to the host
-- Perform final bucket aggregation
+- Perform final bucket sum
 
 The host driver interleave most of the CPU work with the FPGA work to reduce
 total latency when evaluating a batch of multiple MSMs:
@@ -31,8 +31,8 @@ total latency when evaluating a batch of multiple MSMs:
 - Start the MSM evaluation before transfering all the scalars into the host.
 - Transfer scalars for the next msm evaluation while the first evaluation has
   not completed.
-- Evaluate the next MSM's bucket sums on the FPGA while compute the current
-  MSM's final bucket aggregation on the host.
+- Evaluate the next MSM's bucket aggregation on the FPGA while computing the
+  current MSM's bucket sum on the host.
 
 Our host driver expects the prime field elements to be in [Montgomery
 form](https://en.wikipedia.org/wiki/Montgomery_modular_multiplication), as our
