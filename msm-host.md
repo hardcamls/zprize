@@ -11,7 +11,7 @@ Our host driver performs the following preprocessing ahead of any evaluations
 in `msm_init`:
 
 - Transform the affine points from Weierstrass form into our internal affine
-  point format based on scaled twisted edwards curves (See the page on [mixed
+  point format based on scaled Twisted Edwards curves (See the page on [mixed
   point addition](msm-mixed-point-addition-with-precomputation.html) for the
   formulae of the transformation.)
 - Transfer the preprocessed points into the FPGA
@@ -25,11 +25,11 @@ It performs the following when evaluating MSMs in `msm_mult`:
   to the host
 - Perform final bucket sum
 
-The host driver interleave most of the CPU work with the FPGA work to reduce
+The host driver interleaves most of the CPU work with the FPGA work to reduce
 total latency when evaluating a batch of multiple MSMs:
 
 - Start the MSM evaluation before transfering all the scalars into the host.
-- Transfer scalars for the next msm evaluation while the first evaluation has
+- Transfer scalars for the next MSM evaluation while the first evaluation has
   not completed.
 - Evaluate the next MSM's bucket aggregation on the FPGA while computing the
   current MSM's bucket sum on the host.
