@@ -250,13 +250,33 @@ p {
 a {
   color: #e15ca0;
   text-decoration: none; }
-  a:hover {
+  a:hover, a:visited {
     color: #e15ca0; }
 
-a > code {
+code {
+  font-size: 16px;
   color: #26b832; }
-  a > code:hover {
+  code:hover, code:visited {
     color: #26b832; }
+
+a > code {
+  color: #c50517; }
+  a > code:hover, a > code:visited {
+    color: #c50517; }
+
+th, td {
+  font-size: 11px;
+  padding: .5em; }
+
+th {
+  color: #fff;
+  background-color: #000;
+  font-family: "Alright Sans LTV Bold", "Alright Sans Bold", Helvetica, Arial, sans-serif;
+  text-align: center;
+  border: 1px solid #444; }
+
+td {
+  border: 1px solid #bbb; }
 
 .kdmath {
   margin-bottom: 20px; }

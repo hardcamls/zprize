@@ -46,16 +46,41 @@ p {
 a {
 	color: $link-color;
 	text-decoration: none;
-	&:hover {
+	&:hover, &:visited {
 		color: $link-color;
 	}
 }
 
+code {
+  font-size: 16px;
+  color: $code-color;
+  &:hover, &:visited {
+    color: $code-color;
+  }
+}
+
 a > code {
-	color: $code-color;
-	&:hover {
-		color: $code-color;
+	color: $code-link-color;
+	&:hover, &:visited {
+		color: $code-link-color;
 	}
+}
+
+th,td {
+  font-size: 11px;
+  padding: .5em;
+}
+
+th {
+  color: #fff;
+  background-color: #000;
+  font-family: $bold-font;
+  text-align: center;
+  border: 1px solid #444;
+}
+
+td {
+  border: 1px solid #bbb;
 }
 
 .kdmath {
