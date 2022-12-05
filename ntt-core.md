@@ -20,17 +20,17 @@ The core is designed to perform one butterfly operation per cycle.  This involve
 multiplications per cycle (one for the butterfly operation and one to update the root of unity).
 
 To keep the data path fully utilised we need to be able to read and write two coefficients per cycle.
-The various RAMs utilised to store coefficients are architected to allow two simultaneous read and
+The various RAMs used to store coefficients are architected to allow two simultaneous read and
 write ports.
 
-For a size $N$ transform (note $N$ is assumed to be a power of 2) we require $log_{2}N$ iterations.
+For a size-$N$ transform (note $N$ is assumed to be a power of 2) we require $log_{2}N$ iterations.
 
 Since we perform a full butterfly operation per cycle we require a total of $N/2 log_{2}N$ cycles
 to perform the full transform.
 
 The actual number of cycles is slightly larger than this.  In order to achieve a clock
 rate of 250Mhz, the butterfly data path (including the finite field multiplier) must be pipelined.
-The pipelining is currently set at 8 clock cycles.  After each NTT iteration we must account for the
+The pipelining is currently set at 8 clock cycles.  After each NTT iteration we must account for
 datapath pipelining to ensure data integrity.  At transform sizes greater than $2^8$ this extra
 cost becomes negligible.
 
