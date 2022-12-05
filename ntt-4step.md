@@ -5,7 +5,7 @@ category: ntt
 subcategory: design
 ---
 
-# 4 step algorithm
+# 4-step algorithm
 
 The core design limits us to transform sizes which can fit within on-chip FPGA RAM resources.
 To break this limit we use the well known 4-step algorithm as described in

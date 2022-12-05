@@ -57,13 +57,14 @@ latency while producing a new root each cycle.
 
 In the full design, the data path is reused to perform the twiddle phase after the
 first pass of the 4-step algorithm.  Each coefficient must be scaled by a specific
-root of unity and then the root scaled.  This pass takes a further $N$ cycles and uses a
-similar trick to the twiddle factor stream module to hide the multiplier latency.
+root of unity and then the root scaled. This pass takes a further N cycles and
+hides the multiplier latency using a trick similar to the one used by the
+twiddle factor stream module.
 
 ## RAMs
 
 We required 2 read and 2 write ports for all RAMs in the design.  This includes
-the inputs RAMs, internal ping-pong RAMs, and output RAMs.
+the input RAMs, internal ping-pong RAMs, and output RAMs.
 
 Since FPGA RAMs consist of 2 ports, we build the required structure from 2 UltraRAMs.
 Each UltraRAM has both its ports connected to either the read or write side.
