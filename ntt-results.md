@@ -12,8 +12,8 @@ To evaluate our results, we perform 2 sets of experiments.
 ## Normal-layout Builds
 
 These are builds where the input and output vector to perform NTT on is laid out
-linearly in HBM (ie: the host doesn't perform any pre/post-processing). We run
-experiments with running the 8-core, 16-core, 32-core and 64-core variants,
+linearly in HBM (i.e., the host doesn't perform any pre/post-processing). We run
+experiments with the 8-core, 16-core, 32-core and 64-core variants,
 yielding different levels of parallelism.
 
 ## Optimised-layout Builds
@@ -31,7 +31,7 @@ Intel(R) Core(TM) i5-9600K CPU @ 3.70GHz machine with
 any special kernel flags / boot parameters to obtain our results. We ran
 our designs using the Vitis platform Xilinx has provided for the Varium C1100
 card. The platform takes up some resources on the FPGA and comes with PCIe gen3
-x4 support
+x4 support.
 
 We measured our latency by taking the FPGA-only evaluation latency across 200
 NTT runs. Power was measured by sampling `xbutil examine --report electrical
@@ -43,7 +43,7 @@ latency.
 
 ## Latency, Power and Resource Utilisation
 
-The table below depicts our results for various builds
+The table below depicts our results for various builds:
 
 |   Build | Latency(s) | Power(W) | LUTS   | Registers |  DSP | BRAM36 | URAM  |
 |---------|------------|----------|--------|-----------|------|--------|-------|
@@ -54,7 +54,7 @@ The table below depicts our results for various builds
 
 Here are the available resources on the FPGA. Note that as we are building on
 top of a Vitis platform, it imposes a non-trivial fixed-cost that we don't
-control. The number is reported as "fixed" in the post_route_utilisation.rpt
+control. The number is reported as "fixed" in the post_route_utilisation.rpt.
 
 | Resource  | Available on FPGA | Used by Vitis Platform |
 |-----------|-------------------|------------------------|
@@ -66,10 +66,10 @@ control. The number is reported as "fixed" in the post_route_utilisation.rpt
 
 ## Result from Optimised-Layout Builds
 
-Here is a detailed breakdown of a runtime sample of an optimised 64-core build:
-(The power and utilisation is similar to the normal-layout builds)
+Here is a detailed breakdown of a runtime sample of an optimised 64-core build
+(the power and utilisation is similar to the normal-layout builds): 
 
-__Breakdown of a 2^24 optimised-layout 64-core evaluation__
+__Breakdown of a 2^24 optimised-layout 64-core evaluation:__
 
 |               Task                     |   Time  |
 |----------------------------------------|---------|
@@ -80,7 +80,7 @@ __Breakdown of a 2^24 optimised-layout 64-core evaluation__
 | Copy from internal page-aligned buffer | 0.0231s |
 | __Evaluate NTT__                       | __0.1680s__ |
 
-__Breakdown of a 2^24 optimised-layout 32-core evaluation__
+__Breakdown of a 2^24 optimised-layout 32-core evaluation:__
 
 |               Task                     |   Time  |
 |----------------------------------------|---------|
@@ -97,7 +97,7 @@ evaluation time drops significantly compared to those of a 64-core build in
 a normal build (0.0267s vs 0.0450s). This comes at the cost of the host doing
 some data rearrangement.
 
-The bottleneck of our evaluation clear lie in the host and PCIe latency in
+The bottleneck of our evaluation clearly lies in the host and PCIe latency in
 this result, both of which can be solved pretty easily:
 
 - `preprocessing + postprocessing > latency` - We can run the preprocessing
@@ -105,9 +105,9 @@ this result, both of which can be solved pretty easily:
   buffers such that we don't run into cache coherency issues. We can also
   mask some of the preprocessing latency with PCIe latency.
 - `The PCIe latency is larger than the NTT evaluation` - This is because the
-  vitis platform we are using only supports PCIe x4. With PCIe x16, we would have
-  4 times the bandwidth and side-step this problem.
+  Vitis platform we are using only supports PCIe x4. With PCIe x16, we would have
+  4 times the bandwidth and could sidestep this problem.
 
 In practice, we believe this is the more scalable design that can achieve
-low-latency and high-throughput, at the cost of the host machine doing some
+low latency and high throughput at the cost of the host machine doing some
 data rearrangement.

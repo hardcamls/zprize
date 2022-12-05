@@ -7,7 +7,7 @@ subcategory: design
 
 # Memory Bandwidth
 
-THe 4 step algorithm requires both a column and row transform, with transposes between phases.
+The 4-step algorithm requires both a column and row transform, with transposes between phases.
 This is performed both by controlling the memory access pattern and by internally transposing
 small blocks of data so they can be loaded in parallel into the individual NTT cores.
 
@@ -26,7 +26,7 @@ we have.  With our current maximum of 64 cores we burst $64*8=512$ bytes.
 # Optimised layout
 
 In order to show the actual performance of the design we needed a way to overcome the memory
-bandwidth bottleneck that providing the input matrix in `normal layout` (ie row major order) suffers from.
+bandwidth bottleneck that providing the input matrix in `normal layout` (i.e., row major order) suffers from.
 This led us to experiment with an
 [`optimised layout`](https://github.com/fyquah/hardcaml_zprize/blob/master/zprize/ntt/host/ntt_preprocessing.cpp)
 design.
@@ -37,11 +37,11 @@ and 1 has a burst size of 4096 with 64 cores (2048 with 32).  The host is requir
 data accessed 64 bytes at a time.
 
 We see tremendously improved throughput of the core with this scheme, though the host processing
-was relatively heavy (though still faster than the actual NTT computation, so could be hidden).
+was relatively heavy (but still faster than the actual NTT computation, so could be hidden).
 
 Due to the Zprize judging criteria, we don't expect this optimisation to be useful due to the
-extra pre/post processing.  We include it none-the-less as it shows the potential performance
-we can get to with either a more optimised HBM structure, or different memory architecture
+extra pre/post processing.  We include it nonetheless as it shows the potential performance
+we can get with either a more optimised HBM structure or different memory architecture
 (like DDR4).
 
 # PCIe
