@@ -21,25 +21,23 @@ $$X_{i} = ∑↙{j=0}↖{N-1} x_{j} w^{ij} (mod P)$$
 where $N$ is the size of the input vector $x$, $P$ is the solanis prime $2^64 -
 2^32 + 1$ and $w$ defined as per [the wikipedia article on
 NTTs](https://en.wikipedia.org/wiki/Discrete_Fourier_transform_over_a_ring#Number-theoretic_transform).
-$X_{i}$ is defined for $0 ≤ i < N$
-
-For this competition track, we are interested building a FPGA design targetting
-$N = 2^24$.
-
-The platform tergetted is the Xilinx [Varium
-C1100](https://www.xilinx.com/products/accelerators/varium/c1100.html)
-accelerator card. The card contains Virtex UltrasScale+ FPGA with HBM2.
+$X_{i}$ is defined for $0 ≤ i < N$.
 
 The main challenge in such an implementation is transforms of this size cannot
 fit on a single FPGA's on-chip memory, and hence requires efficient usage of
 the off-chip HBM banks to achieve high performance.
 
+The platform targetted is the Xilinx [Varium
+C1100](https://www.xilinx.com/products/accelerators/varium/c1100.html)
+accelerator card. The card contains Virtex UltrasScale+ FPGA with HBM2.
+
 # Design overview
 
-Our work is built around the 4-step algorithm to compute the large NTT in terms
-of much smaller NTTs. The smaller NTTs are computed using the well-known
-[Cooley-Tukey FFT algorithm](https://en.wikipedia.org/wiki/Cooley–Tukey_FFT_algorithm).
-The following pages discusses the algorithms and design considerations:
+Our work is built around the 4-step algorithm to breakdown a large NTT into
+much smaller NTTs. The smaller NTTs are computed using the well-known
+[Cooley-Tukey FFT
+algorithm](https://en.wikipedia.org/wiki/Cooley–Tukey_FFT_algorithm).  The
+following pages discusses the algorithms and design considerations:
 
 - [4-step](ntt-4step.html) details the 4-step algorithm
 - [Bandwidth Considerations](ntt-bandwidth.html)

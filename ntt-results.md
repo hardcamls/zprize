@@ -23,7 +23,7 @@ bound by bandwidth. We conduct 2 builds (32-core and 64-core variant) with a
 simple data-rearrangement preprocessing step such that the core can stream data
 in 2048-4096 byte bursts.
 
-# Results For Zprize
+# Results
 
 We have tested our design and ran builds on a 6-core
 Intel(R) Core(TM) i5-9600K CPU @ 3.70GHz machine with
@@ -52,7 +52,6 @@ The table below depicts our results for various builds
 | 32 core |     0.0691 |    21.13 | 166488 |    184436 | 1028 |    162 |   192 |
 | 64 core |     0.0450 |    27.70 | 265523 |    246385 | 2052 |    162 |   384 |
 
-
 Here are the available resources on the FPGA. Note that as we are building on
 top of a Vitis platform, it imposes a non-trivial fixed-cost that we don't
 control. The number is reported as "fixed" in the post_route_utilisation.rpt
@@ -65,20 +64,20 @@ control. The number is reported as "fixed" in the post_route_utilisation.rpt
 |    BRAM36 |              1344 |                      0 |
 |      URAM |               640 |                      0 |
 
-## FOM Measurement
+## FOM Measurement for ZPrize
 
-Here are our FOM numbers. As detailed in the evaluation criteria provided by Zprize,
-FOM is computed as $latency * sqrt(Power) * {Unorm}$. Note that `N_pipe = 1`
-for our design, since it can only support 1 evaluation at a time.
+As detailed in the evaluation criteria provided by the Zprize NTT track, FOM is
+computed as $latency * √{Power} * U_{norm}$. Note that `N_pipe = 1` for our
+design, since it can only support 1 evaluation at a time.
 
 Latency and Power is used as report above in seconds and Watts respectively.
-We calculate $Unorm = U(LUTS) + U(Registers) + U(DSP) + U(BRAM) + U(URAM)$.
-The max possible value of `Unorm` is hence 4.0, since $0 <= U(...) < 1.0$
+We calculate $U_{norm} = U_{LUTS} + U_{Registers} + U_{DSP} + U_{BRAM} + U_{URAM}$.
+The max possible value of `U_{norm}` is hence 5.0.
 
 These are FOM numbers assuming we don't include the platform (aka fixed resources)
 in our utlization
 
-|  Build  |  LUTs  |  Registers |    DSP |   BRAM |   URAM | U_norm |  FOM   |
+|  Build  |  LUTs  |  Registers |    DSP |   BRAM |   URAM | $U_{norm}$ |  FOM   |
 |---------|--------|------------|--------|--------|--------|-----------------|
 | 8-core  | 0.0518 |     0.0341 | 0.0430 | 0.1205 | 0.0750 | 0.3245 | 0.3095 |
 | 16-core | 0.0749 |     0.0428 | 0.0860 | 0.1205 | 0.1500 | 0.4743 | 0.2505 |
@@ -92,7 +91,7 @@ resources as part of our utilisation. To stress this fact -- we don't think
 those resources should be considered as part of the evaluation!
 
 
-|  Build  |   LUTs |  Registers |    DSP |   BRAM |   URAM | U_norm |  FOM   |
+|  Build  |   LUTs |  Registers |    DSP |   BRAM |   URAM | $U_{norm}$ |  FOM   |
 |---------|--------|------------|--------|--------|--------|--------|--------|
 | 8-core  | 0.1232 |     0.0809 | 0.0437 | 0.1205 | 0.0750 | 0.4433 | 0.4229 |
 | 16-core | 0.1463 |     0.0896 | 0.0867 | 0.1205 | 0.1500 | 0.5931 | 0.3132 |
@@ -107,7 +106,6 @@ Using these criteria, our best build is also the 32-core variant with a FOM of
 
 Here is a detailed breakdown of a runtime sample of an optimised 64-core build:
 (The power and utilisation is similar to the normal-layout builds)
-
 
 __Breakdown of a 2^24 optimised-layout 64-core evaluation__
 

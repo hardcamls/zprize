@@ -59,16 +59,16 @@
       sublink_id: "ntt-design"
       subcategory: design
       sublinks:
-        - title: Core (I)NTT design
-          title_id: Core INTT design
-          link: /ntt-core.html
-        - title: NTT Performance Scaling
-          link: /ntt-performance-scaling.html
         - title: 4 Step Algorithm
           link: /ntt-4step.html
         - title: NTT Bandwidth
           title_id: NTT Memory Bandwidth
           link: /ntt-bandwidth.html
+        - title: Core (I)NTT design
+          title_id: Core INTT design
+          link: /ntt-core.html
+        - title: NTT Performance Scaling
+          link: /ntt-performance-scaling.html
         - title: NTT Results
           link: /ntt-results.html
         - title: Top level Hardcaml design

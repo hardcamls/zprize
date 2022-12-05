@@ -28,10 +28,14 @@ store the complete matrix in external memory and access it efficiently.
 
 ## Performance
 
-A transform of size $2^24$ requires $2^24 log_{2} 2^24 = 402653184$ operations.
+Using the [Coole-Tukey FFT
+algorithm](https://en.wikipedia.org/wiki/Cooley–Tukey_FFT_algorithm), a
+transform of size $2^24$ requires $2^24 log_{2} 2^24 = 402,653,184$ operations.
 
-The 4-step algorithm performs $2 . 2^12 . 2^12 log_{2} 2^12 = 402653184$ while performing the smaller INTT transforms.
-We must add to this a further $2 . 2^24$ operations to perform the scaling operation (the scaling requires 2
+The 4-step algorithm performs smaller $2 . 2^12$ INTT transforms, each of size
+$2^12$. This works out to the same number of $402,653,184$ operations as using
+Coole-Tukey algorithm. However, we must add to this a further $2 . 2^24$
+operations to perform the scaling operation (the scaling requires 2
 multiplications - one to scale the coefficient, and the other to update the scaling factor).
 
 The following table gives the total operations and overhead for a few transform sizes.
@@ -47,9 +51,9 @@ The following table gives the total operations and overhead for a few transform 
 
 ## Transposition
 
-The 4-step algorithm talks about row and column transforms and a final transposition step.  This is not
-actually performed by the hardware design.  Rather data is read and written from the matrix in memory as
-follows
+The 4-step algorithm talks about row and column transforms and a final
+transposition step.  This is not actually performed by the hardware design.
+Rather data is read and written from the matrix in memory as follows
 
 1. Read columns
 2. Write columns
