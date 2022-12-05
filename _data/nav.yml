@@ -67,8 +67,7 @@
           link: /ntt-core.html
         - title: Performance Scaling
           link: /ntt-performance-scaling.html
-        - title: Top level Hardcaml design
-          title_id: FPGA top level design
+        - title: Top-Level Hardcaml Design
           link: /ntt-top-level.html
         - title: Results
           link: /ntt-results.html
