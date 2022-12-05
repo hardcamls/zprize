@@ -44,8 +44,52 @@
 		margin: 0 $page-margin 150px;
 		gap: 8%;
 		.column {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
 			flex: 1 1 0;
 			width: 48%;
+	    border: 1px solid #000;
+	    margin-top: 25px;
+	    .upper {
+	    	flex: 1 1 0;
+		    .heading {
+			    padding: 10px 0 10px;
+		    	margin-top: 0;
+		    	color: #fff;
+		    	background-color: #000;
+		    	text-align: center;
+		    	h2 {
+		    		margin: 2px 0 0;
+		    	}
+		    }
+		    .content {
+		    	padding: 20px;
+		    }
+	    }
+	    a {
+	    	display: flex;
+	    	flex-direction: column;
+	    	flex: 0 1 0;
+	    	align-self: flex-end;
+	    	width: 100%;
+		    .cta-button {
+		    	background-color: #ffa1b1;
+		    	text-align: center;
+		    	font-family: $medium-font;
+		    	color: #fff;
+		      border-radius: 4px;
+	  	    margin: 0 20px 20px;
+	  	    height: 30px;
+			    p {
+			    	position: relative;
+			    	top: 8px;
+			    	font-size: 13px;
+			    	font-weight: bold;
+				    margin-bottom: 0;
+			    }
+		    }
+	    }
 		}
 	}
 

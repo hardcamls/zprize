@@ -8,8 +8,9 @@ subcategory: design
 # Mixed Point Addition with Precomputation
 
 The main computation of the MSM design is performed by a fully pipelined point
-addition core. The addition cores computes the addition of a point in
-[extended coordinate system](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html) and an affine point in extended coordinate system but with $z = 1$.
+adder. A mixed Twisted Edwards point adder computes the addition between a
+running sum in [extended coordinate system](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html)
+and a point in affine coordinate system.
 
 In our work, we implement a _strongly unified mixed adder_ with `7M + 6A`,
 by exploiting some precomputation. This is a very big improvement over [`7M +
@@ -28,6 +29,14 @@ required us to carefully identify edge cases such as infinities and when the
 two points are identical (despite being numerically unequal). Using a strongly
 unified adder side-steps all of this entirely, which makes the MSM core a lot
 easier to reason about.
+
+## Note about Notation
+
+In the text that follows, points in the affine coordinate system consist of 3
+elements $(x,y,t)$, where $x * y = t$. Points in the extended coordinate
+systems consist of 4 elements $(x,y,z,t)$, where $x/z × y/z = t/z$.
+
+In both cases, $t$ is a redundant term meant make evaluation faster.
 
 ## Workload Nature
 
@@ -50,53 +59,34 @@ We can make some observations here:
 - The intermediate value of `acc` is never accessed
 - `ps` is known ahead of time
 
-The key idea in our precomputation optimization is to express the running sum
-and affine points in a different coordinate system from the extended
-coordinate system. In the end of the computation, the running sum is converted
-back to the extended coordinate system.
+The key idea in our precomputation optimization is to do some preprocessing
+in the affine points ahead of any evaluation and a single postprocessing on
+the accumulation result per MSM. The preprocessing is non-trivial, but can be
+computed ahead of time. The postprocessing is only executed once per
+bucket, which it's negligible.
 
 ## The Precomputation Optimization
 
-### Coordinate System for Running Sum
+The exact proof these formulae are equivalent to the [vanilla mixed addition
+formulae](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html#addition-madd-2008-hwcd-3)
+after the transformations is beyond the scope of this document, but it should
+be a straightforward algebra exercise.
 
-The running sum in the FPGA is usually represented in
-[extended coordinate system](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html).
 
-We can transform a point in the extended coordinate system to our running sum
-coordinate system using the formulae below:
+### Preprocessing on Affine Points
 
-$$
-(x, y, z, t) → ( 2(y-x), 2(y+x), 4z, t )
-$$
-
-Note that this means that the identity element in this coordinate system
-is no longer just $(0, 1, 1, 0)$, but rather $(2, 2, 4, 0)$. Also note that
-$x/z × y/z ≠ t/z$ in the new coordinate system.
-
-This is transformed back to the standard extended twisted edwards coordinate
-system at the end of a batch of workload using the following formulae:
+Ahead of any MSM evaluations, all affine points are transformed as follows:
 
 $$
-(p, q, r, s) → ( (p-q)/4, (p+q)/4, r/4, s )
+(x_{new},y_{new},t_{new}) → ( (y-x)/2, (y+x)/2, 4dt )
 $$
 
-### Coordinate System for Affine Points
+### Formulae for Addition
 
-The affine points have a completely different transformation:
-
-$$
-(x,y,t) → ( (y-x)/2, (y+x)/2, 4dt )
-$$
-
-Similar to the running sums internal representation, $x × y ≠ t$ in the
-new coordinate system. Unlike running sum, we will never convert this back
-to the projective coordinates. Its main purpose to be converted into this
-coordinate system is to be added into the running sum efficiently.
-
-Addition the a point in the running point coordinate system $(x_{running},
-y_{running}, z_{running}, t_{running})$ and $(x_{affine}, y_{affine},
-t_{affine})$ produces output $(x_{out}, y_{out}, z_{out}, t_{out})$ as
-defined by the following formulae:
+Ahead of any MSM evaluations, all points are initialized to $(2, 2, 4, 0)$ (the
+rationale of this number will be elaborated below). Addition between a
+preprocessed affine point $(x_{affine}, y_{affine}, t_{affine}) and the running
+sum $(x_{running}, y_{running}, z_{running}, t_{running})$ is defined as follows:
 
 $A = x_{running} × x_{affine}$
 
@@ -126,10 +116,14 @@ $x_{out} = J - I$
 
 $y_{out} = J + I$
 
-The exact proof that this is equivalent to the
-[vanilla mixed addition formulae](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html#addition-madd-2008-hwcd-3)
-after the transformations is beyond the scope of this document, but it should be easy
-to convince yourself that it's doing the same thing.
+### Post-Processing
+
+Upon completion of bucket aggregation, the bucket sum results are
+post-processed using the following transformation:
+
+$$
+(p, q, r, s) → ( (p-q)/4, (p+q)/4, r/4, s )
+$$
 
 ## Implementation Details
 
