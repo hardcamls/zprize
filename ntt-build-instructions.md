@@ -14,35 +14,26 @@ We have done our RTL development in largely
 for writing C++ kernels to integrate with the Vitis platform. Hardcaml generates
 Verilog files that can be fed into traditional vendor tools.
 
-1. Follow the instructions [to install](https://opam.ocaml.org/doc/Install.html)
-opam, the OCaml package manager
+1. Clone the [github repository](http://github.com/fyquah/hardcaml_zprize)
 
-2. Install the OCaml 4.13.1 compiler. You will need to run
+2. Follow the instructions [to install opam](https://opam.ocaml.org/doc/Install.html)
+, the OCaml package manager
 
-```
-opam switch create 4.13.1
-eval $(opam env)
-```
+3. Install the OCaml 4.13.1 compiler. You will need to run `opam switch create
+   4.13.1` and `eval $(opam env)`
 
-3. Install the relevant OCaml dependencies
+4. Install the relevant OCaml dependencies. `opam install . --deps-only`
 
-```
-opam install . --deps-only
-```
-
-
-4. Now, from the root directory of this repository, navigate to
+5. Now, from the root directory of this repository, navigate to
    `zprize/ntt`, and run `dune build @default`. This builds all the default
    targets which includes Verilog generation.
 
-(If you see an error message that says `package foo_bar_baz not found`, that's
-because we didn't specify the package list correctly. Please run
-`opam install foo_bar_baz` to install said package)
+   (If you see an error message that says `package foo_bar_baz not found`, that's
+   because we didn't specify the package list correctly. Please run
+   `opam install foo_bar_baz` to install said package)
 
-5. (optional) Run `dune build @test` to validate that all our OCaml-level tests
+6. (optional) Run `dune build @test` to validate that all our OCaml-level tests
    are working as expected. We have a lot of RTL testbenches written in OCaml.
-
-Cool.
 
 ## Setting Up the FPGA Build and Runtime Environment
 
@@ -65,33 +56,33 @@ any special kernel flags / boot parameters to obatain our results.
 2. Now, navigate to the `zprize/ntt/fpga` subdirectory. You should see the
    following subdirectories.
 
-```
-// directory containing C++ kernels for interfacing with memory.
-common
-
-// A very tiny NTT used for debugging
-ntt-2_12-normal_layout
-ntt-2_12-optimized-layout
-
-// The small NTT target used for the first phase of the competition
-ntt-2_18-normal_layout
-
-// The large NTTs for the performance contest
-ntt-2_24-normal_layout-8_cores
-ntt-2_24-normal_layout-16_cores
-ntt-2_24-normal_layout-32_cores
-ntt-2_24-normal_layout-64_cores
-ntt-2_24-optimized_layout-32_cores
-ntt-2_24-optimized_layout-64_cores
-
-// A debugging application, not relevant for submission
-reverse
-```
+    ```
+    // directory containing C++ kernels for interfacing with memory.
+    common
+    
+    // A very tiny NTT used for debugging
+    ntt-2_12-normal_layout
+    ntt-2_12-optimized-layout
+    
+    // The small NTT target used for the first phase of the competition
+    ntt-2_18-normal_layout
+    
+    // The large NTTs for the performance contest
+    ntt-2_24-normal_layout-8_cores
+    ntt-2_24-normal_layout-16_cores
+    ntt-2_24-normal_layout-32_cores
+    ntt-2_24-normal_layout-64_cores
+    ntt-2_24-optimized_layout-32_cores
+    ntt-2_24-optimized_layout-64_cores
+    
+    // A debugging application, not relevant for submission
+    reverse
+    ```
 
 3. cd into the directory with the build target you are interested in
 
-4. Run `./compile_hw.sh`. This will kick of a build with Vitis. This takes
-   awhile
+4. Run `./compile_hw.sh`. This will kick of a build with Vitis. This should
+take around 2 hours.
 
 ## Running Randomized Tests
 
@@ -139,7 +130,7 @@ NTT TEST PASSED
 5. If you'd like to run more tests, open the file and change the
    `--num-test-caes` flag to something bigger.
 
-{2 Running Test against Test Files}
+## Running Test against Test Files
 
 1. Make sure you have installed Xilinx runtime `path/to/xrt/setup.sh`
 
@@ -214,8 +205,9 @@ which require pre/post-processing, it will measure the end-to-end latency)
 
 ## Known Limitations
 
-These are no fundamental limitations! These are nice features that we
-would want for an actual product, but we've not had time to implement.
+These are not fundamental limitations! These are nice features that we
+would want for an actual product, but we've not had time to implement for the
+competition.
 
 - We don't have a single design that can perform NTT for all sizes. We have a
   different firmware.
