@@ -24,13 +24,13 @@ capable of performing an unsigned 27 x 16 multiplication. While there are 6,800
 DSP slices in the FPGA part, we can only use around 3,000 of them
 when accounting for the area of the AWS shell and general routing congestion.
 
-Implementing a 377 by 377 multiplication naively with
+Implementing a 377-by-377 multiplication naively with
 [long multiplication (also known as the high school multiplication
 algorithm)](https://en.wikipedia.org/wiki/Multiplication_algorithm#Long_multiplication)
 would take up $ceil(377/17) × ceil(377/26) = 330$ DSPs just to produce partial
 results! We need 7 field multiplications to perform point addition, each of
 which requires 3 377-bit multiplications. This would require $330 × 3 × 7 =
-6,930$ DSP slices, which is way above our budget.
+6,930$ DSP slices, which is way above our budget!
 
 We have instead implemented the
 [Karatsuba-Ofman Multiplication Algorithm](https://en.wikipedia.org/wiki/Karatsuba_algorithm),
@@ -39,7 +39,7 @@ which requires fewer multipliers.
 The key idea of the algorithm is to reexpress the overall multiplication as smaller
 multiplications recursively, and reuse results.
 
-For example, to multiply $x$ and $y$, firstly, express $x$ and $y$ as follows
+For example, to multiply $x$ and $y$, firstly express $x$ and $y$ as follows:
 
 $$
 x = 2^{W/2}x_1 + x_0

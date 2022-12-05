@@ -25,11 +25,11 @@ splash-header: true
 
 		<h2>Multi-scalar multiplication</h2>
 
-		<p>The Multi-scalar multiplication (MSM) competition tasked us with building an FPGA design to multiply $2^26$ points on the BLS12-377 elliptic curve (with the G1 subgroup generator) by scalars from the associated 253 bit scalar field and add them all as fast as possible.</p>
+		<p>The Multi-scalar multiplication (MSM) competition tasked us with building an FPGA design that multiplies $2^26$ points on the BLS12-377 elliptic curve (with the G1 subgroup generator) by scalars from the associated 253-bit scalar field and add them all as fast as possible.</p>
 
-		<p>The platform targeted was Amazon F1, which uses a Xilinx UltraScale+ V9P FPGA with DDR memory banks.</p>
+		<p>The platform targeted was Amazon F1 which uses a Xilinx UltraScale+ V9P FPGA with DDR memory banks.</p>
 
-		<p>Read more about the <a href="msm-overview.html">implementation</a></p>
+		<p>Read more about the <a href="msm-overview.html">implementation</a>.</p>
 
 	</div>
 
@@ -42,7 +42,7 @@ splash-header: true
 
 		<p>The platform targeted was the Xilinx Varium C1100 accelerator card. The card contains a Virtex UltrasScale+ FPGA with HBM2.</p>
 
-		<p>Read more about the <a href="ntt-overview.html">implementation</a></p>
+		<p>Read more about the <a href="ntt-overview.html">implementation</a>.</p>
 
 	</div>
 
