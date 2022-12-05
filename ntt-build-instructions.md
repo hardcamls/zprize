@@ -9,7 +9,7 @@ subcategory: design
 
 ## Building the Verilog Files
 
-We have done our RTL development in largely
+We have done our RTL development in
 [Hardcaml](https://github.com/janestreet/hardcaml), with bits of Vivado HLS
 for writing C++ kernels to integrate with the Vitis platform. Hardcaml generates
 Verilog files that can be fed into traditional vendor tools.
@@ -19,8 +19,12 @@ Verilog files that can be fed into traditional vendor tools.
 2. Follow the instructions [to install opam](https://opam.ocaml.org/doc/Install.html)
 , the OCaml package manager
 
-3. Install the OCaml 4.13.1 compiler. You will need to run `opam switch create
-   4.13.1` and `eval $(opam env)`
+3. Install the OCaml 4.13.1 compiler. You will need to run:
+
+    ````
+    opam switch create 4.13.1
+    eval $(opam env)
+    ```
 
 4. Install the relevant OCaml dependencies. `opam install . --deps-only`
 
@@ -30,7 +34,7 @@ Verilog files that can be fed into traditional vendor tools.
 
    (If you see an error message that says `package foo_bar_baz not found`, that's
    because we didn't specify the package list correctly. Please run
-   `opam install foo_bar_baz` to install said package)
+   `opam install foo_bar_baz` to install said package.)
 
 6. (optional) Run `dune build @test` to validate that all our OCaml-level tests
    are working as expected. We have a lot of RTL testbenches written in OCaml.
@@ -54,7 +58,7 @@ any special kernel flags / boot parameters to obtain our results.
 `path/to/xrt/setup.sh`
 
 2. Now, navigate to the `zprize/ntt/fpga` subdirectory. You should see the
-   following subdirectories.
+   following subdirectories:
 
     ```
     // directory containing C++ kernels for interfacing with memory.
@@ -86,7 +90,7 @@ take around 2 hours to complete.
 
 ## Running Randomized Tests
 
-1. Make sure you have sourced `path/to/xrt/setup.sh`
+1. Make sure you have sourced `path/to/xrt/setup.sh`.
 
 2. Navigate to `zprize/ntt/test` relative to the root of the repository. You
    will see a lot of shell scripts.
@@ -95,10 +99,10 @@ take around 2 hours to complete.
 architecture you'd like to test. For example: to test on random test cases on
 the 2^24 8-core build, run
 `./test_random_ntt-2_24-normal_layout-8_cores-hw.sh`. This will invoke
-compilation of some host binary and pass the appropriate flags
+compilation of some host binary and pass the appropriate flags.
 
 4. As the test runs, you will see output that looks something like the following.
-   This gives you a rough breakdown of the various components of the latency
+   This gives you a rough breakdown of the various components of the latency:
 
 ```
 // Output from ./test_random_ntt-2_24-normal_layout-8_cores-hw.sh
@@ -132,21 +136,21 @@ NTT TEST PASSED
 
 ## Running Test against Test Files
 
-1. Make sure you have installed Xilinx runtime `path/to/xrt/setup.sh`
+1. Make sure you have installed Xilinx runtime `path/to/xrt/setup.sh`.
 
 2. Navigate to `zprize/ntt/test` relative to the root of the repository. You
    will see a lot of shell scripts.
 
 3. To test on test cases saved in files, run
 `./test_given_ntt-2_24-<ARCH>-hw.sh path/to/input/file.txt path/to/expected/output.txt`
-(eg: `./test_given_ntt-2_24-normal_layout-64_cores-hw.sh`).  This will invoke
-compilation of some host binary and run them with the appropriate flags.
+(e.g., `./test_given_ntt-2_24-normal_layout-64_cores-hw.sh`).  This will invoke
+compilation of some host binaries and run them with the appropriate flags.
 
-4. The test will reported if it succeeded or failed. Note that the correctness
+4. The test will report if it succeeded or failed. Note that the correctness
 check is done using the `diff` command. Our test application writes the output
 file in the format similar to the test data given at the start of the
 competition. We have verified that this command works with the provided
-testdata.
+test data.
 
 ```
 $ ./test_given_ntt-2_24-normal_layout-64_cores-hw.sh ~/testdata/in/linear_2_24 ~/testdata/out/linear_2_24
@@ -183,7 +187,7 @@ We provide scripts to benchmark latency. To run them:
 `./bench_latency_ntt-2_24-normal_layout-8_cores-hw.sh`
 
 3. You should see an output that looks something like this. The script
-   might take awhile to run as it goes through many test cases
+   might take a while to run as it goes through many test cases:
 
 ```
 ./bench_latency_ntt-2_24-normal_layout-8_cores-hw.sh
@@ -200,21 +204,20 @@ Max latency          : 0.231596s
 ```
 
 (As per the competition specification, the test binary will measure FPGA-only
-latency on cases where the host does not do any pre-post processing. On cases
+latency in cases where the host does not do any pre-post processing. In cases
 which require pre/post-processing, it will measure the end-to-end latency)
 
 ## Known Limitations
 
-These are not fundamental limitations! These are nice features that we
-would want for an actual product, but we've not had time to implement for the
-competition.
+These are not fundamental limitations, but rather features that we would want
+for an actual product and haven’t had time to implement.
 
 - We don't have a single design that can perform NTT for all sizes. We have a
-  different firmware.
-- The design is not very robust against Ctrl+C invocations (in the sense that
-  it can start giving bad results after). Hence, when running test/benchmarking
-  scripts, please let it finish rather than killing it!
-- If you hit ctrl+c and the design is not writing bad data, please run
+  different firmware for each.
+- The design is not very robust against Ctrl+c invocations (in the sense that
+  it can start giving bad results after it's killed). Hence, when running
+  test/benchmarking scripts, please let it finish rather than killing it!
+- If you hit Ctrl+c and the design is not writing bad data, please run
   `xbutil reset -d <pcie-device-id>`. This will clear the FPGA image, and
   running the test scripts again will cause the `.xclbin` file to get flashed.
-- We do not support multiple unix processes accessing the core simultaneously.
+- We do not support multiple Unix processes accessing the core simultaneously.
