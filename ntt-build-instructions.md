@@ -46,7 +46,7 @@ Make sure you have the following packages installed:
 We have tested our design and ran builds on a 6-core
 Intel(R) Core(TM) i5-9600K CPU @ 3.70GHz machine with
 `Ubuntu 22.04 LTS (GNU/Linux 5.15.0-48-generic x86_64)`.  We did not use
-any special kernel flags / boot parameters to obatain our results.
+any special kernel flags / boot parameters to obtain our results.
 
 ## Building the FPGA Images
 
@@ -59,14 +59,14 @@ any special kernel flags / boot parameters to obatain our results.
     ```
     // directory containing C++ kernels for interfacing with memory.
     common
-    
+
     // A very tiny NTT used for debugging
     ntt-2_12-normal_layout
     ntt-2_12-optimized-layout
-    
+
     // The small NTT target used for the first phase of the competition
     ntt-2_18-normal_layout
-    
+
     // The large NTTs for the performance contest
     ntt-2_24-normal_layout-8_cores
     ntt-2_24-normal_layout-16_cores
@@ -74,15 +74,15 @@ any special kernel flags / boot parameters to obatain our results.
     ntt-2_24-normal_layout-64_cores
     ntt-2_24-optimized_layout-32_cores
     ntt-2_24-optimized_layout-64_cores
-    
+
     // A debugging application, not relevant for submission
     reverse
     ```
 
 3. cd into the directory with the build target you are interested in
 
-4. Run `./compile_hw.sh`. This will kick of a build with Vitis. This should
-take around 2 hours.
+4. Run `./compile_hw.sh`. This will kick off a build with Vitis that will
+take around 2 hours to complete.
 
 ## Running Randomized Tests
 

@@ -40,7 +40,7 @@ splash-header: true
 
 		<p>This competition track required us to build a Number Theoretic Transform (NTT) accelerator capable of performing transforms of size $2^24$. NTTs are conceptually similar to the Fourier Transforms - working over a finite field instead of complex numbers.</p>
 
-		<p>The platform tergetted was the Xilinx Varium C1100 accelerator card. The card contains Virtex UltrasScale+ FPGA with HBM2.</p>
+		<p>The platform targeted was the Xilinx Varium C1100 accelerator card. The card contains a Virtex UltrasScale+ FPGA with HBM2.</p>
 
 		<p>Read more about the <a href="ntt-overview.html">implementation</a></p>
 

@@ -101,8 +101,8 @@ The bottleneck of our evaluation clear lie in the host and PCIe latency in
 this result, both of which can be solved pretty easily:
 
 - `preprocessing + postprocessing > latency` - We can run the preprocessing
-  and post-processing in separate threads. We can setup the input and output
-  buffers such such that we don't run into cache coherency issues. We can also
+  and post-processing in separate threads. We can set up the input and output
+  buffers such that we don't run into cache coherency issues. We can also
   mask some of the preprocessing latency with PCIe latency.
 - `The PCIe latency is larger than the NTT evaluation` - This is because the
   vitis platform we are using only supports PCIe x4. With PCIe x16, we would have

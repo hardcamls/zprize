@@ -28,7 +28,7 @@ RAMs.
 # Vitis kernels
 
 The top level FPGA design is built using the Xilinx Vitis design flow.  It consists
-of two kernels - the top level hardcaml design, and a
+of two kernels - the top level Hardcaml design, and a
 [C++ HLS kernel](https://github.com/fyquah/hardcaml_zprize/blob/master/zprize/ntt/fpga/common/krnl_controller_normal_layout.cpp)
 to interface with PCIe and HBM2 memory.
 
