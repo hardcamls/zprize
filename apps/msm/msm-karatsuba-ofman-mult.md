@@ -4,7 +4,7 @@ title: MSM Karatsuba Ofman Multiplier
 hardcaml_app: msm_karatsuba_ofman_mult.bc.js
 ---
 
-Our Karatsuba-Ofman multiplier design for our field multiplier
+Our Karatsuba-Ofman multiplier design for our
 [field multiplier](../../msm-field-multiplication.html).
 
 <br />
