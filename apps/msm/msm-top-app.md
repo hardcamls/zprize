@@ -2,6 +2,7 @@
 layout: app
 title: MSM Top level Vitis Kernel
 hardcaml_app: msm_top.bc.js
+disable_parameters: "true"
 ---
 
 Download our top level MSM Vitis kernel design.
