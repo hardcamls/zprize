@@ -74,3 +74,11 @@ is likely due to high congestion in our design.
 | MMCM                       |      0 |      0 |      0 |   0.00 |   0.00 |   0.00 |
 | Unique Control Sets        |   4081 |   4585 |    127 |   4.14 |   4.65 |   0.13 |
 |----------------------------|--------|--------|--------|--------|--------|--------|
+
+<br />
+
+Below is an screenshot of the fully placed and routed design in Vivado. A large
+proportion of the FPGA has been utilized, but there's still plenty of unused
+resources on the chip.
+
+<img src="/images/msm-routed.jpg" style="width: 100%; max-width: 250px" alt />
