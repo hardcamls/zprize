@@ -63,11 +63,11 @@ The key idea in our precomputation optimization is to do some preprocessing
 in the affine points ahead of any evaluation and a single postprocessing on
 the accumulation result per MSM. The preprocessing is non-trivial, but can be
 computed ahead of time. The postprocessing is only executed once per
-bucket, which it's negligible.
+bucket, which is negligible.
 
 ## The Precomputation Optimization
 
-The exact proof these formulae are equivalent to the [vanilla mixed addition
+The exact proof that these formulae are equivalent to the [vanilla mixed addition
 formulae](https://hyperelliptic.org/EFD/g1p/auto-twisted-extended-1.html#addition-madd-2008-hwcd-3)
 after the transformations is beyond the scope of this document, but it should
 be a straightforward algebra exercise.
@@ -85,7 +85,7 @@ $$
 
 Ahead of any MSM evaluations, all points are initialized to $(2, 2, 4, 0)$ (the
 rationale of this number will be elaborated below). Addition between a
-preprocessed affine point $(x_{affine}, y_{affine}, t_{affine}) and the running
+preprocessed affine point $(x_{affine}, y_{affine}, t_{affine})$ and the running
 sum $(x_{running}, y_{running}, z_{running}, t_{running})$ is defined as follows:
 
 $A = x_{running} × x_{affine}$

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Hardcaml Zprize
+title: Hardcaml ZPrize
 cname: landing
 splash-header: true
 ---
@@ -25,11 +25,11 @@ splash-header: true
 
 		<div class="upper">
 
-			<div class="heading"><h2>Multi-scalar multiplication</h2></div>
+			<div class="heading"><h2>Multi-Scalar multiplication</h2></div>
 
 			<div class="content">
 
-				<p>The Multi-scalar multiplication (MSM) competition tasked us with building an FPGA design that multiplies $2^26$ points on the BLS12-377 elliptic curve (with the G1 subgroup generator) by scalars from the associated 253-bit scalar field and add them all as fast as possible.</p>
+				<p>The Multi-Scalar multiplication (MSM) competition tasked us with building an FPGA design that multiplies $2^26$ points on the BLS12-377 elliptic curve (with the G1 subgroup generator) by scalars from the associated 253-bit scalar field and add them all as fast as possible.</p>
 
 				<p>The platform targeted was Amazon F1 which uses a Xilinx UltraScale+ V9P FPGA with DDR memory banks.</p>
 
