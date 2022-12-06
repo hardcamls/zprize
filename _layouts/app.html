@@ -27,12 +27,14 @@
     <body>
         <header> {{page.title}} </header>
         <aside>
-                <details open>
-                    <summary> Parameters </summary>
-                    <!-- pack for veritical alignment, wrap to horizontal -->
-                    <div class="wrap" id="hardcaml_app-parameters">
-                    </div>
-                </details>
+            {% unless page.disable_parameters == "true" %}
+            <details open>
+                <summary> Parameters </summary>
+                <!-- pack for veritical alignment, wrap to horizontal -->
+                <div class="wrap" id="hardcaml_app-parameters">
+                </div>
+            </details>
+            {% endunless %}
             <details> <summary> Download RTL </summary>
                 <div class="wrap">
                     <a href="#" id="hardcaml_app-verilog">Verilog</a> or
@@ -49,17 +51,6 @@
                 <summary></summary>
                 {{ content }}
             </details>
-                <!-- Demonstrate a nicer set of icons for the web waveform -->
-                <!-- <button> <span class="material-icons small">first_page</span> </button>
-                     <button> <span class="material-icons small">arrow_back_ios</span> </button>
-                     <button> <span class="material-icons small">chevron_left</span> </button>
-                     <input class="textbox" value="0"></input>
-                     <button> <span class="material-icons small">chevron_right</span> </button>
-                     <button> <span class="material-icons small">arrow_forward_ios</span> </button>
-                     <button> <span class="material-icons small">last_page</span> </button>
-                     <button> <span class="material-icons small">zoom_in</span> </button>
-                     <button> <span class="material-icons small">zoom_out_map</span> </button>
-                     <button> <span class="material-icons small">zoom_out</span> </button> -->
             <div id="hardcaml_app"></div>
         </main>
         <footer id="hardcaml_app-status"> Copyright Jane Street - 2022 </footer>
