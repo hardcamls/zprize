@@ -22,13 +22,13 @@
         {% include google-analytics.html %}
 
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="Hardcaml Zprize">
-        <meta name="twitter:description" content="In 2022, we, the team who develops Hardcaml, participated in the ZPrize competition. We competed in the MSM (FPGA) and NTT tracks, winning the MSM track.">
-        <meta name="twitter:image" content="http://zprize.hardcaml.com/assets/images/logo-splash-high-contrast.png">
+        <meta name="twitter:title" content="{{ site.custom_data.preview_title }}">
+        <meta name="twitter:description" content="{{ site.custom_data.preview_description }}">
+        <meta name="twitter:image" content="{{ site.custom_data.preview_image }}">
 
-        <meta property="og:title" content="Hardcaml Zprize">
-        <meta property="og:description" content="In 2022, we, the team who develops Hardcaml, participated in the ZPrize competition. We competed in the MSM (FPGA) and NTT tracks, winning the MSM track.">
-        <meta property="og:image" content="http://zprize.hardcaml.com/assets/images/logo-splash-high-contrast.png">
+        <meta property="og:title" content="{{ site.custom_data.preview_title }}">
+        <meta property="og:description" content="{{ site.custom_data.preview_description }}">
+        <meta property="og:image" content="{{ site.custom_data.preview_image }}">
     </head>
     <body {% if page.cname %}class="{{ page.cname }}"{% endif %}>
         <div class="wrapper">
